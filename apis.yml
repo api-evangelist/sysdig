@@ -1,0 +1,28 @@
+aid: sysdig
+name: Sysdig
+description: >-
+  Sysdig provides cloud and container security with runtime threat detection, vulnerability management, and compliance.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Containers
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/apis.yml
+created: '2026-03-26'
+modified: '2026-03-26'
+specificationVersion: '0.19'
+apis:
+  - aid: sysdig:sysdig
+    name: Sysdig
+    description: >-
+      Sysdig provides cloud and container security with runtime threat detection, vulnerability management, and compliance.
+    humanURL: https://github.com/api-evangelist/sysdig
+    tags:
+      - Containers
+    properties: []
+common:
+  - type: Website
+    url: https://github.com/api-evangelist/sysdig
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
