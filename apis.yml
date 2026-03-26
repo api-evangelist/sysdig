@@ -1,11 +1,16 @@
 aid: sysdig
 name: Sysdig
 description: >-
-  Sysdig provides cloud and container security with runtime threat detection, vulnerability management, and compliance.
+  Sysdig is a cloud and container security platform that provides runtime threat detection, vulnerability management, cloud security posture management, and compliance for containers, Kubernetes, and cloud environments.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Containers
+  - Security
+  - Runtime Security
+  - Vulnerability Management
+  - Kubernetes
+  - Cloud Security
 url: >-
   https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/apis.yml
 created: '2026-03-26'
@@ -15,14 +20,35 @@ apis:
   - aid: sysdig:sysdig
     name: Sysdig
     description: >-
-      Sysdig provides cloud and container security with runtime threat detection, vulnerability management, and compliance.
-    humanURL: https://github.com/api-evangelist/sysdig
+      Sysdig is a cloud and container security platform that provides runtime threat detection, vulnerability management, cloud security posture management, and compliance for containers, Kubernetes, and cloud environments.
+    humanURL: https://sysdig.com/
     tags:
       - Containers
-    properties: []
+      - Security
+      - Runtime Security
+      - Vulnerability Management
+      - Kubernetes
+      - Cloud Security
+    properties:
+      - type: Documentation
+        url: https://docs.sysdig.com/
+      - type: Getting Started
+        url: https://docs.sysdig.com/en/getting-started/
 common:
   - type: Website
-    url: https://github.com/api-evangelist/sysdig
+    url: https://sysdig.com/
+  - type: Documentation
+    url: https://docs.sysdig.com/
+  - type: Getting Started
+    url: https://docs.sysdig.com/en/getting-started/
+  - type: GitHub Organization
+    url: https://github.com/sysdiglabs
+  - type: Blog
+    url: https://sysdig.com/blog/
+  - type: Pricing
+    url: https://sysdig.com/pricing/
+  - type: Sign Up
+    url: https://sysdig.com/company/free-trial/
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
