@@ -5,12 +5,12 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Containers
-  - Security
-  - Runtime Security
-  - Vulnerability Management
-  - Kubernetes
   - Cloud Security
+  - Containers
+  - Kubernetes
+  - Runtime Security
+  - Security
+  - Vulnerability Management
 url: >-
   https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/apis.yml
 created: '2026-03-26'
@@ -23,12 +23,12 @@ apis:
       Sysdig is a cloud and container security platform that provides runtime threat detection, vulnerability management, cloud security posture management, and compliance for containers, Kubernetes, and cloud environments.
     humanURL: https://sysdig.com/
     tags:
-      - Containers
-      - Security
-      - Runtime Security
-      - Vulnerability Management
-      - Kubernetes
       - Cloud Security
+      - Containers
+      - Kubernetes
+      - Runtime Security
+      - Security
+      - Vulnerability Management
     properties:
       - type: Documentation
         url: https://docs.sysdig.com/
