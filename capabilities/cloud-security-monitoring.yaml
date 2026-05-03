@@ -1,0 +1,452 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Sysdig Cloud Security Monitoring"
+  description: >-
+    Unified workflow capability combining Sysdig Monitor and Sysdig Secure for
+    cloud and container security monitoring. Enables security teams to correlate
+    runtime security events with monitoring alerts, manage policies, track
+    vulnerabilities, and maintain compliance across Kubernetes and cloud environments.
+  tags:
+    - Sysdig
+    - Cloud Security
+    - Monitoring
+    - Containers
+    - Kubernetes
+    - Runtime Security
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      SYSDIG_API_TOKEN: SYSDIG_API_TOKEN
+
+capability:
+  consumes:
+    - import: sysdig-monitor
+      location: ./shared/sysdig-monitor.yaml
+    - import: sysdig-secure
+      location: ./shared/sysdig-secure.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: sysdig-security-api
+      description: "Unified REST API for Sysdig cloud security and monitoring workflows."
+      resources:
+        - path: /v1/alerts
+          name: alerts
+          description: "Monitor alerts for cloud-native infrastructure"
+          operations:
+            - method: GET
+              name: list-alerts
+              description: "List all monitoring alerts"
+              call: "sysdig-monitor.list-alerts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-alert
+              description: "Create a monitoring alert"
+              call: "sysdig-monitor.create-alert"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/dashboards
+          name: dashboards
+          description: "Monitoring dashboards"
+          operations:
+            - method: GET
+              name: list-dashboards
+              description: "List all monitoring dashboards"
+              call: "sysdig-monitor.list-dashboards"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-dashboard
+              description: "Create a monitoring dashboard"
+              call: "sysdig-monitor.create-dashboard"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/events
+          name: monitor-events
+          description: "Monitoring events"
+          operations:
+            - method: GET
+              name: list-monitor-events
+              description: "List monitoring events"
+              call: "sysdig-monitor.list-events"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/security-events
+          name: security-events
+          description: "Runtime security events from policy violations"
+          operations:
+            - method: GET
+              name: list-security-events
+              description: "List runtime security events"
+              call: "sysdig-secure.list-secure-events"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/vulnerabilities
+          name: vulnerabilities
+          description: "Vulnerability scanning results"
+          operations:
+            - method: GET
+              name: list-vulnerabilities
+              description: "List vulnerability scanning results"
+              call: "sysdig-secure.list-vulnerability-results"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/images
+          name: images
+          description: "Scanned container images"
+          operations:
+            - method: GET
+              name: list-images
+              description: "List scanned container images"
+              call: "sysdig-secure.list-scanned-images"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: scan-image
+              description: "Trigger image vulnerability scan"
+              call: "sysdig-secure.scan-image"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/policies
+          name: policies
+          description: "Runtime security policies"
+          operations:
+            - method: GET
+              name: list-policies
+              description: "List runtime security policies"
+              call: "sysdig-secure.list-policies"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-policy
+              description: "Create a runtime security policy"
+              call: "sysdig-secure.create-policy"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/compliance
+          name: compliance
+          description: "Compliance evaluation tasks and results"
+          operations:
+            - method: GET
+              name: list-compliance-tasks
+              description: "List compliance evaluation tasks"
+              call: "sysdig-secure.list-compliance-tasks"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/audit
+          name: audit
+          description: "Activity audit trail"
+          operations:
+            - method: GET
+              name: list-audit
+              description: "List activity audit entries"
+              call: "sysdig-secure.list-activity-audit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/teams
+          name: teams
+          description: "Team management"
+          operations:
+            - method: GET
+              name: list-teams
+              description: "List all teams"
+              call: "sysdig-monitor.list-teams"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/metrics
+          name: metrics
+          description: "Search available metrics"
+          operations:
+            - method: GET
+              name: find-metrics
+              description: "Search for available metrics"
+              call: "sysdig-monitor.find-metrics"
+              with:
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: sysdig-security-mcp
+      transport: http
+      description: "MCP server for AI-assisted Sysdig cloud security monitoring and incident response."
+      tools:
+        - name: list-alerts
+          description: "List Sysdig Monitor alerts for cloud-native infrastructure"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-monitor.list-alerts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-alert
+          description: "Get details of a specific Sysdig Monitor alert"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-monitor.get-alert"
+          with:
+            alertId: "tools.alertId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-alert
+          description: "Create a new monitoring alert for cloud infrastructure"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "sysdig-monitor.create-alert"
+          with:
+            alert: "tools.alert"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-dashboards
+          description: "List Sysdig Monitor dashboards"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-monitor.list-dashboards"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-monitor-events
+          description: "List Sysdig Monitor events within a time range"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-monitor.list-events"
+          with:
+            from: "tools.from"
+            to: "tools.to"
+            limit: "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-security-events
+          description: "List Sysdig Secure runtime security events triggered by policy violations"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-secure.list-secure-events"
+          with:
+            from: "tools.from"
+            to: "tools.to"
+            filter: "tools.filter"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-vulnerabilities
+          description: "List container and host vulnerability scanning results"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-secure.list-vulnerability-results"
+          with:
+            filter: "tools.filter"
+            limit: "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-image-vulnerabilities
+          description: "Get vulnerability findings for a specific container image"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-secure.get-image-vulnerabilities"
+          with:
+            imageId: "tools.imageId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-image-sbom
+          description: "Get the Software Bill of Materials (SBOM) for a container image"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-secure.get-image-sbom"
+          with:
+            imageId: "tools.imageId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: scan-image
+          description: "Trigger a vulnerability scan for a container image"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "sysdig-secure.scan-image"
+          with:
+            tag: "tools.tag"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-scanned-images
+          description: "List all container images that have been scanned"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-secure.list-scanned-images"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-policies
+          description: "List Sysdig Secure runtime security policies"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-secure.list-policies"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-policy
+          description: "Get details of a specific runtime security policy"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-secure.get-policy"
+          with:
+            policyId: "tools.policyId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-policy
+          description: "Create a new runtime security policy"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "sysdig-secure.create-policy"
+          with:
+            policy: "tools.policy"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-falco-rules
+          description: "List all Falco security detection rules"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-secure.list-falco-rules"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-falco-rule
+          description: "Create a custom Falco detection rule"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "sysdig-secure.create-falco-rule"
+          with:
+            rule: "tools.rule"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-compliance-tasks
+          description: "List compliance evaluation tasks (PCI-DSS, GDPR, NIST)"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-secure.list-compliance-tasks"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-compliance-results
+          description: "Get compliance check results for a specific task"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-secure.get-compliance-results"
+          with:
+            taskId: "tools.taskId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-activity-audit
+          description: "List the activity audit trail for forensic investigation"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-secure.list-activity-audit"
+          with:
+            from: "tools.from"
+            to: "tools.to"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-teams
+          description: "List all Sysdig teams and their configurations"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-monitor.list-teams"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: find-metrics
+          description: "Search for available Sysdig metrics by name pattern"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "sysdig-monitor.find-metrics"
+          with:
+            name: "tools.name"
+          outputParameters:
+            - type: object
+              mapping: "$."

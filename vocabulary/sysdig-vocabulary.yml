@@ -1,0 +1,179 @@
+name: Sysdig Vocabulary
+description: >-
+  Vocabulary and taxonomy for Sysdig cloud and container security platform APIs,
+  covering monitoring, runtime security, vulnerability management, compliance,
+  and Kubernetes-native security operations.
+created: '2026-05-03'
+modified: '2026-05-03'
+tags:
+  - Sysdig
+  - Cloud Security
+  - Containers
+  - Kubernetes
+  - Runtime Security
+
+terms:
+  - term: Alert
+    definition: >-
+      A monitoring trigger that fires when a metric or condition meets a defined
+      threshold. Alerts can be of type MANUAL (threshold-based), BASELINE
+      (anomaly from learned baseline), or HOST_COMPARISON (comparison between hosts).
+    category: Monitoring
+    tags:
+      - Monitoring
+      - Alerting
+
+  - term: Dashboard
+    definition: >-
+      A customizable visualization panel in Sysdig Monitor that displays panels
+      containing metrics, events, and topology data for cloud-native environments.
+    category: Monitoring
+    tags:
+      - Monitoring
+      - Visualization
+
+  - term: Falco Rule
+    definition: >-
+      A detection rule written in Falco's rule language that triggers security
+      events based on system calls, Kubernetes audit events, or cloud activity logs.
+      Falco is an open-source runtime security tool.
+    category: Security
+    tags:
+      - Security
+      - Runtime Detection
+      - Falco
+
+  - term: Policy
+    definition: >-
+      A collection of Falco rules with defined actions and notification settings
+      that enforces security requirements at runtime. Policies can target syscalls,
+      Kubernetes audit events, or AWS CloudTrail events.
+    category: Security
+    tags:
+      - Security
+      - Policy Management
+
+  - term: Vulnerability
+    definition: >-
+      A security weakness identified in a container image or host package,
+      typically referenced by CVE identifier and classified by severity
+      (Critical, High, Medium, Low, Negligible).
+    category: Vulnerability Management
+    tags:
+      - Security
+      - CVE
+      - Scanning
+
+  - term: SBOM
+    definition: >-
+      Software Bill of Materials - a complete inventory of all software components,
+      libraries, and dependencies in a container image, provided in CycloneDX JSON
+      format by Sysdig Secure.
+    category: Vulnerability Management
+    tags:
+      - Supply Chain Security
+      - SBOM
+      - CycloneDX
+
+  - term: Compliance Task
+    definition: >-
+      An automated compliance evaluation that checks infrastructure against
+      standards such as PCI-DSS, GDPR, NIST, CIS Benchmarks, and SOC 2 requirements.
+    category: Compliance
+    tags:
+      - Compliance
+      - Audit
+
+  - term: Activity Audit
+    definition: >-
+      A tamper-proof, chronological log of user and system activities including
+      file access, command execution, network connections, and API calls. Used
+      for forensic investigation after security incidents.
+    category: Security
+    tags:
+      - Security
+      - Forensics
+      - Audit
+
+  - term: Notification Channel
+    definition: >-
+      A configured integration for routing alert notifications to external systems
+      such as Slack, PagerDuty, OpsGenie, VictorOps, email, SNS, or custom webhooks.
+    category: Monitoring
+    tags:
+      - Notifications
+      - Integrations
+
+  - term: Team
+    definition: >-
+      A scoped group of Sysdig users with access to a filtered view of metrics,
+      dashboards, alerts, and security data. Teams isolate data between groups
+      using Sysdig's scope filter expressions.
+    category: Platform
+    tags:
+      - Access Control
+      - Multi-tenancy
+
+  - term: Service Account
+    definition: >-
+      A Sysdig credential used for programmatic API access. Can be team-scoped
+      (limited to team data) or global (organization-wide access).
+    category: Authentication
+    tags:
+      - Authentication
+      - Security
+
+  - term: Sysdig Monitor
+    definition: >-
+      The observability component of the Sysdig platform providing full-stack
+      monitoring for containers, Kubernetes, and cloud infrastructure with
+      Prometheus-compatible metrics, dashboards, and intelligent alerting.
+    category: Products
+    tags:
+      - Monitoring
+      - Observability
+
+  - term: Sysdig Secure
+    definition: >-
+      The security component of the Sysdig platform providing runtime threat
+      detection (via Falco), vulnerability management, compliance automation,
+      cloud security posture management (CSPM), and forensic investigation.
+    category: Products
+    tags:
+      - Security
+      - CSPM
+      - Runtime Security
+
+  - term: Kernel-Level Visibility
+    definition: >-
+      Sysdig's core capability of capturing system calls at the Linux kernel level
+      using the open-source Falco/sysdig driver, providing deep visibility into
+      container and host activity without code instrumentation.
+    category: Technology
+    tags:
+      - Containers
+      - Linux
+      - Observability
+
+  - term: Image Scanning
+    definition: >-
+      The process of analyzing container images for known vulnerabilities by
+      examining installed packages and comparing against CVE databases. Sysdig
+      supports both CI/CD pipeline scanning and registry scanning.
+    category: Vulnerability Management
+    tags:
+      - Container Security
+      - DevSecOps
+
+  - term: CSPM
+    definition: >-
+      Cloud Security Posture Management - continuous assessment of cloud resource
+      configurations against security best practices and compliance frameworks
+      to identify misconfigurations and policy violations.
+    category: Security
+    tags:
+      - Cloud Security
+      - Compliance
+      - AWS
+      - Azure
+      - GCP

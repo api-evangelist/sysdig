@@ -1,0 +1,65 @@
+{
+  "title": "Sysdig Alert Structure",
+  "description": "JSON structure documentation for Sysdig Monitor alert objects",
+  "type": "object",
+  "fields": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "System-assigned alert identifier",
+      "required": false,
+      "readOnly": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Human-readable alert name",
+      "required": true
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Alert purpose and context",
+      "required": false
+    },
+    {
+      "name": "severity",
+      "type": "integer",
+      "description": "Priority level 0 (critical) through 7 (debug)",
+      "required": false,
+      "range": "0-7"
+    },
+    {
+      "name": "enabled",
+      "type": "boolean",
+      "description": "Active state of the alert",
+      "required": false,
+      "default": true
+    },
+    {
+      "name": "condition",
+      "type": "string",
+      "description": "Sysdig PromQL-style condition expression",
+      "required": true
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Alert evaluation strategy",
+      "required": false,
+      "values": ["MANUAL", "BASELINE", "HOST_COMPARISON"]
+    },
+    {
+      "name": "timespan",
+      "type": "integer",
+      "description": "Evaluation window in microseconds",
+      "required": false
+    },
+    {
+      "name": "notificationChannelIds",
+      "type": "array<integer>",
+      "description": "Referenced notification channel IDs",
+      "required": false
+    }
+  ]
+}

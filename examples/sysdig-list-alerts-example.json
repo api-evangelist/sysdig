@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.us1.sysdig.com/api/v2/alerts",
+    "headers": {
+      "Authorization": "Bearer {SYSDIG_API_TOKEN}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "alerts": [
+        {
+          "id": 12345,
+          "name": "High CPU Usage - Kubernetes Node",
+          "description": "Alert when CPU usage exceeds 90% on any Kubernetes node",
+          "severity": 2,
+          "enabled": true,
+          "type": "MANUAL",
+          "condition": "avg(cpu.used.percent) > 90",
+          "timespan": 600000000,
+          "segmentBy": ["host.hostName"],
+          "notificationChannelIds": [101, 102]
+        },
+        {
+          "id": 12346,
+          "name": "Container Restart Loop",
+          "description": "Alert when a container restarts more than 5 times in 10 minutes",
+          "severity": 3,
+          "enabled": true,
+          "type": "MANUAL",
+          "condition": "sum(container.count.restarting) > 5",
+          "timespan": 600000000,
+          "segmentBy": ["kubernetes.pod.name", "kubernetes.namespace.name"],
+          "notificationChannelIds": [101]
+        }
+      ]
+    }
+  }
+}

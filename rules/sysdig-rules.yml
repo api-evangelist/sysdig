@@ -1,0 +1,90 @@
+extends: spectral:oas
+rules:
+  sysdig-operation-ids-required:
+    description: All operations must have an operationId defined.
+    severity: error
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: operationId
+      function: truthy
+
+  sysdig-operation-summary-required:
+    description: All operations must have a summary.
+    severity: error
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: summary
+      function: truthy
+
+  sysdig-operation-summary-title-case:
+    description: Operation summaries must use Title Case.
+    severity: warn
+    given: "$.paths[*][get,post,put,delete,patch].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-z]*(\\s[A-Z][a-z]*)*$"
+
+  sysdig-bearer-auth-required:
+    description: API must define Bearer token authentication.
+    severity: error
+    given: "$.components.securitySchemes"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          minProperties: 1
+
+  sysdig-tags-defined:
+    description: All operations must have at least one tag.
+    severity: warn
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: tags
+      function: truthy
+
+  sysdig-responses-200-defined:
+    description: GET operations must have a 200 response.
+    severity: error
+    given: "$.paths[*].get"
+    then:
+      field: responses.200
+      function: truthy
+
+  sysdig-error-responses-defined:
+    description: Operations should define 401 or error responses.
+    severity: warn
+    given: "$.paths[*][post,put,delete]"
+    then:
+      field: responses
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          minProperties: 2
+
+  sysdig-request-body-post:
+    description: POST operations should have a request body.
+    severity: warn
+    given: "$.paths[*].post"
+    then:
+      field: requestBody
+      function: truthy
+
+  sysdig-path-versioned:
+    description: API paths should include a version prefix (/api/v1/, /api/v2/, /api/v3/).
+    severity: warn
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/api/(v[0-9]+|scanning|secure|compliance|notificationChannels)"
+
+  sysdig-schema-descriptions:
+    description: Schema properties should have descriptions.
+    severity: info
+    given: "$.components.schemas[*].properties[*]"
+    then:
+      field: description
+      function: truthy

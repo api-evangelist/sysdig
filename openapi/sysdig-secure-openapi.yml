@@ -1,0 +1,936 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Secure API
+  description: >-
+    The Sysdig Secure API provides programmatic access to cloud and container
+    security capabilities including vulnerability management, runtime threat
+    detection, policy enforcement, compliance automation, activity audit,
+    image scanning, SBOM management, and Falco rules management.
+  version: '1.0.0'
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+servers:
+  - url: https://api.us1.sysdig.com
+    description: US East
+  - url: https://api.eu1.sysdig.com
+    description: EU Central
+  - url: https://api.au1.sysdig.com
+    description: Asia Pacific
+tags:
+  - name: Vulnerabilities
+    description: Manage vulnerability findings and scanning results
+  - name: Policies
+    description: Manage runtime security policies
+  - name: Rules
+    description: Manage Falco security rules
+  - name: Compliance
+    description: Compliance checks and reporting
+  - name: Activity Audit
+    description: Audit trail of user and system activities
+  - name: Image Scanning
+    description: Scan container images for vulnerabilities
+  - name: SBOM
+    description: Software Bill of Materials management
+security:
+  - BearerAuth: []
+paths:
+  /api/scanning/v1/resultsDirect:
+    get:
+      operationId: listVulnerabilityResults
+      summary: List Vulnerability Results
+      description: Retrieve vulnerability scanning results for container images and hosts.
+      tags:
+        - Vulnerabilities
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of results to return
+          required: false
+          schema:
+            type: integer
+            default: 100
+        - name: cursor
+          in: query
+          description: Pagination cursor
+          required: false
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: Filter expression for vulnerability results
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Vulnerability results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VulnerabilityResultListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/scanning/v1/images/{imageId}/vulnDirect:
+    get:
+      operationId: getImageVulnerabilities
+      summary: Get Image Vulnerabilities
+      description: Retrieve vulnerability findings for a specific container image.
+      tags:
+        - Vulnerabilities
+      parameters:
+        - name: imageId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 100
+      responses:
+        '200':
+          description: Image vulnerability details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageVulnerabilityResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/scanning/v1/images/{imageId}/sbom:
+    get:
+      operationId: getImageSBOM
+      summary: Get Image SBOM
+      description: Retrieve the Software Bill of Materials (SBOM) for a container image in CycloneDX JSON format.
+      tags:
+        - SBOM
+      parameters:
+        - name: imageId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Image SBOM in CycloneDX format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SBOMResponse'
+
+  /api/policies/v2:
+    get:
+      operationId: listPolicies
+      summary: List Policies
+      description: Retrieve all runtime security policies.
+      tags:
+        - Policies
+      parameters:
+        - name: type
+          in: query
+          description: Filter by policy type
+          required: false
+          schema:
+            type: string
+            enum:
+              - falco
+              - list
+              - awscloudtrail
+              - k8s_audit
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 100
+      responses:
+        '200':
+          description: List of policies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyListResponse'
+    post:
+      operationId: createPolicy
+      summary: Create Policy
+      description: Create a new runtime security policy.
+      tags:
+        - Policies
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyRequest'
+      responses:
+        '201':
+          description: Policy created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyResponse'
+
+  /api/policies/v2/{policyId}:
+    get:
+      operationId: getPolicy
+      summary: Get Policy
+      description: Retrieve a specific runtime security policy.
+      tags:
+        - Policies
+      parameters:
+        - $ref: '#/components/parameters/PolicyId'
+      responses:
+        '200':
+          description: Policy details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updatePolicy
+      summary: Update Policy
+      description: Update an existing runtime security policy.
+      tags:
+        - Policies
+      parameters:
+        - $ref: '#/components/parameters/PolicyId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyRequest'
+      responses:
+        '200':
+          description: Policy updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyResponse'
+    delete:
+      operationId: deletePolicy
+      summary: Delete Policy
+      description: Delete a runtime security policy.
+      tags:
+        - Policies
+      parameters:
+        - $ref: '#/components/parameters/PolicyId'
+      responses:
+        '204':
+          description: Policy deleted
+
+  /api/secure/falco/v2/rules:
+    get:
+      operationId: listFalcoRules
+      summary: List Falco Rules
+      description: Retrieve all Falco security rules.
+      tags:
+        - Rules
+      responses:
+        '200':
+          description: List of Falco rules
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FalcoRuleListResponse'
+    post:
+      operationId: createFalcoRule
+      summary: Create Falco Rule
+      description: Create a new custom Falco rule.
+      tags:
+        - Rules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FalcoRuleRequest'
+      responses:
+        '201':
+          description: Falco rule created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FalcoRuleResponse'
+
+  /api/secure/falco/v2/rules/{ruleId}:
+    get:
+      operationId: getFalcoRule
+      summary: Get Falco Rule
+      description: Retrieve a specific Falco rule by ID.
+      tags:
+        - Rules
+      parameters:
+        - $ref: '#/components/parameters/RuleId'
+      responses:
+        '200':
+          description: Falco rule details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FalcoRuleResponse'
+    put:
+      operationId: updateFalcoRule
+      summary: Update Falco Rule
+      description: Update an existing Falco rule.
+      tags:
+        - Rules
+      parameters:
+        - $ref: '#/components/parameters/RuleId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FalcoRuleRequest'
+      responses:
+        '200':
+          description: Falco rule updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FalcoRuleResponse'
+    delete:
+      operationId: deleteFalcoRule
+      summary: Delete Falco Rule
+      description: Delete a custom Falco rule.
+      tags:
+        - Rules
+      parameters:
+        - $ref: '#/components/parameters/RuleId'
+      responses:
+        '204':
+          description: Falco rule deleted
+
+  /api/compliance/v2/tasks:
+    get:
+      operationId: listComplianceTasks
+      summary: List Compliance Tasks
+      description: Retrieve all compliance evaluation tasks and their statuses.
+      tags:
+        - Compliance
+      responses:
+        '200':
+          description: List of compliance tasks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceTaskListResponse'
+
+  /api/compliance/v2/tasks/{taskId}/results:
+    get:
+      operationId: getComplianceResults
+      summary: Get Compliance Results
+      description: Retrieve compliance check results for a specific task.
+      tags:
+        - Compliance
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 100
+      responses:
+        '200':
+          description: Compliance results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceResultResponse'
+
+  /api/v1/secureEvents:
+    get:
+      operationId: listSecureEvents
+      summary: List Secure Events
+      description: Retrieve runtime security events triggered by policy violations.
+      tags:
+        - Activity Audit
+      parameters:
+        - name: from
+          in: query
+          description: Start time in Unix epoch seconds
+          required: false
+          schema:
+            type: integer
+        - name: to
+          in: query
+          description: End time in Unix epoch seconds
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 100
+        - name: filter
+          in: query
+          description: Filter expression for events
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of secure events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecureEventListResponse'
+
+  /api/v1/activityAudit:
+    get:
+      operationId: listActivityAudit
+      summary: List Activity Audit
+      description: Retrieve audit trail of user and system activities.
+      tags:
+        - Activity Audit
+      parameters:
+        - name: from
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 100
+      responses:
+        '200':
+          description: Activity audit entries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityAuditResponse'
+
+  /api/scanning/v1/image:
+    post:
+      operationId: scanImage
+      summary: Scan Image
+      description: Trigger a vulnerability scan for a container image.
+      tags:
+        - Image Scanning
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageScanRequest'
+      responses:
+        '200':
+          description: Image scan initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageScanResponse'
+
+  /api/scanning/v1/images:
+    get:
+      operationId: listScannedImages
+      summary: List Scanned Images
+      description: Retrieve all container images that have been scanned.
+      tags:
+        - Image Scanning
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 100
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of scanned images
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScannedImageListResponse'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Authenticate using a Sysdig API Token, Team-Based Service Account, or
+        Global Service Account token as a Bearer token.
+
+  parameters:
+    PolicyId:
+      name: policyId
+      in: path
+      required: true
+      description: Unique identifier of the policy
+      schema:
+        type: integer
+    RuleId:
+      name: ruleId
+      in: path
+      required: true
+      description: Unique identifier of the Falco rule
+      schema:
+        type: integer
+
+  responses:
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+
+    VulnerabilityResultListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VulnerabilityResult'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+
+    VulnerabilityResult:
+      type: object
+      properties:
+        imageId:
+          type: string
+        imageName:
+          type: string
+        imageTag:
+          type: string
+        analysisStatus:
+          type: string
+          enum:
+            - analyzed
+            - not_analyzed
+            - analyzing
+        vulnCount:
+          type: integer
+        criticalCount:
+          type: integer
+        highCount:
+          type: integer
+        mediumCount:
+          type: integer
+        lowCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+
+    ImageVulnerabilityResponse:
+      type: object
+      properties:
+        imageId:
+          type: string
+        vulnerabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vulnerability'
+
+    Vulnerability:
+      type: object
+      properties:
+        vuln:
+          type: string
+          description: CVE identifier
+        severity:
+          type: string
+          enum:
+            - Critical
+            - High
+            - Medium
+            - Low
+            - Negligible
+        package:
+          type: string
+        packageVersion:
+          type: string
+        fixVersion:
+          type: string
+        url:
+          type: string
+        description:
+          type: string
+
+    SBOMResponse:
+      type: object
+      description: CycloneDX SBOM format
+      properties:
+        bomFormat:
+          type: string
+          example: CycloneDX
+        specVersion:
+          type: string
+        serialNumber:
+          type: string
+        version:
+          type: integer
+        components:
+          type: array
+          items:
+            type: object
+
+    PolicyListResponse:
+      type: object
+      properties:
+        policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Policy'
+        total:
+          type: integer
+
+    PolicyResponse:
+      type: object
+      properties:
+        policy:
+          $ref: '#/components/schemas/Policy'
+
+    PolicyRequest:
+      type: object
+      required:
+        - policy
+      properties:
+        policy:
+          $ref: '#/components/schemas/Policy'
+
+    Policy:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+        severity:
+          type: integer
+          minimum: 0
+          maximum: 7
+        enabled:
+          type: boolean
+        type:
+          type: string
+          enum:
+            - falco
+            - list
+            - awscloudtrail
+            - k8s_audit
+        scope:
+          type: string
+        runAsUser:
+          type: boolean
+        actions:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              isLimitedToContainer:
+                type: boolean
+        ruleNames:
+          type: array
+          items:
+            type: string
+        notificationChannelIds:
+          type: array
+          items:
+            type: integer
+
+    FalcoRuleListResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/FalcoRule'
+
+    FalcoRuleResponse:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/FalcoRule'
+
+    FalcoRuleRequest:
+      type: object
+      required:
+        - rule
+      properties:
+        rule:
+          $ref: '#/components/schemas/FalcoRule'
+
+    FalcoRule:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+        condition:
+          type: string
+          description: Falco condition expression
+        output:
+          type: string
+        priority:
+          type: string
+          enum:
+            - EMERGENCY
+            - ALERT
+            - CRITICAL
+            - ERROR
+            - WARNING
+            - NOTICE
+            - INFORMATIONAL
+            - DEBUG
+        source:
+          type: string
+          enum:
+            - syscall
+            - k8s_audit
+            - awscloudtrail
+        tags:
+          type: array
+          items:
+            type: string
+        enabled:
+          type: boolean
+
+    ComplianceTaskListResponse:
+      type: object
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceTask'
+
+    ComplianceTask:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        enabled:
+          type: boolean
+        schedule:
+          type: string
+        schema:
+          type: string
+        scope:
+          type: string
+
+    ComplianceResultResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceResult'
+        total:
+          type: integer
+        pass:
+          type: integer
+        fail:
+          type: integer
+
+    ComplianceResult:
+      type: object
+      properties:
+        controlId:
+          type: string
+        controlName:
+          type: string
+        result:
+          type: string
+          enum:
+            - pass
+            - fail
+            - warn
+            - skip
+        severity:
+          type: string
+        resource:
+          type: string
+
+    SecureEventListResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecureEvent'
+        total:
+          type: integer
+
+    SecureEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        severity:
+          type: integer
+        category:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
+        containerId:
+          type: string
+        containerName:
+          type: string
+        hostName:
+          type: string
+        content:
+          type: object
+
+    ActivityAuditResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityAuditEntry'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+
+    ActivityAuditEntry:
+      type: object
+      properties:
+        id:
+          type: string
+        timestamp:
+          type: integer
+        category:
+          type: string
+        type:
+          type: string
+        user:
+          type: string
+        description:
+          type: string
+        source:
+          type: string
+
+    ImageScanRequest:
+      type: object
+      required:
+        - tag
+      properties:
+        tag:
+          type: string
+          description: Container image tag to scan
+        digest:
+          type: string
+          description: Image digest
+
+    ImageScanResponse:
+      type: object
+      properties:
+        imageId:
+          type: string
+        analysisStatus:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    ScannedImageListResponse:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScannedImage'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+
+    ScannedImage:
+      type: object
+      properties:
+        imageId:
+          type: string
+        fullTag:
+          type: string
+        registry:
+          type: string
+        repository:
+          type: string
+        tag:
+          type: string
+        analysisStatus:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    PageInfo:
+      type: object
+      properties:
+        returned:
+          type: integer
+        next:
+          type: string

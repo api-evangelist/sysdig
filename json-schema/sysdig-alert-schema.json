@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api-evangelist.github.io/sysdig/json-schema/sysdig-alert-schema.json",
+  "title": "Sysdig Alert",
+  "description": "Schema for a Sysdig Monitor alert definition",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique alert identifier",
+      "readOnly": true
+    },
+    "name": {
+      "type": "string",
+      "description": "Alert name",
+      "maxLength": 255
+    },
+    "description": {
+      "type": "string",
+      "description": "Alert description"
+    },
+    "severity": {
+      "type": "integer",
+      "description": "Alert severity level (0=highest, 7=lowest)",
+      "minimum": 0,
+      "maximum": 7
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether the alert is active"
+    },
+    "condition": {
+      "type": "string",
+      "description": "Alert condition expression in Sysdig query language"
+    },
+    "segmentBy": {
+      "type": "array",
+      "description": "Fields to segment the alert by",
+      "items": {
+        "type": "string"
+      }
+    },
+    "timespan": {
+      "type": "integer",
+      "description": "Time duration in microseconds for the alert evaluation window"
+    },
+    "type": {
+      "type": "string",
+      "description": "Alert evaluation type",
+      "enum": ["MANUAL", "BASELINE", "HOST_COMPARISON"]
+    },
+    "notificationChannelIds": {
+      "type": "array",
+      "description": "IDs of notification channels for alert routing",
+      "items": {
+        "type": "integer"
+      }
+    }
+  },
+  "required": ["name", "condition"]
+}
