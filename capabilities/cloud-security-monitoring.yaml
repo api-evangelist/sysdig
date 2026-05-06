@@ -1,452 +1,990 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Sysdig Cloud Security Monitoring"
-  description: >-
-    Unified workflow capability combining Sysdig Monitor and Sysdig Secure for
-    cloud and container security monitoring. Enables security teams to correlate
-    runtime security events with monitoring alerts, manage policies, track
-    vulnerabilities, and maintain compliance across Kubernetes and cloud environments.
+  label: Sysdig Cloud Security Monitoring
+  description: Unified workflow capability combining Sysdig Monitor and Sysdig Secure for cloud and container security monitoring.
+    Enables security teams to correlate runtime security events with monitoring alerts, manage policies, track vulnerabilities,
+    and maintain compliance across Kubernetes and cloud environments.
   tags:
-    - Sysdig
-    - Cloud Security
-    - Monitoring
-    - Containers
-    - Kubernetes
-    - Runtime Security
-  created: "2026-05-03"
-  modified: "2026-05-03"
-
+  - Sysdig
+  - Cloud Security
+  - Monitoring
+  - Containers
+  - Kubernetes
+  - Runtime Security
+  created: '2026-05-03'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      SYSDIG_API_TOKEN: SYSDIG_API_TOKEN
-
+- namespace: env
+  keys:
+    SYSDIG_API_TOKEN: SYSDIG_API_TOKEN
 capability:
   consumes:
-    - import: sysdig-monitor
-      location: ./shared/sysdig-monitor.yaml
-    - import: sysdig-secure
-      location: ./shared/sysdig-secure.yaml
-
+  - type: http
+    namespace: sysdig-monitor
+    baseUri: https://api.us1.sysdig.com
+    description: Sysdig Monitor REST API for observability and alerting.
+    authentication:
+      type: bearer
+      token: '{{SYSDIG_API_TOKEN}}'
+    resources:
+    - name: alerts
+      path: /api/v2/alerts
+      description: Manage monitoring alerts
+      operations:
+      - name: list-alerts
+        method: GET
+        description: Retrieve all monitoring alerts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-alert
+        method: POST
+        description: Create a new monitoring alert
+        body:
+          type: json
+          data:
+            alert: '{{tools.alert}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: alert-by-id
+      path: /api/v2/alerts/{alertId}
+      description: Manage a specific alert
+      operations:
+      - name: get-alert
+        method: GET
+        description: Retrieve a specific alert by ID
+        inputParameters:
+        - name: alertId
+          in: path
+          type: integer
+          required: true
+          description: Alert unique identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-alert
+        method: PUT
+        description: Update an existing monitoring alert
+        inputParameters:
+        - name: alertId
+          in: path
+          type: integer
+          required: true
+          description: Alert unique identifier
+        body:
+          type: json
+          data:
+            alert: '{{tools.alert}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-alert
+        method: DELETE
+        description: Delete a monitoring alert
+        inputParameters:
+        - name: alertId
+          in: path
+          type: integer
+          required: true
+          description: Alert unique identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: dashboards
+      path: /api/v3/dashboards
+      description: Manage monitoring dashboards
+      operations:
+      - name: list-dashboards
+        method: GET
+        description: Retrieve all monitoring dashboards
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-dashboard
+        method: POST
+        description: Create a new monitoring dashboard
+        body:
+          type: json
+          data:
+            dashboard: '{{tools.dashboard}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: dashboard-by-id
+      path: /api/v3/dashboards/{dashboardId}
+      description: Manage a specific dashboard
+      operations:
+      - name: get-dashboard
+        method: GET
+        description: Retrieve a specific dashboard by ID
+        inputParameters:
+        - name: dashboardId
+          in: path
+          type: integer
+          required: true
+          description: Dashboard unique identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-dashboard
+        method: PUT
+        description: Update an existing dashboard
+        inputParameters:
+        - name: dashboardId
+          in: path
+          type: integer
+          required: true
+          description: Dashboard unique identifier
+        body:
+          type: json
+          data:
+            dashboard: '{{tools.dashboard}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-dashboard
+        method: DELETE
+        description: Delete a dashboard
+        inputParameters:
+        - name: dashboardId
+          in: path
+          type: integer
+          required: true
+          description: Dashboard unique identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: events
+      path: /api/v2/events
+      description: Manage monitoring events
+      operations:
+      - name: list-events
+        method: GET
+        description: Retrieve monitoring events
+        inputParameters:
+        - name: from
+          in: query
+          type: integer
+          required: false
+          description: Start time (Unix epoch microseconds)
+        - name: to
+          in: query
+          type: integer
+          required: false
+          description: End time (Unix epoch microseconds)
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Maximum results to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-event
+        method: POST
+        description: Create a custom event
+        body:
+          type: json
+          data:
+            event: '{{tools.event}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: notification-channels
+      path: /api/notificationChannels
+      description: Manage alert notification channels
+      operations:
+      - name: list-notification-channels
+        method: GET
+        description: Retrieve all notification channels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-notification-channel
+        method: POST
+        description: Create a new notification channel
+        body:
+          type: json
+          data:
+            notificationChannel: '{{tools.notificationChannel}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: teams
+      path: /api/v2/teams
+      description: Manage Sysdig teams
+      operations:
+      - name: list-teams
+        method: GET
+        description: Retrieve all teams
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-team
+        method: POST
+        description: Create a new team
+        body:
+          type: json
+          data:
+            team: '{{tools.team}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: metrics-find
+      path: /api/v2/metrics/find
+      description: Search available metrics
+      operations:
+      - name: find-metrics
+        method: GET
+        description: Search for metrics by name pattern
+        inputParameters:
+        - name: name
+          in: query
+          type: string
+          required: false
+          description: Metric name pattern
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: sysdig-secure
+    baseUri: https://api.us1.sysdig.com
+    description: Sysdig Secure REST API for cloud and container security.
+    authentication:
+      type: bearer
+      token: '{{SYSDIG_API_TOKEN}}'
+    resources:
+    - name: vulnerabilities
+      path: /api/scanning/v1/resultsDirect
+      description: Vulnerability scanning results
+      operations:
+      - name: list-vulnerability-results
+        method: GET
+        description: List vulnerability scanning results
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Maximum results to return
+        - name: cursor
+          in: query
+          type: string
+          required: false
+          description: Pagination cursor
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Filter expression
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: image-vulnerabilities
+      path: /api/scanning/v1/images/{imageId}/vulnDirect
+      description: Image-specific vulnerabilities
+      operations:
+      - name: get-image-vulnerabilities
+        method: GET
+        description: Get vulnerabilities for a specific image
+        inputParameters:
+        - name: imageId
+          in: path
+          type: string
+          required: true
+          description: Container image identifier
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Maximum results to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: image-sbom
+      path: /api/scanning/v1/images/{imageId}/sbom
+      description: Image SBOM
+      operations:
+      - name: get-image-sbom
+        method: GET
+        description: Get SBOM for a container image
+        inputParameters:
+        - name: imageId
+          in: path
+          type: string
+          required: true
+          description: Container image identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: policies
+      path: /api/policies/v2
+      description: Runtime security policies
+      operations:
+      - name: list-policies
+        method: GET
+        description: List all runtime security policies
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          required: false
+          description: Policy type filter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-policy
+        method: POST
+        description: Create a new runtime security policy
+        body:
+          type: json
+          data:
+            policy: '{{tools.policy}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: policy-by-id
+      path: /api/policies/v2/{policyId}
+      description: Manage a specific policy
+      operations:
+      - name: get-policy
+        method: GET
+        description: Get a specific runtime policy
+        inputParameters:
+        - name: policyId
+          in: path
+          type: integer
+          required: true
+          description: Policy unique identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-policy
+        method: PUT
+        description: Update a runtime security policy
+        inputParameters:
+        - name: policyId
+          in: path
+          type: integer
+          required: true
+          description: Policy unique identifier
+        body:
+          type: json
+          data:
+            policy: '{{tools.policy}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-policy
+        method: DELETE
+        description: Delete a runtime security policy
+        inputParameters:
+        - name: policyId
+          in: path
+          type: integer
+          required: true
+          description: Policy unique identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: falco-rules
+      path: /api/secure/falco/v2/rules
+      description: Falco security rules
+      operations:
+      - name: list-falco-rules
+        method: GET
+        description: List all Falco rules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-falco-rule
+        method: POST
+        description: Create a custom Falco rule
+        body:
+          type: json
+          data:
+            rule: '{{tools.rule}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: compliance-tasks
+      path: /api/compliance/v2/tasks
+      description: Compliance evaluation tasks
+      operations:
+      - name: list-compliance-tasks
+        method: GET
+        description: List all compliance tasks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: compliance-results
+      path: /api/compliance/v2/tasks/{taskId}/results
+      description: Compliance check results
+      operations:
+      - name: get-compliance-results
+        method: GET
+        description: Get compliance results for a task
+        inputParameters:
+        - name: taskId
+          in: path
+          type: string
+          required: true
+          description: Compliance task identifier
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Maximum results to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: secure-events
+      path: /api/v1/secureEvents
+      description: Runtime security events
+      operations:
+      - name: list-secure-events
+        method: GET
+        description: List runtime security events
+        inputParameters:
+        - name: from
+          in: query
+          type: integer
+          required: false
+          description: Start time (Unix epoch seconds)
+        - name: to
+          in: query
+          type: integer
+          required: false
+          description: End time (Unix epoch seconds)
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Maximum results to return
+        - name: filter
+          in: query
+          type: string
+          required: false
+          description: Filter expression
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: activity-audit
+      path: /api/v1/activityAudit
+      description: Activity audit trail
+      operations:
+      - name: list-activity-audit
+        method: GET
+        description: List activity audit entries
+        inputParameters:
+        - name: from
+          in: query
+          type: integer
+          required: false
+          description: Start time
+        - name: to
+          in: query
+          type: integer
+          required: false
+          description: End time
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Maximum results to return
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: image-scan
+      path: /api/scanning/v1/image
+      description: Trigger image scanning
+      operations:
+      - name: scan-image
+        method: POST
+        description: Trigger vulnerability scan for a container image
+        body:
+          type: json
+          data:
+            tag: '{{tools.tag}}'
+            digest: '{{tools.digest}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: scanned-images
+      path: /api/scanning/v1/images
+      description: Scanned images inventory
+      operations:
+      - name: list-scanned-images
+        method: GET
+        description: List all scanned container images
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Maximum results to return
+        - name: cursor
+          in: query
+          type: string
+          required: false
+          description: Pagination cursor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8080
-      namespace: sysdig-security-api
-      description: "Unified REST API for Sysdig cloud security and monitoring workflows."
-      resources:
-        - path: /v1/alerts
-          name: alerts
-          description: "Monitor alerts for cloud-native infrastructure"
-          operations:
-            - method: GET
-              name: list-alerts
-              description: "List all monitoring alerts"
-              call: "sysdig-monitor.list-alerts"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-alert
-              description: "Create a monitoring alert"
-              call: "sysdig-monitor.create-alert"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/dashboards
-          name: dashboards
-          description: "Monitoring dashboards"
-          operations:
-            - method: GET
-              name: list-dashboards
-              description: "List all monitoring dashboards"
-              call: "sysdig-monitor.list-dashboards"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-dashboard
-              description: "Create a monitoring dashboard"
-              call: "sysdig-monitor.create-dashboard"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/events
-          name: monitor-events
-          description: "Monitoring events"
-          operations:
-            - method: GET
-              name: list-monitor-events
-              description: "List monitoring events"
-              call: "sysdig-monitor.list-events"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/security-events
-          name: security-events
-          description: "Runtime security events from policy violations"
-          operations:
-            - method: GET
-              name: list-security-events
-              description: "List runtime security events"
-              call: "sysdig-secure.list-secure-events"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/vulnerabilities
-          name: vulnerabilities
-          description: "Vulnerability scanning results"
-          operations:
-            - method: GET
-              name: list-vulnerabilities
-              description: "List vulnerability scanning results"
-              call: "sysdig-secure.list-vulnerability-results"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/images
-          name: images
-          description: "Scanned container images"
-          operations:
-            - method: GET
-              name: list-images
-              description: "List scanned container images"
-              call: "sysdig-secure.list-scanned-images"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: scan-image
-              description: "Trigger image vulnerability scan"
-              call: "sysdig-secure.scan-image"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/policies
-          name: policies
-          description: "Runtime security policies"
-          operations:
-            - method: GET
-              name: list-policies
-              description: "List runtime security policies"
-              call: "sysdig-secure.list-policies"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-policy
-              description: "Create a runtime security policy"
-              call: "sysdig-secure.create-policy"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/compliance
-          name: compliance
-          description: "Compliance evaluation tasks and results"
-          operations:
-            - method: GET
-              name: list-compliance-tasks
-              description: "List compliance evaluation tasks"
-              call: "sysdig-secure.list-compliance-tasks"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/audit
-          name: audit
-          description: "Activity audit trail"
-          operations:
-            - method: GET
-              name: list-audit
-              description: "List activity audit entries"
-              call: "sysdig-secure.list-activity-audit"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/teams
-          name: teams
-          description: "Team management"
-          operations:
-            - method: GET
-              name: list-teams
-              description: "List all teams"
-              call: "sysdig-monitor.list-teams"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/metrics
-          name: metrics
-          description: "Search available metrics"
-          operations:
-            - method: GET
-              name: find-metrics
-              description: "Search for available metrics"
-              call: "sysdig-monitor.find-metrics"
-              with:
-                name: "rest.name"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: sysdig-security-mcp
-      transport: http
-      description: "MCP server for AI-assisted Sysdig cloud security monitoring and incident response."
-      tools:
-        - name: list-alerts
-          description: "List Sysdig Monitor alerts for cloud-native infrastructure"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-monitor.list-alerts"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-alert
-          description: "Get details of a specific Sysdig Monitor alert"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-monitor.get-alert"
-          with:
-            alertId: "tools.alertId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: create-alert
-          description: "Create a new monitoring alert for cloud infrastructure"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "sysdig-monitor.create-alert"
-          with:
-            alert: "tools.alert"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-dashboards
-          description: "List Sysdig Monitor dashboards"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-monitor.list-dashboards"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-monitor-events
-          description: "List Sysdig Monitor events within a time range"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-monitor.list-events"
-          with:
-            from: "tools.from"
-            to: "tools.to"
-            limit: "tools.limit"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-security-events
-          description: "List Sysdig Secure runtime security events triggered by policy violations"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-secure.list-secure-events"
-          with:
-            from: "tools.from"
-            to: "tools.to"
-            filter: "tools.filter"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-vulnerabilities
-          description: "List container and host vulnerability scanning results"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-secure.list-vulnerability-results"
-          with:
-            filter: "tools.filter"
-            limit: "tools.limit"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-image-vulnerabilities
-          description: "Get vulnerability findings for a specific container image"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-secure.get-image-vulnerabilities"
-          with:
-            imageId: "tools.imageId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-image-sbom
-          description: "Get the Software Bill of Materials (SBOM) for a container image"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-secure.get-image-sbom"
-          with:
-            imageId: "tools.imageId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: scan-image
-          description: "Trigger a vulnerability scan for a container image"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "sysdig-secure.scan-image"
-          with:
-            tag: "tools.tag"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-scanned-images
-          description: "List all container images that have been scanned"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-secure.list-scanned-images"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-policies
-          description: "List Sysdig Secure runtime security policies"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-secure.list-policies"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-policy
-          description: "Get details of a specific runtime security policy"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-secure.get-policy"
-          with:
-            policyId: "tools.policyId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: create-policy
-          description: "Create a new runtime security policy"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "sysdig-secure.create-policy"
-          with:
-            policy: "tools.policy"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-falco-rules
-          description: "List all Falco security detection rules"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-secure.list-falco-rules"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: create-falco-rule
-          description: "Create a custom Falco detection rule"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "sysdig-secure.create-falco-rule"
-          with:
-            rule: "tools.rule"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-compliance-tasks
-          description: "List compliance evaluation tasks (PCI-DSS, GDPR, NIST)"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-secure.list-compliance-tasks"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-compliance-results
-          description: "Get compliance check results for a specific task"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-secure.get-compliance-results"
-          with:
-            taskId: "tools.taskId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-activity-audit
-          description: "List the activity audit trail for forensic investigation"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-secure.list-activity-audit"
-          with:
-            from: "tools.from"
-            to: "tools.to"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-teams
-          description: "List all Sysdig teams and their configurations"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-monitor.list-teams"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: find-metrics
-          description: "Search for available Sysdig metrics by name pattern"
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "sysdig-monitor.find-metrics"
-          with:
-            name: "tools.name"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: sysdig-security-api
+    description: Unified REST API for Sysdig cloud security and monitoring workflows.
+    resources:
+    - path: /v1/alerts
+      name: alerts
+      description: Monitor alerts for cloud-native infrastructure
+      operations:
+      - method: GET
+        name: list-alerts
+        description: List all monitoring alerts
+        call: sysdig-monitor.list-alerts
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-alert
+        description: Create a monitoring alert
+        call: sysdig-monitor.create-alert
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/dashboards
+      name: dashboards
+      description: Monitoring dashboards
+      operations:
+      - method: GET
+        name: list-dashboards
+        description: List all monitoring dashboards
+        call: sysdig-monitor.list-dashboards
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-dashboard
+        description: Create a monitoring dashboard
+        call: sysdig-monitor.create-dashboard
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/events
+      name: monitor-events
+      description: Monitoring events
+      operations:
+      - method: GET
+        name: list-monitor-events
+        description: List monitoring events
+        call: sysdig-monitor.list-events
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/security-events
+      name: security-events
+      description: Runtime security events from policy violations
+      operations:
+      - method: GET
+        name: list-security-events
+        description: List runtime security events
+        call: sysdig-secure.list-secure-events
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vulnerabilities
+      name: vulnerabilities
+      description: Vulnerability scanning results
+      operations:
+      - method: GET
+        name: list-vulnerabilities
+        description: List vulnerability scanning results
+        call: sysdig-secure.list-vulnerability-results
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/images
+      name: images
+      description: Scanned container images
+      operations:
+      - method: GET
+        name: list-images
+        description: List scanned container images
+        call: sysdig-secure.list-scanned-images
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: scan-image
+        description: Trigger image vulnerability scan
+        call: sysdig-secure.scan-image
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/policies
+      name: policies
+      description: Runtime security policies
+      operations:
+      - method: GET
+        name: list-policies
+        description: List runtime security policies
+        call: sysdig-secure.list-policies
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-policy
+        description: Create a runtime security policy
+        call: sysdig-secure.create-policy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/compliance
+      name: compliance
+      description: Compliance evaluation tasks and results
+      operations:
+      - method: GET
+        name: list-compliance-tasks
+        description: List compliance evaluation tasks
+        call: sysdig-secure.list-compliance-tasks
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/audit
+      name: audit
+      description: Activity audit trail
+      operations:
+      - method: GET
+        name: list-audit
+        description: List activity audit entries
+        call: sysdig-secure.list-activity-audit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/teams
+      name: teams
+      description: Team management
+      operations:
+      - method: GET
+        name: list-teams
+        description: List all teams
+        call: sysdig-monitor.list-teams
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/metrics
+      name: metrics
+      description: Search available metrics
+      operations:
+      - method: GET
+        name: find-metrics
+        description: Search for available metrics
+        call: sysdig-monitor.find-metrics
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: sysdig-security-mcp
+    transport: http
+    description: MCP server for AI-assisted Sysdig cloud security monitoring and incident response.
+    tools:
+    - name: list-alerts
+      description: List Sysdig Monitor alerts for cloud-native infrastructure
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-monitor.list-alerts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-alert
+      description: Get details of a specific Sysdig Monitor alert
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-monitor.get-alert
+      with:
+        alertId: tools.alertId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-alert
+      description: Create a new monitoring alert for cloud infrastructure
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sysdig-monitor.create-alert
+      with:
+        alert: tools.alert
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-dashboards
+      description: List Sysdig Monitor dashboards
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-monitor.list-dashboards
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-monitor-events
+      description: List Sysdig Monitor events within a time range
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-monitor.list-events
+      with:
+        from: tools.from
+        to: tools.to
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-security-events
+      description: List Sysdig Secure runtime security events triggered by policy violations
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-secure.list-secure-events
+      with:
+        from: tools.from
+        to: tools.to
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-vulnerabilities
+      description: List container and host vulnerability scanning results
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-secure.list-vulnerability-results
+      with:
+        filter: tools.filter
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-image-vulnerabilities
+      description: Get vulnerability findings for a specific container image
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-secure.get-image-vulnerabilities
+      with:
+        imageId: tools.imageId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-image-sbom
+      description: Get the Software Bill of Materials (SBOM) for a container image
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-secure.get-image-sbom
+      with:
+        imageId: tools.imageId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scan-image
+      description: Trigger a vulnerability scan for a container image
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sysdig-secure.scan-image
+      with:
+        tag: tools.tag
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-scanned-images
+      description: List all container images that have been scanned
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-secure.list-scanned-images
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-policies
+      description: List Sysdig Secure runtime security policies
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-secure.list-policies
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-policy
+      description: Get details of a specific runtime security policy
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-secure.get-policy
+      with:
+        policyId: tools.policyId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-policy
+      description: Create a new runtime security policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sysdig-secure.create-policy
+      with:
+        policy: tools.policy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-falco-rules
+      description: List all Falco security detection rules
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-secure.list-falco-rules
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-falco-rule
+      description: Create a custom Falco detection rule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sysdig-secure.create-falco-rule
+      with:
+        rule: tools.rule
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-compliance-tasks
+      description: List compliance evaluation tasks (PCI-DSS, GDPR, NIST)
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-secure.list-compliance-tasks
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-compliance-results
+      description: Get compliance check results for a specific task
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-secure.get-compliance-results
+      with:
+        taskId: tools.taskId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-activity-audit
+      description: List the activity audit trail for forensic investigation
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-secure.list-activity-audit
+      with:
+        from: tools.from
+        to: tools.to
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-teams
+      description: List all Sysdig teams and their configurations
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-monitor.list-teams
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: find-metrics
+      description: Search for available Sysdig metrics by name pattern
+      hints:
+        readOnly: true
+        openWorld: true
+      call: sysdig-monitor.find-metrics
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
