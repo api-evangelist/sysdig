@@ -48,7 +48,7 @@ apis:
       - type: OpenAPI
         url: >-
           https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/openapi/sysdig-monitor-openapi.yml
-      - type: Getting Started
+      - type: GettingStarted
         url: https://docs.sysdig.com/en/getting-started/
       - type: Authentication
         url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
@@ -79,7 +79,7 @@ apis:
       - type: OpenAPI
         url: >-
           https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/openapi/sysdig-secure-openapi.yml
-      - type: Getting Started
+      - type: GettingStarted
         url: https://docs.sysdig.com/en/getting-started/
     contact:
       - FN: Sysdig Support
@@ -92,15 +92,15 @@ common:
     url: https://docs.sysdig.com/
   - type: Developer Portal
     url: https://docs.sysdig.com/en/developer-tools/
-  - type: Getting Started
+  - type: GettingStarted
     url: https://docs.sysdig.com/en/getting-started/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/sysdiglabs
   - type: Blog
     url: https://sysdig.com/blog/
   - type: Pricing
     url: https://sysdig.com/pricing/
-  - type: Sign Up
+  - type: SignUp
     url: https://sysdig.com/company/free-trial/
   - type: Terraform Provider
     url: https://registry.terraform.io/providers/sysdiglabs/sysdig/latest
@@ -121,11 +121,11 @@ common:
   - type: Vocabulary
     url: >-
       https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/vocabulary/sysdig-vocabulary.yml
-  - type: Change Log
+  - type: ChangeLog
     url: https://docs.sysdig.com/en/release-notes/
   - type: Support
     url: https://sysdig.com/support/
-  - type: Status
+  - type: StatusPage
     url: https://status.sysdig.com/
 maintainers:
   - FN: Kin Lane
