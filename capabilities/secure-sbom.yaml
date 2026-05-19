@@ -1,0 +1,79 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sysdig Secure API — SBOM
+  description: 'Sysdig Secure API — SBOM. 1 operations. Lead operation: Get Image SBOM. Self-contained Naftiko capability
+    covering one Sysdig business surface.'
+  tags:
+  - Sysdig
+  - SBOM
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SYSDIG_API_KEY: SYSDIG_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: secure-sbom
+    baseUri: https://api.us1.sysdig.com
+    description: Sysdig Secure API — SBOM business capability. Self-contained, no shared references.
+    resources:
+    - name: api-scanning-v1-images-imageId-sbom
+      path: /api/scanning/v1/images/{imageId}/sbom
+      operations:
+      - name: getimagesbom
+        method: GET
+        description: Get Image SBOM
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: imageId
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SYSDIG_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: secure-sbom-rest
+    port: 8080
+    description: REST adapter for Sysdig Secure API — SBOM. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/scanning/v1/images/{imageid}/sbom
+      name: api-scanning-v1-images-imageid-sbom
+      description: REST surface for api-scanning-v1-images-imageId-sbom.
+      operations:
+      - method: GET
+        name: getimagesbom
+        description: Get Image SBOM
+        call: secure-sbom.getimagesbom
+        with:
+          imageId: rest.imageId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: secure-sbom-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sysdig Secure API — SBOM. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-image-sbom
+      description: Get Image SBOM
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: secure-sbom.getimagesbom
+      with:
+        imageId: tools.imageId
+      outputParameters:
+      - type: object
+        mapping: $.

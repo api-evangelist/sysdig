@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sysdig Secure API — Rules
+  description: 'Sysdig Secure API — Rules. 5 operations. Lead operation: List Falco Rules. Self-contained Naftiko capability
+    covering one Sysdig business surface.'
+  tags:
+  - Sysdig
+  - Rules
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SYSDIG_API_KEY: SYSDIG_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: secure-rules
+    baseUri: https://api.us1.sysdig.com
+    description: Sysdig Secure API — Rules business capability. Self-contained, no shared references.
+    resources:
+    - name: api-secure-falco-v2-rules
+      path: /api/secure/falco/v2/rules
+      operations:
+      - name: listfalcorules
+        method: GET
+        description: List Falco Rules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createfalcorule
+        method: POST
+        description: Create Falco Rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-secure-falco-v2-rules-ruleId
+      path: /api/secure/falco/v2/rules/{ruleId}
+      operations:
+      - name: getfalcorule
+        method: GET
+        description: Get Falco Rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatefalcorule
+        method: PUT
+        description: Update Falco Rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletefalcorule
+        method: DELETE
+        description: Delete Falco Rule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SYSDIG_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: secure-rules-rest
+    port: 8080
+    description: REST adapter for Sysdig Secure API — Rules. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/secure/falco/v2/rules
+      name: api-secure-falco-v2-rules
+      description: REST surface for api-secure-falco-v2-rules.
+      operations:
+      - method: GET
+        name: listfalcorules
+        description: List Falco Rules
+        call: secure-rules.listfalcorules
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createfalcorule
+        description: Create Falco Rule
+        call: secure-rules.createfalcorule
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/secure/falco/v2/rules/{ruleid}
+      name: api-secure-falco-v2-rules-ruleid
+      description: REST surface for api-secure-falco-v2-rules-ruleId.
+      operations:
+      - method: GET
+        name: getfalcorule
+        description: Get Falco Rule
+        call: secure-rules.getfalcorule
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatefalcorule
+        description: Update Falco Rule
+        call: secure-rules.updatefalcorule
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletefalcorule
+        description: Delete Falco Rule
+        call: secure-rules.deletefalcorule
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: secure-rules-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sysdig Secure API — Rules. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-falco-rules
+      description: List Falco Rules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: secure-rules.listfalcorules
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-falco-rule
+      description: Create Falco Rule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: secure-rules.createfalcorule
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-falco-rule
+      description: Get Falco Rule
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: secure-rules.getfalcorule
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-falco-rule
+      description: Update Falco Rule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: secure-rules.updatefalcorule
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-falco-rule
+      description: Delete Falco Rule
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: secure-rules.deletefalcorule
+      outputParameters:
+      - type: object
+        mapping: $.

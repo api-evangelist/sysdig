@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sysdig Monitor API — Teams
+  description: 'Sysdig Monitor API — Teams. 5 operations. Lead operation: List Teams. Self-contained Naftiko capability covering
+    one Sysdig business surface.'
+  tags:
+  - Sysdig
+  - Teams
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SYSDIG_API_KEY: SYSDIG_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: monitor-teams
+    baseUri: https://api.us1.sysdig.com
+    description: Sysdig Monitor API — Teams business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v2-teams
+      path: /api/v2/teams
+      operations:
+      - name: listteams
+        method: GET
+        description: List Teams
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createteam
+        method: POST
+        description: Create Team
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v2-teams-teamId
+      path: /api/v2/teams/{teamId}
+      operations:
+      - name: getteam
+        method: GET
+        description: Get Team
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateteam
+        method: PUT
+        description: Update Team
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteteam
+        method: DELETE
+        description: Delete Team
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SYSDIG_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: monitor-teams-rest
+    port: 8080
+    description: REST adapter for Sysdig Monitor API — Teams. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/v2/teams
+      name: api-v2-teams
+      description: REST surface for api-v2-teams.
+      operations:
+      - method: GET
+        name: listteams
+        description: List Teams
+        call: monitor-teams.listteams
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createteam
+        description: Create Team
+        call: monitor-teams.createteam
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v2/teams/{teamid}
+      name: api-v2-teams-teamid
+      description: REST surface for api-v2-teams-teamId.
+      operations:
+      - method: GET
+        name: getteam
+        description: Get Team
+        call: monitor-teams.getteam
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateteam
+        description: Update Team
+        call: monitor-teams.updateteam
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteteam
+        description: Delete Team
+        call: monitor-teams.deleteteam
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: monitor-teams-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sysdig Monitor API — Teams. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-teams
+      description: List Teams
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: monitor-teams.listteams
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-team
+      description: Create Team
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: monitor-teams.createteam
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-team
+      description: Get Team
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: monitor-teams.getteam
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-team
+      description: Update Team
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: monitor-teams.updateteam
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-team
+      description: Delete Team
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: monitor-teams.deleteteam
+      outputParameters:
+      - type: object
+        mapping: $.

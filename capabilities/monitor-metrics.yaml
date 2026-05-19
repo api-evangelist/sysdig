@@ -1,0 +1,121 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sysdig Monitor API — Metrics
+  description: 'Sysdig Monitor API — Metrics. 2 operations. Lead operation: Get Metric Descriptors. Self-contained Naftiko
+    capability covering one Sysdig business surface.'
+  tags:
+  - Sysdig
+  - Metrics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SYSDIG_API_KEY: SYSDIG_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: monitor-metrics
+    baseUri: https://api.us1.sysdig.com
+    description: Sysdig Monitor API — Metrics business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v2-metrics-descriptors
+      path: /api/v2/metrics/descriptors
+      operations:
+      - name: getmetricdescriptors
+        method: POST
+        description: Get Metric Descriptors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v2-metrics-find
+      path: /api/v2/metrics/find
+      operations:
+      - name: findmetrics
+        method: GET
+        description: Find Metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: query
+          type: string
+          description: Metric name pattern to search for
+    authentication:
+      type: bearer
+      token: '{{env.SYSDIG_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: monitor-metrics-rest
+    port: 8080
+    description: REST adapter for Sysdig Monitor API — Metrics. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/v2/metrics/descriptors
+      name: api-v2-metrics-descriptors
+      description: REST surface for api-v2-metrics-descriptors.
+      operations:
+      - method: POST
+        name: getmetricdescriptors
+        description: Get Metric Descriptors
+        call: monitor-metrics.getmetricdescriptors
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v2/metrics/find
+      name: api-v2-metrics-find
+      description: REST surface for api-v2-metrics-find.
+      operations:
+      - method: GET
+        name: findmetrics
+        description: Find Metrics
+        call: monitor-metrics.findmetrics
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: monitor-metrics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sysdig Monitor API — Metrics. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-metric-descriptors
+      description: Get Metric Descriptors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: monitor-metrics.getmetricdescriptors
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: find-metrics
+      description: Find Metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: monitor-metrics.findmetrics
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.

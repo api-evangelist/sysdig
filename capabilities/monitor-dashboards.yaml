@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sysdig Monitor API — Dashboards
+  description: 'Sysdig Monitor API — Dashboards. 5 operations. Lead operation: List Dashboards. Self-contained Naftiko capability
+    covering one Sysdig business surface.'
+  tags:
+  - Sysdig
+  - Dashboards
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SYSDIG_API_KEY: SYSDIG_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: monitor-dashboards
+    baseUri: https://api.us1.sysdig.com
+    description: Sysdig Monitor API — Dashboards business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v3-dashboards
+      path: /api/v3/dashboards
+      operations:
+      - name: listdashboards
+        method: GET
+        description: List Dashboards
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createdashboard
+        method: POST
+        description: Create Dashboard
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v3-dashboards-dashboardId
+      path: /api/v3/dashboards/{dashboardId}
+      operations:
+      - name: getdashboard
+        method: GET
+        description: Get Dashboard
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatedashboard
+        method: PUT
+        description: Update Dashboard
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletedashboard
+        method: DELETE
+        description: Delete Dashboard
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SYSDIG_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: monitor-dashboards-rest
+    port: 8080
+    description: REST adapter for Sysdig Monitor API — Dashboards. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v3/dashboards
+      name: api-v3-dashboards
+      description: REST surface for api-v3-dashboards.
+      operations:
+      - method: GET
+        name: listdashboards
+        description: List Dashboards
+        call: monitor-dashboards.listdashboards
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdashboard
+        description: Create Dashboard
+        call: monitor-dashboards.createdashboard
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/dashboards/{dashboardid}
+      name: api-v3-dashboards-dashboardid
+      description: REST surface for api-v3-dashboards-dashboardId.
+      operations:
+      - method: GET
+        name: getdashboard
+        description: Get Dashboard
+        call: monitor-dashboards.getdashboard
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatedashboard
+        description: Update Dashboard
+        call: monitor-dashboards.updatedashboard
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletedashboard
+        description: Delete Dashboard
+        call: monitor-dashboards.deletedashboard
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: monitor-dashboards-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sysdig Monitor API — Dashboards. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-dashboards
+      description: List Dashboards
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: monitor-dashboards.listdashboards
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-dashboard
+      description: Create Dashboard
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: monitor-dashboards.createdashboard
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-dashboard
+      description: Get Dashboard
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: monitor-dashboards.getdashboard
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-dashboard
+      description: Update Dashboard
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: monitor-dashboards.updatedashboard
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-dashboard
+      description: Delete Dashboard
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: monitor-dashboards.deletedashboard
+      outputParameters:
+      - type: object
+        mapping: $.

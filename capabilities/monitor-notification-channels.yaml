@@ -1,0 +1,221 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sysdig Monitor API — Notification Channels
+  description: 'Sysdig Monitor API — Notification Channels. 5 operations. Lead operation: List Notification Channels. Self-contained
+    Naftiko capability covering one Sysdig business surface.'
+  tags:
+  - Sysdig
+  - Notification Channels
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SYSDIG_API_KEY: SYSDIG_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: monitor-notification-channels
+    baseUri: https://api.us1.sysdig.com
+    description: Sysdig Monitor API — Notification Channels business capability. Self-contained, no shared references.
+    resources:
+    - name: api-notificationChannels
+      path: /api/notificationChannels
+      operations:
+      - name: listnotificationchannels
+        method: GET
+        description: List Notification Channels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createnotificationchannel
+        method: POST
+        description: Create Notification Channel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-notificationChannels-channelId
+      path: /api/notificationChannels/{channelId}
+      operations:
+      - name: getnotificationchannel
+        method: GET
+        description: Get Notification Channel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: channelId
+          in: path
+          type: integer
+          required: true
+      - name: updatenotificationchannel
+        method: PUT
+        description: Update Notification Channel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: channelId
+          in: path
+          type: integer
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletenotificationchannel
+        method: DELETE
+        description: Delete Notification Channel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: channelId
+          in: path
+          type: integer
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SYSDIG_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: monitor-notification-channels-rest
+    port: 8080
+    description: REST adapter for Sysdig Monitor API — Notification Channels. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/api/notificationchannels
+      name: api-notificationchannels
+      description: REST surface for api-notificationChannels.
+      operations:
+      - method: GET
+        name: listnotificationchannels
+        description: List Notification Channels
+        call: monitor-notification-channels.listnotificationchannels
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createnotificationchannel
+        description: Create Notification Channel
+        call: monitor-notification-channels.createnotificationchannel
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/notificationchannels/{channelid}
+      name: api-notificationchannels-channelid
+      description: REST surface for api-notificationChannels-channelId.
+      operations:
+      - method: GET
+        name: getnotificationchannel
+        description: Get Notification Channel
+        call: monitor-notification-channels.getnotificationchannel
+        with:
+          channelId: rest.channelId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatenotificationchannel
+        description: Update Notification Channel
+        call: monitor-notification-channels.updatenotificationchannel
+        with:
+          channelId: rest.channelId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletenotificationchannel
+        description: Delete Notification Channel
+        call: monitor-notification-channels.deletenotificationchannel
+        with:
+          channelId: rest.channelId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: monitor-notification-channels-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sysdig Monitor API — Notification Channels. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-notification-channels
+      description: List Notification Channels
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: monitor-notification-channels.listnotificationchannels
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-notification-channel
+      description: Create Notification Channel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: monitor-notification-channels.createnotificationchannel
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-notification-channel
+      description: Get Notification Channel
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: monitor-notification-channels.getnotificationchannel
+      with:
+        channelId: tools.channelId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-notification-channel
+      description: Update Notification Channel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: monitor-notification-channels.updatenotificationchannel
+      with:
+        channelId: tools.channelId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-notification-channel
+      description: Delete Notification Channel
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: monitor-notification-channels.deletenotificationchannel
+      with:
+        channelId: tools.channelId
+      outputParameters:
+      - type: object
+        mapping: $.

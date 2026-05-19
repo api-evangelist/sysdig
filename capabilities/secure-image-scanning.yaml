@@ -1,0 +1,125 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sysdig Secure API — Image Scanning
+  description: 'Sysdig Secure API — Image Scanning. 2 operations. Lead operation: Scan Image. Self-contained Naftiko capability
+    covering one Sysdig business surface.'
+  tags:
+  - Sysdig
+  - Image Scanning
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SYSDIG_API_KEY: SYSDIG_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: secure-image-scanning
+    baseUri: https://api.us1.sysdig.com
+    description: Sysdig Secure API — Image Scanning business capability. Self-contained, no shared references.
+    resources:
+    - name: api-scanning-v1-image
+      path: /api/scanning/v1/image
+      operations:
+      - name: scanimage
+        method: POST
+        description: Scan Image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-scanning-v1-images
+      path: /api/scanning/v1/images
+      operations:
+      - name: listscannedimages
+        method: GET
+        description: List Scanned Images
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+        - name: cursor
+          in: query
+          type: string
+    authentication:
+      type: bearer
+      token: '{{env.SYSDIG_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: secure-image-scanning-rest
+    port: 8080
+    description: REST adapter for Sysdig Secure API — Image Scanning. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/scanning/v1/image
+      name: api-scanning-v1-image
+      description: REST surface for api-scanning-v1-image.
+      operations:
+      - method: POST
+        name: scanimage
+        description: Scan Image
+        call: secure-image-scanning.scanimage
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/scanning/v1/images
+      name: api-scanning-v1-images
+      description: REST surface for api-scanning-v1-images.
+      operations:
+      - method: GET
+        name: listscannedimages
+        description: List Scanned Images
+        call: secure-image-scanning.listscannedimages
+        with:
+          limit: rest.limit
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: secure-image-scanning-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sysdig Secure API — Image Scanning. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: scan-image
+      description: Scan Image
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: secure-image-scanning.scanimage
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-scanned-images
+      description: List Scanned Images
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: secure-image-scanning.listscannedimages
+      with:
+        limit: tools.limit
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.

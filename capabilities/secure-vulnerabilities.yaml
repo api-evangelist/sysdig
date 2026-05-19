@@ -1,0 +1,137 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sysdig Secure API — Vulnerabilities
+  description: 'Sysdig Secure API — Vulnerabilities. 2 operations. Lead operation: Get Image Vulnerabilities. Self-contained
+    Naftiko capability covering one Sysdig business surface.'
+  tags:
+  - Sysdig
+  - Vulnerabilities
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SYSDIG_API_KEY: SYSDIG_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: secure-vulnerabilities
+    baseUri: https://api.us1.sysdig.com
+    description: Sysdig Secure API — Vulnerabilities business capability. Self-contained, no shared references.
+    resources:
+    - name: api-scanning-v1-images-imageId-vulnDirect
+      path: /api/scanning/v1/images/{imageId}/vulnDirect
+      operations:
+      - name: getimagevulnerabilities
+        method: GET
+        description: Get Image Vulnerabilities
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: imageId
+          in: path
+          type: string
+          required: true
+        - name: limit
+          in: query
+          type: integer
+    - name: api-scanning-v1-resultsDirect
+      path: /api/scanning/v1/resultsDirect
+      operations:
+      - name: listvulnerabilityresults
+        method: GET
+        description: List Vulnerability Results
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of results to return
+        - name: cursor
+          in: query
+          type: string
+          description: Pagination cursor
+        - name: filter
+          in: query
+          type: string
+          description: Filter expression for vulnerability results
+    authentication:
+      type: bearer
+      token: '{{env.SYSDIG_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: secure-vulnerabilities-rest
+    port: 8080
+    description: REST adapter for Sysdig Secure API — Vulnerabilities. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/scanning/v1/images/{imageid}/vulndirect
+      name: api-scanning-v1-images-imageid-vulndirect
+      description: REST surface for api-scanning-v1-images-imageId-vulnDirect.
+      operations:
+      - method: GET
+        name: getimagevulnerabilities
+        description: Get Image Vulnerabilities
+        call: secure-vulnerabilities.getimagevulnerabilities
+        with:
+          imageId: rest.imageId
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/scanning/v1/resultsdirect
+      name: api-scanning-v1-resultsdirect
+      description: REST surface for api-scanning-v1-resultsDirect.
+      operations:
+      - method: GET
+        name: listvulnerabilityresults
+        description: List Vulnerability Results
+        call: secure-vulnerabilities.listvulnerabilityresults
+        with:
+          limit: rest.limit
+          cursor: rest.cursor
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: secure-vulnerabilities-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sysdig Secure API — Vulnerabilities. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-image-vulnerabilities
+      description: Get Image Vulnerabilities
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: secure-vulnerabilities.getimagevulnerabilities
+      with:
+        imageId: tools.imageId
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-vulnerability-results
+      description: List Vulnerability Results
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: secure-vulnerabilities.listvulnerabilityresults
+      with:
+        limit: tools.limit
+        cursor: tools.cursor
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
