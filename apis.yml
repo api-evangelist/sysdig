@@ -23,7 +23,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/apis.yml
 created: '2026-03-26'
-modified: '2026-05-03'
+modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
   - aid: sysdig:sysdig-monitor
@@ -127,6 +127,9 @@ common:
     url: https://sysdig.com/support/
   - type: StatusPage
     url: https://status.sysdig.com/
+  - name: MCP Server
+    url: https://github.com/sysdiglabs/sysdig-mcp-server
+    type: MCPServer
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
