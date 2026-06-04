@@ -1,0 +1,94 @@
+arazzo: 1.0.1
+info:
+  title: Sysdig Build Metric Dashboard
+  summary: Discover a metric, confirm its descriptor, and create a dashboard for it.
+  description: >-
+    A metrics onboarding flow for Sysdig Monitor. It searches the metric catalog
+    for a matching metric, confirms the metric exists by reading the metric
+    descriptors, and creates a new dashboard whose panel references the
+    discovered metric id. The dashboard is then read back to confirm it
+    persisted. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sysdigMonitor
+  url: ../openapi/sysdig-monitor-openapi.yml
+  type: openapi
+workflows:
+- workflowId: build-metric-dashboard
+  summary: Find a metric and stand up a dashboard that charts it.
+  description: >-
+    Searches for a metric by name, confirms it via the descriptors endpoint, and
+    creates a dashboard with a panel bound to the discovered metric.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - metricQuery
+    - dashboardName
+    properties:
+      bearerToken:
+        type: string
+        description: Sysdig API bearer token used for Authorization.
+      metricQuery:
+        type: string
+        description: Substring used to search the metric catalog.
+      dashboardName:
+        type: string
+        description: Name for the dashboard to create.
+  steps:
+  - stepId: findMetric
+    description: Search the metric catalog for a metric matching the query.
+    operationId: findMetrics
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: name
+      in: query
+      value: $inputs.metricQuery
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      metricId: $response.body#/metrics/0/id
+      metricName: $response.body#/metrics/0/name
+  - stepId: getDescriptors
+    description: Confirm the metric exists by reading the metric descriptors.
+    operationId: getMetricDescriptors
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    requestBody:
+      contentType: application/json
+      payload:
+        metrics:
+        - id: $steps.findMetric.outputs.metricId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      descriptors: $response.body#/metrics
+  - stepId: createDashboard
+    description: Create a dashboard with a panel bound to the discovered metric.
+    operationId: createDashboard
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    requestBody:
+      contentType: application/json
+      payload:
+        dashboard:
+          name: $inputs.dashboardName
+          description: Auto-generated dashboard for the discovered metric.
+          shared: false
+          panels:
+          - metricId: $steps.findMetric.outputs.metricId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      dashboardId: $response.body#/dashboard/id
+  outputs:
+    metricId: $steps.findMetric.outputs.metricId
+    metricName: $steps.findMetric.outputs.metricName
+    dashboardId: $steps.createDashboard.outputs.dashboardId

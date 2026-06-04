@@ -1,0 +1,70 @@
+arazzo: 1.0.1
+info:
+  title: Sysdig Compliance Task Results
+  summary: List compliance tasks, pick one, and pull its control results.
+  description: >-
+    A compliance reporting flow against Sysdig Secure. It lists the configured
+    compliance evaluation tasks, selects the first task from the list, and
+    retrieves the control-by-control results for that task including the pass
+    and fail counts. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sysdigSecure
+  url: ../openapi/sysdig-secure-openapi.yml
+  type: openapi
+workflows:
+- workflowId: compliance-task-results
+  summary: Resolve a compliance task and read its control results.
+  description: >-
+    Lists compliance tasks, takes the first task id, and fetches its compliance
+    results with pass and fail totals.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    properties:
+      bearerToken:
+        type: string
+        description: Sysdig API bearer token used for Authorization.
+      limit:
+        type: integer
+        description: Maximum number of control results to return.
+        default: 100
+  steps:
+  - stepId: listTasks
+    description: Retrieve the configured compliance evaluation tasks.
+    operationId: listComplianceTasks
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      taskId: $response.body#/tasks/0/id
+      taskName: $response.body#/tasks/0/name
+  - stepId: getResults
+    description: Retrieve the control-by-control results for the first task.
+    operationId: getComplianceResults
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: taskId
+      in: path
+      value: $steps.listTasks.outputs.taskId
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      results: $response.body#/results
+      pass: $response.body#/pass
+      fail: $response.body#/fail
+  outputs:
+    taskId: $steps.listTasks.outputs.taskId
+    taskName: $steps.listTasks.outputs.taskName
+    pass: $steps.getResults.outputs.pass
+    fail: $steps.getResults.outputs.fail

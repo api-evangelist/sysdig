@@ -1,0 +1,109 @@
+arazzo: 1.0.1
+info:
+  title: Sysdig Provision Team
+  summary: Create a team, verify it, and scope a notification channel for it.
+  description: >-
+    A team onboarding flow for Sysdig Monitor. It creates a new team with a
+    default role and scope filter, reads the team back to confirm it persisted,
+    and provisions a notification channel that the team can use for routing.
+    The API does not expose a direct add-user-to-team operation, so membership
+    is established through the team's default role and scope rather than an
+    explicit user assignment, which is noted here as an adaptation. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sysdigMonitor
+  url: ../openapi/sysdig-monitor-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-team
+  summary: Create a scoped team and a notification channel for it.
+  description: >-
+    Creates a team with a default role and scope filter, verifies it by id, and
+    creates a notification channel for the team's alert routing.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - teamName
+    properties:
+      bearerToken:
+        type: string
+        description: Sysdig API bearer token used for Authorization.
+      teamName:
+        type: string
+        description: Name of the team to create.
+      description:
+        type: string
+        description: Optional team description.
+      defaultTeamRole:
+        type: string
+        description: Default role for team members (ROLE_TEAM_EDIT or ROLE_TEAM_READ).
+        default: ROLE_TEAM_READ
+      filter:
+        type: string
+        description: Scope filter expression that limits the team's data.
+      channelName:
+        type: string
+        description: Name of the notification channel to create for the team.
+      channelType:
+        type: string
+        description: Notification channel type (e.g. EMAIL, SLACK).
+        default: EMAIL
+  steps:
+  - stepId: createTeam
+    description: Create the team with the supplied role and scope filter.
+    operationId: createTeam
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    requestBody:
+      contentType: application/json
+      payload:
+        team:
+          name: $inputs.teamName
+          description: $inputs.description
+          defaultTeamRole: $inputs.defaultTeamRole
+          filter: $inputs.filter
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      teamId: $response.body#/team/id
+      teamName: $response.body#/team/name
+  - stepId: verifyTeam
+    description: Read the team back by id to confirm it persisted.
+    operationId: getTeam
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: teamId
+      in: path
+      value: $steps.createTeam.outputs.teamId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      teamId: $response.body#/team/id
+  - stepId: createChannel
+    description: Create a notification channel for the new team's alert routing.
+    operationId: createNotificationChannel
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    requestBody:
+      contentType: application/json
+      payload:
+        notificationChannel:
+          name: $inputs.channelName
+          type: $inputs.channelType
+          enabled: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      channelId: $response.body#/notificationChannel/id
+  outputs:
+    teamId: $steps.verifyTeam.outputs.teamId
+    channelId: $steps.createChannel.outputs.channelId

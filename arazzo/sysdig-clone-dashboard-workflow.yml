@@ -1,0 +1,93 @@
+arazzo: 1.0.1
+info:
+  title: Sysdig Clone Dashboard
+  summary: Read a source dashboard and create a copy of it under a new name.
+  description: >-
+    A dashboard duplication flow for Sysdig Monitor. It fetches a source
+    dashboard by id, carries its panels and sharing settings forward, and
+    creates a new dashboard from that definition under a caller-supplied name.
+    The new dashboard is then read back to confirm it persisted. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sysdigMonitor
+  url: ../openapi/sysdig-monitor-openapi.yml
+  type: openapi
+workflows:
+- workflowId: clone-dashboard
+  summary: Duplicate an existing dashboard under a new name.
+  description: >-
+    Reads a source dashboard, creates a new dashboard from its panels and
+    sharing settings, and verifies the copy by id.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - sourceDashboardId
+    - newName
+    properties:
+      bearerToken:
+        type: string
+        description: Sysdig API bearer token used for Authorization.
+      sourceDashboardId:
+        type: string
+        description: The id of the dashboard to clone.
+      newName:
+        type: string
+        description: Name for the cloned dashboard.
+  steps:
+  - stepId: getSource
+    description: Retrieve the source dashboard definition by id.
+    operationId: getDashboard
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: dashboardId
+      in: path
+      value: $inputs.sourceDashboardId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      description: $response.body#/dashboard/description
+      shared: $response.body#/dashboard/shared
+      panels: $response.body#/dashboard/panels
+  - stepId: createClone
+    description: Create a new dashboard from the source panels under the new name.
+    operationId: createDashboard
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    requestBody:
+      contentType: application/json
+      payload:
+        dashboard:
+          name: $inputs.newName
+          description: $steps.getSource.outputs.description
+          shared: $steps.getSource.outputs.shared
+          panels: $steps.getSource.outputs.panels
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      dashboardId: $response.body#/dashboard/id
+  - stepId: verifyClone
+    description: Read the cloned dashboard back by id to confirm it persisted.
+    operationId: getDashboard
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: dashboardId
+      in: path
+      value: $steps.createClone.outputs.dashboardId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      dashboardId: $response.body#/dashboard/id
+      name: $response.body#/dashboard/name
+  outputs:
+    sourceDashboardId: $inputs.sourceDashboardId
+    clonedDashboardId: $steps.verifyClone.outputs.dashboardId
+    clonedName: $steps.verifyClone.outputs.name

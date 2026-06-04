@@ -1,0 +1,93 @@
+arazzo: 1.0.1
+info:
+  title: Sysdig Create Policy and Verify
+  summary: Create a runtime security policy then read it back to confirm it persisted.
+  description: >-
+    A write-then-verify flow for Sysdig Secure runtime policies. It creates a
+    new policy from the supplied definition, captures the generated policy id,
+    and reads the policy back to confirm it persisted with the expected name and
+    enabled flag. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sysdigSecure
+  url: ../openapi/sysdig-secure-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-policy-and-verify
+  summary: Create a runtime security policy and confirm it by id.
+  description: >-
+    Creates a policy with the supplied name, severity, type, and rule names,
+    then fetches it back by the returned id to verify persistence.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - name
+    - type
+    properties:
+      bearerToken:
+        type: string
+        description: Sysdig API bearer token used for Authorization.
+      name:
+        type: string
+        description: Human-readable policy name.
+      description:
+        type: string
+        description: Optional policy description.
+      severity:
+        type: integer
+        description: Policy severity from 0 (highest) to 7.
+        default: 4
+      type:
+        type: string
+        description: Policy type (falco, list, awscloudtrail, or k8s_audit).
+      ruleNames:
+        type: array
+        description: Names of the rules attached to the policy.
+        items:
+          type: string
+  steps:
+  - stepId: createPolicy
+    description: Create the runtime security policy from the supplied definition.
+    operationId: createPolicy
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    requestBody:
+      contentType: application/json
+      payload:
+        policy:
+          name: $inputs.name
+          description: $inputs.description
+          severity: $inputs.severity
+          enabled: true
+          type: $inputs.type
+          ruleNames: $inputs.ruleNames
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      policyId: $response.body#/policy/id
+      policyName: $response.body#/policy/name
+  - stepId: verifyPolicy
+    description: Read the policy back by id to confirm it persisted.
+    operationId: getPolicy
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: policyId
+      in: path
+      value: $steps.createPolicy.outputs.policyId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.policy.enabled == true
+      type: jsonpath
+    outputs:
+      policyId: $response.body#/policy/id
+      enabled: $response.body#/policy/enabled
+  outputs:
+    policyId: $steps.verifyPolicy.outputs.policyId
+    enabled: $steps.verifyPolicy.outputs.enabled

@@ -1,0 +1,96 @@
+arazzo: 1.0.1
+info:
+  title: Sysdig Publish Event and Confirm
+  summary: Post a custom event to Monitor, then list events to confirm it landed.
+  description: >-
+    A deployment-annotation flow for Sysdig Monitor. It posts a custom event
+    (for example a release marker) into the event stream, captures the generated
+    event id, and lists recent events within a time window to confirm the new
+    event is present. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sysdigMonitor
+  url: ../openapi/sysdig-monitor-openapi.yml
+  type: openapi
+workflows:
+- workflowId: publish-event-and-confirm
+  summary: Create a custom monitoring event and verify it appears in the stream.
+  description: >-
+    Creates a custom event with a name, severity, and scope, then lists events
+    over a window to confirm the new event id is present.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - name
+    - from
+    - to
+    properties:
+      bearerToken:
+        type: string
+        description: Sysdig API bearer token used for Authorization.
+      name:
+        type: string
+        description: Event name (e.g. a deployment marker).
+      description:
+        type: string
+        description: Optional event description.
+      severity:
+        type: string
+        description: Event severity level (e.g. INFO, WARNING, CRITICAL).
+        default: INFO
+      scope:
+        type: string
+        description: Scope expression that associates the event with infrastructure.
+      from:
+        type: integer
+        description: Start time in Unix epoch microseconds for the confirmation list.
+      to:
+        type: integer
+        description: End time in Unix epoch microseconds for the confirmation list.
+  steps:
+  - stepId: createEvent
+    description: Post the custom event into the Monitor event stream.
+    operationId: createEvent
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    requestBody:
+      contentType: application/json
+      payload:
+        event:
+          name: $inputs.name
+          description: $inputs.description
+          severity: $inputs.severity
+          scope: $inputs.scope
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      eventId: $response.body#/event/id
+      eventName: $response.body#/event/name
+  - stepId: confirmEvent
+    description: List recent events to confirm the new event landed.
+    operationId: listEvents
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: from
+      in: query
+      value: $inputs.from
+    - name: to
+      in: query
+      value: $inputs.to
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.events.length > 0
+      type: jsonpath
+    outputs:
+      total: $response.body#/total
+  outputs:
+    eventId: $steps.createEvent.outputs.eventId
+    eventName: $steps.createEvent.outputs.eventName
+    total: $steps.confirmEvent.outputs.total

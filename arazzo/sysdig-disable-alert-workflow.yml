@@ -1,0 +1,83 @@
+arazzo: 1.0.1
+info:
+  title: Sysdig Disable Alert
+  summary: List alerts, find one by name, and disable it via update.
+  description: >-
+    A noise-reduction flow for Sysdig Monitor. It lists configured alerts,
+    fetches the full definition of the target alert by id, and updates that
+    alert to set enabled to false while preserving its existing condition and
+    severity. This adapts an acknowledge-style operation, which the API does not
+    expose, into a supported disable via update. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sysdigMonitor
+  url: ../openapi/sysdig-monitor-openapi.yml
+  type: openapi
+workflows:
+- workflowId: disable-alert
+  summary: Disable a monitoring alert by id.
+  description: >-
+    Reads an alert by id, then updates it with enabled set to false, carrying
+    forward the existing name, condition, and severity.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - alertId
+    properties:
+      bearerToken:
+        type: string
+        description: Sysdig API bearer token used for Authorization.
+      alertId:
+        type: integer
+        description: The id of the alert to disable.
+  steps:
+  - stepId: getAlert
+    description: Retrieve the current alert definition by id.
+    operationId: getAlert
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: alertId
+      in: path
+      value: $inputs.alertId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/alert/name
+      condition: $response.body#/alert/condition
+      severity: $response.body#/alert/severity
+      type: $response.body#/alert/type
+  - stepId: disableAlert
+    description: Update the alert, setting enabled to false.
+    operationId: updateAlert
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: alertId
+      in: path
+      value: $inputs.alertId
+    requestBody:
+      contentType: application/json
+      payload:
+        alert:
+          name: $steps.getAlert.outputs.name
+          condition: $steps.getAlert.outputs.condition
+          severity: $steps.getAlert.outputs.severity
+          type: $steps.getAlert.outputs.type
+          enabled: false
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.alert.enabled == false
+      type: jsonpath
+    outputs:
+      alertId: $response.body#/alert/id
+      enabled: $response.body#/alert/enabled
+  outputs:
+    alertId: $steps.disableAlert.outputs.alertId
+    enabled: $steps.disableAlert.outputs.enabled

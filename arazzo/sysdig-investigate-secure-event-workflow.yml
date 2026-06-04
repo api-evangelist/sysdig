@@ -1,0 +1,100 @@
+arazzo: 1.0.1
+info:
+  title: Sysdig Investigate Secure Event
+  summary: List secure runtime events, branch on a match, and pull the activity audit.
+  description: >-
+    A runtime threat investigation flow against Sysdig Secure. It lists secure
+    events triggered by policy violations within a time window, branches on
+    whether any events were returned, and when events exist it pulls the
+    activity audit trail across the same window so the runtime detection can be
+    correlated with user and system activity. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sysdigSecure
+  url: ../openapi/sysdig-secure-openapi.yml
+  type: openapi
+workflows:
+- workflowId: investigate-secure-event
+  summary: Surface secure events and correlate them with the activity audit.
+  description: >-
+    Lists secure events in a time window; if any are present, retrieves the
+    activity audit for the same window to correlate context.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - from
+    - to
+    properties:
+      bearerToken:
+        type: string
+        description: Sysdig API bearer token used for Authorization.
+      from:
+        type: integer
+        description: Start time in Unix epoch seconds.
+      to:
+        type: integer
+        description: End time in Unix epoch seconds.
+      filter:
+        type: string
+        description: Optional filter expression for the secure events.
+  steps:
+  - stepId: listEvents
+    description: Retrieve secure runtime events within the time window.
+    operationId: listSecureEvents
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: from
+      in: query
+      value: $inputs.from
+    - name: to
+      in: query
+      value: $inputs.to
+    - name: filter
+      in: query
+      value: $inputs.filter
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      events: $response.body#/events
+      total: $response.body#/total
+      firstEventId: $response.body#/events/0/id
+    onSuccess:
+    - name: eventsFound
+      type: goto
+      stepId: correlateAudit
+      criteria:
+      - context: $response.body
+        condition: $.events.length > 0
+        type: jsonpath
+    - name: noEvents
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.events.length == 0
+        type: jsonpath
+  - stepId: correlateAudit
+    description: Retrieve the activity audit trail across the same time window.
+    operationId: listActivityAudit
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: from
+      in: query
+      value: $inputs.from
+    - name: to
+      in: query
+      value: $inputs.to
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      auditEntries: $response.body#/data
+  outputs:
+    eventTotal: $steps.listEvents.outputs.total
+    firstEventId: $steps.listEvents.outputs.firstEventId
+    auditEntries: $steps.correlateAudit.outputs.auditEntries

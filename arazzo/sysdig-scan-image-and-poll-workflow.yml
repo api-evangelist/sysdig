@@ -1,0 +1,83 @@
+arazzo: 1.0.1
+info:
+  title: Sysdig Scan Image and Poll Results
+  summary: Trigger an image scan, poll until analysis completes, then read findings.
+  description: >-
+    A CI-friendly image scanning flow against Sysdig Secure. It triggers a
+    vulnerability scan for a container image tag, polls the per-image
+    vulnerability endpoint until analysis is no longer pending, and then reads
+    the resulting findings. The poll step branches back on itself while the
+    image is still being analyzed. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sysdigSecure
+  url: ../openapi/sysdig-secure-openapi.yml
+  type: openapi
+workflows:
+- workflowId: scan-image-and-poll
+  summary: Scan a container image and wait for the analysis to finish.
+  description: >-
+    Submits an image tag for scanning, then polls the image vulnerability
+    endpoint until the analysis completes and returns the findings.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - tag
+    properties:
+      bearerToken:
+        type: string
+        description: Sysdig API bearer token used for Authorization.
+      tag:
+        type: string
+        description: Container image tag to scan (e.g. registry/repo:tag).
+      digest:
+        type: string
+        description: Optional image digest to pin the scan to a specific image.
+  steps:
+  - stepId: triggerScan
+    description: Submit the image tag for a vulnerability scan.
+    operationId: scanImage
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    requestBody:
+      contentType: application/json
+      payload:
+        tag: $inputs.tag
+        digest: $inputs.digest
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      imageId: $response.body#/imageId
+      analysisStatus: $response.body#/analysisStatus
+  - stepId: pollAnalysis
+    description: >-
+      Poll the image's vulnerability findings. While the analysis is still
+      pending, loop back; once it completes, continue.
+    operationId: getImageVulnerabilities
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: imageId
+      in: path
+      value: $steps.triggerScan.outputs.imageId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      imageId: $response.body#/imageId
+      vulnerabilities: $response.body#/vulnerabilities
+    onSuccess:
+    - name: analysisComplete
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.vulnerabilities.length >= 0
+        type: jsonpath
+  outputs:
+    imageId: $steps.triggerScan.outputs.imageId
+    vulnerabilities: $steps.pollAnalysis.outputs.vulnerabilities

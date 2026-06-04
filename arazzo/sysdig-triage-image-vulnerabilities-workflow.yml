@@ -1,0 +1,95 @@
+arazzo: 1.0.1
+info:
+  title: Sysdig Triage Image Vulnerabilities
+  summary: List vulnerability results, drill into one image, and pull its SBOM.
+  description: >-
+    A vulnerability triage flow against Sysdig Secure. It lists the latest
+    vulnerability scanning results, selects the first image from that result
+    set, retrieves the full vulnerability findings for that image, and then
+    fetches the image's Software Bill of Materials so the package inventory can
+    be cross-referenced against the findings. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sysdigSecure
+  url: ../openapi/sysdig-secure-openapi.yml
+  type: openapi
+workflows:
+- workflowId: triage-image-vulnerabilities
+  summary: Find the most relevant scanned image and inspect its vulnerabilities and SBOM.
+  description: >-
+    Lists vulnerability results filtered by a caller-supplied expression, takes
+    the first matching image, retrieves its vulnerability findings, and then
+    retrieves its SBOM.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    properties:
+      bearerToken:
+        type: string
+        description: Sysdig API bearer token used for Authorization.
+      filter:
+        type: string
+        description: Filter expression to narrow the vulnerability results (optional).
+      limit:
+        type: integer
+        description: Maximum number of vulnerability results to return.
+        default: 50
+  steps:
+  - stepId: listResults
+    description: >-
+      Retrieve vulnerability scanning results, optionally narrowed by the
+      supplied filter expression.
+    operationId: listVulnerabilityResults
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: filter
+      in: query
+      value: $inputs.filter
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      imageId: $response.body#/data/0/imageId
+      imageName: $response.body#/data/0/imageName
+  - stepId: getImageVulns
+    description: >-
+      Retrieve the detailed vulnerability findings for the first image from the
+      result set.
+    operationId: getImageVulnerabilities
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: imageId
+      in: path
+      value: $steps.listResults.outputs.imageId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      vulnerabilities: $response.body#/vulnerabilities
+  - stepId: getImageSbom
+    description: Retrieve the CycloneDX SBOM for the same image.
+    operationId: getImageSBOM
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.bearerToken
+    - name: imageId
+      in: path
+      value: $steps.listResults.outputs.imageId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      components: $response.body#/components
+  outputs:
+    imageId: $steps.listResults.outputs.imageId
+    imageName: $steps.listResults.outputs.imageName
+    vulnerabilities: $steps.getImageVulns.outputs.vulnerabilities
+    sbomComponents: $steps.getImageSbom.outputs.components

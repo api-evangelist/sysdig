@@ -99,6 +99,48 @@ apis:
   - FN: Sysdig Support
     url: https://sysdig.com/support/
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/sysdig-author-falco-rule-and-attach-policy-workflow.yml
+    name: Sysdig Author Falco Rule and Attach to Policy
+    summary: Create a custom Falco rule, then create a policy that references it.
+  - url: arazzo/sysdig-build-metric-dashboard-workflow.yml
+    name: Sysdig Build Metric Dashboard
+    summary: Discover a metric, confirm its descriptor, and create a dashboard for it.
+  - url: arazzo/sysdig-clone-dashboard-workflow.yml
+    name: Sysdig Clone Dashboard
+    summary: Read a source dashboard and create a copy of it under a new name.
+  - url: arazzo/sysdig-compliance-task-results-workflow.yml
+    name: Sysdig Compliance Task Results
+    summary: List compliance tasks, pick one, and pull its control results.
+  - url: arazzo/sysdig-create-alert-with-channel-workflow.yml
+    name: Sysdig Create Alert With Notification Channel
+    summary: Create a notification channel, then create an alert that routes to it.
+  - url: arazzo/sysdig-create-policy-and-verify-workflow.yml
+    name: Sysdig Create Policy and Verify
+    summary: Create a runtime security policy then read it back to confirm it persisted.
+  - url: arazzo/sysdig-disable-alert-workflow.yml
+    name: Sysdig Disable Alert
+    summary: List alerts, find one by name, and disable it via update.
+  - url: arazzo/sysdig-investigate-secure-event-workflow.yml
+    name: Sysdig Investigate Secure Event
+    summary: List secure runtime events, branch on a match, and pull the activity audit.
+  - url: arazzo/sysdig-provision-team-workflow.yml
+    name: Sysdig Provision Team
+    summary: Create a team, verify it, and scope a notification channel for it.
+  - url: arazzo/sysdig-publish-event-and-confirm-workflow.yml
+    name: Sysdig Publish Event and Confirm
+    summary: Post a custom event to Monitor, then list events to confirm it landed.
+  - url: arazzo/sysdig-scan-image-and-poll-workflow.yml
+    name: Sysdig Scan Image and Poll Results
+    summary: Trigger an image scan, poll until analysis completes, then read findings.
+  - url: arazzo/sysdig-scanned-image-inventory-workflow.yml
+    name: Sysdig Scanned Image Inventory Review
+    summary: List scanned images, pick the first, and pull its vulnerabilities and SBOM.
+  - url: arazzo/sysdig-triage-image-vulnerabilities-workflow.yml
+    name: Sysdig Triage Image Vulnerabilities
+    summary: List vulnerability results, drill into one image, and pull its SBOM.
 - type: LinkedIn
   url: https://www.linkedin.com/company/sysdig
 - type: Website
