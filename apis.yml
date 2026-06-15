@@ -1,9 +1,11 @@
 aid: sysdig
 name: Sysdig
-description: Sysdig is a cloud and container security platform that provides runtime threat detection, vulnerability management,
-  cloud security posture management (CSPM), compliance automation, and observability for containers, Kubernetes, and cloud
-  environments. Sysdig Monitor offers full-stack monitoring and alerting while Sysdig Secure delivers runtime security, vulnerability
-  scanning, policy enforcement, incident response, and compliance reporting.
+description: Sysdig is a cloud and container security platform that provides runtime
+  threat detection, vulnerability management, cloud security posture management (CSPM),
+  compliance automation, and observability for containers, Kubernetes, and cloud environments.
+  Sysdig Monitor offers full-stack monitoring and alerting while Sysdig Secure delivers
+  runtime security, vulnerability scanning, policy enforcement, incident response,
+  and compliance reporting.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
@@ -24,8 +26,9 @@ specificationVersion: '0.19'
 apis:
 - aid: sysdig:sysdig-monitor
   name: Sysdig Monitor
-  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities including
-    dashboards, alerts, events, metrics, teams, notification channels, and scanning results for cloud-native environments.
+  description: The Sysdig Monitor API provides programmatic access to monitoring and
+    observability capabilities including dashboards, alerts, events, metrics, teams,
+    notification channels, and scanning results for cloud-native environments.
   humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
   baseURL: https://api.us1.sysdig.com
   tags:
@@ -44,25 +47,16 @@ apis:
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: NaftikoCapability
-    url: capabilities/monitor-alerts.yaml
-  - type: NaftikoCapability
-    url: capabilities/monitor-dashboards.yaml
-  - type: NaftikoCapability
-    url: capabilities/monitor-events.yaml
-  - type: NaftikoCapability
-    url: capabilities/monitor-metrics.yaml
-  - type: NaftikoCapability
-    url: capabilities/monitor-notification-channels.yaml
-  - type: NaftikoCapability
-    url: capabilities/monitor-teams.yaml
+  - url: graphql/sysdig-graphql.md
+    type: GraphQL
   contact:
   - FN: Sysdig Support
     url: https://sysdig.com/support/
 - aid: sysdig:sysdig-secure
   name: Sysdig Secure
-  description: The Sysdig Secure API provides programmatic access to cloud and container security capabilities including vulnerability
-    management, runtime policies, compliance checks, activity audit, incident response, image scanning, SBOM retrieval, and
+  description: The Sysdig Secure API provides programmatic access to cloud and container
+    security capabilities including vulnerability management, runtime policies, compliance
+    checks, activity audit, incident response, image scanning, SBOM retrieval, and
     Falco rules management.
   humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
   baseURL: https://api.us1.sysdig.com
@@ -81,20 +75,6 @@ apis:
     url: https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/openapi/sysdig-secure-openapi.yml
   - type: GettingStarted
     url: https://docs.sysdig.com/en/getting-started/
-  - type: NaftikoCapability
-    url: capabilities/secure-activity-audit.yaml
-  - type: NaftikoCapability
-    url: capabilities/secure-compliance.yaml
-  - type: NaftikoCapability
-    url: capabilities/secure-image-scanning.yaml
-  - type: NaftikoCapability
-    url: capabilities/secure-policies.yaml
-  - type: NaftikoCapability
-    url: capabilities/secure-rules.yaml
-  - type: NaftikoCapability
-    url: capabilities/secure-sbom.yaml
-  - type: NaftikoCapability
-    url: capabilities/secure-vulnerabilities.yaml
   contact:
   - FN: Sysdig Support
     url: https://sysdig.com/support/
@@ -107,7 +87,8 @@ common:
     summary: Create a custom Falco rule, then create a policy that references it.
   - url: arazzo/sysdig-build-metric-dashboard-workflow.yml
     name: Sysdig Build Metric Dashboard
-    summary: Discover a metric, confirm its descriptor, and create a dashboard for it.
+    summary: Discover a metric, confirm its descriptor, and create a dashboard for
+      it.
   - url: arazzo/sysdig-clone-dashboard-workflow.yml
     name: Sysdig Clone Dashboard
     summary: Read a source dashboard and create a copy of it under a new name.
@@ -125,7 +106,8 @@ common:
     summary: List alerts, find one by name, and disable it via update.
   - url: arazzo/sysdig-investigate-secure-event-workflow.yml
     name: Sysdig Investigate Secure Event
-    summary: List secure runtime events, branch on a match, and pull the activity audit.
+    summary: List secure runtime events, branch on a match, and pull the activity
+      audit.
   - url: arazzo/sysdig-provision-team-workflow.yml
     name: Sysdig Provision Team
     summary: Create a team, verify it, and scope a notification channel for it.
@@ -137,7 +119,8 @@ common:
     summary: Trigger an image scan, poll until analysis completes, then read findings.
   - url: arazzo/sysdig-scanned-image-inventory-workflow.yml
     name: Sysdig Scanned Image Inventory Review
-    summary: List scanned images, pick the first, and pull its vulnerabilities and SBOM.
+    summary: List scanned images, pick the first, and pull its vulnerabilities and
+      SBOM.
   - url: arazzo/sysdig-triage-image-vulnerabilities-workflow.yml
     name: Sysdig Triage Image Vulnerabilities
     summary: List vulnerability results, drill into one image, and pull its SBOM.
@@ -171,8 +154,6 @@ common:
   url: https://github.com/sysdiglabs/charts
 - type: Spectral Rules
   url: https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/rules/sysdig-rules.yml
-- type: Naftiko Capabilities
-  url: https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/capabilities/cloud-security-monitoring.yaml
 - type: Vocabulary
   url: https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/vocabulary/sysdig-vocabulary.yml
 - type: ChangeLog

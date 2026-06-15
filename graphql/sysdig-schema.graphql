@@ -1,0 +1,1389 @@
+"""
+Sysdig GraphQL Schema
+Derived from the Sysdig REST API covering cloud-native security and observability:
+runtime threat detection, compliance posture management, vulnerability management,
+image scanning, network security policies, and drift detection.
+Endpoint: No native GraphQL endpoint — conceptual schema derived from Sysdig REST API
+Docs: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+"""
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+# ─── Root Types ───────────────────────────────────────────────────────────────
+
+type Query {
+  # Alerts
+  alert(id: ID!): Alert
+  alerts(filter: AlertFilter, page: PageInput): AlertConnection
+
+  # Dashboards
+  dashboard(id: ID!): Dashboard
+  dashboards(filter: DashboardFilter, page: PageInput): DashboardConnection
+
+  # Events
+  event(id: ID!): Event
+  events(filter: EventFilter, page: PageInput): EventConnection
+
+  # Metrics
+  metric(id: ID!): Metric
+  metrics(filter: MetricFilter, page: PageInput): MetricConnection
+  metricDescriptor(metricName: String!): MetricDescriptor
+
+  # Teams
+  team(id: ID!): Team
+  teams(page: PageInput): TeamConnection
+  currentTeam: Team
+
+  # Notification Channels
+  notificationChannel(id: ID!): NotificationChannel
+  notificationChannels(page: PageInput): NotificationChannelConnection
+
+  # Vulnerabilities
+  vulnerability(id: ID!): Vulnerability
+  vulnerabilities(filter: VulnerabilityFilter, page: PageInput): VulnerabilityConnection
+
+  # Images / Scanning
+  scannedImage(id: ID!): ScannedImage
+  scannedImages(filter: ScannedImageFilter, page: PageInput): ScannedImageConnection
+  imageScanResult(id: ID!): ImageScanResult
+  imageScanResults(filter: ScanResultFilter, page: PageInput): ImageScanResultConnection
+
+  # SBOM
+  sbom(imageId: ID!): SBOM
+
+  # Runtime Policies
+  runtimePolicy(id: ID!): RuntimePolicy
+  runtimePolicies(filter: PolicyFilter, page: PageInput): RuntimePolicyConnection
+
+  # Falco Rules
+  falcoRule(id: ID!): FalcoRule
+  falcoRules(filter: FalcoRuleFilter, page: PageInput): FalcoRuleConnection
+
+  # Compliance
+  complianceTask(id: ID!): ComplianceTask
+  complianceTasks(filter: ComplianceTaskFilter, page: PageInput): ComplianceTaskConnection
+  complianceResult(taskId: ID!): ComplianceResult
+  complianceFrameworks: [ComplianceFramework!]!
+
+  # CSPM / Cloud Security Posture
+  cloudAccount(id: ID!): CloudAccount
+  cloudAccounts(filter: CloudAccountFilter, page: PageInput): CloudAccountConnection
+  postureFindings(filter: PostureFindingFilter, page: PageInput): PostureFindingConnection
+
+  # Activity Audit
+  activityAuditEvents(filter: ActivityAuditFilter, page: PageInput): ActivityAuditEventConnection
+
+  # Network Security
+  networkPolicy(id: ID!): NetworkPolicy
+  networkPolicies(filter: NetworkPolicyFilter, page: PageInput): NetworkPolicyConnection
+  networkTopology(filter: NetworkTopologyFilter): NetworkTopology
+
+  # Drift Detection
+  driftEvent(id: ID!): DriftEvent
+  driftEvents(filter: DriftEventFilter, page: PageInput): DriftEventConnection
+
+  # Users
+  user(id: ID!): User
+  users(page: PageInput): UserConnection
+  currentUser: User
+}
+
+type Mutation {
+  # Alerts
+  createAlert(input: CreateAlertInput!): Alert!
+  updateAlert(id: ID!, input: UpdateAlertInput!): Alert!
+  deleteAlert(id: ID!): DeleteResult!
+  enableAlert(id: ID!): Alert!
+  disableAlert(id: ID!): Alert!
+
+  # Dashboards
+  createDashboard(input: CreateDashboardInput!): Dashboard!
+  updateDashboard(id: ID!, input: UpdateDashboardInput!): Dashboard!
+  deleteDashboard(id: ID!): DeleteResult!
+  cloneDashboard(id: ID!, name: String!): Dashboard!
+
+  # Events
+  createEvent(input: CreateEventInput!): Event!
+
+  # Notification Channels
+  createNotificationChannel(input: CreateNotificationChannelInput!): NotificationChannel!
+  updateNotificationChannel(id: ID!, input: UpdateNotificationChannelInput!): NotificationChannel!
+  deleteNotificationChannel(id: ID!): DeleteResult!
+
+  # Teams
+  createTeam(input: CreateTeamInput!): Team!
+  updateTeam(id: ID!, input: UpdateTeamInput!): Team!
+  deleteTeam(id: ID!): DeleteResult!
+
+  # Image Scanning
+  triggerImageScan(input: TriggerImageScanInput!): ImageScanJob!
+
+  # Runtime Policies
+  createRuntimePolicy(input: CreateRuntimePolicyInput!): RuntimePolicy!
+  updateRuntimePolicy(id: ID!, input: UpdateRuntimePolicyInput!): RuntimePolicy!
+  deleteRuntimePolicy(id: ID!): DeleteResult!
+  enableRuntimePolicy(id: ID!): RuntimePolicy!
+  disableRuntimePolicy(id: ID!): RuntimePolicy!
+
+  # Falco Rules
+  createFalcoRule(input: CreateFalcoRuleInput!): FalcoRule!
+  updateFalcoRule(id: ID!, input: UpdateFalcoRuleInput!): FalcoRule!
+  deleteFalcoRule(id: ID!): DeleteResult!
+
+  # Users
+  createUser(input: CreateUserInput!): User!
+  updateUser(id: ID!, input: UpdateUserInput!): User!
+  deleteUser(id: ID!): DeleteResult!
+}
+
+# ─── Pagination ───────────────────────────────────────────────────────────────
+
+input PageInput {
+  limit: Int
+  offset: Int
+  cursor: String
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+  total: Int
+}
+
+# ─── Common Types ─────────────────────────────────────────────────────────────
+
+type DeleteResult {
+  success: Boolean!
+  id: ID!
+}
+
+scalar DateTime
+scalar JSON
+
+enum SeverityLevel {
+  CRITICAL
+  HIGH
+  MEDIUM
+  LOW
+  INFO
+  NONE
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+# ─── Alerts ───────────────────────────────────────────────────────────────────
+
+type Alert {
+  id: ID!
+  name: String!
+  description: String
+  enabled: Boolean!
+  severity: SeverityLevel!
+  type: AlertType!
+  condition: AlertCondition!
+  notificationChannels: [NotificationChannel!]!
+  teamId: ID
+  team: Team
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  version: Int!
+}
+
+enum AlertType {
+  METRIC
+  EVENT
+  ANOMALY
+  DOWNTIME
+  PROMETHEUS
+  CHANGE
+  GROUP_OUTLIER
+}
+
+type AlertCondition {
+  metric: String
+  threshold: Float
+  operator: ThresholdOperator
+  timeAggregation: TimeAggregation
+  groupAggregation: String
+  segmentConditions: [SegmentCondition!]
+}
+
+enum ThresholdOperator {
+  GT
+  GTE
+  LT
+  LTE
+  EQ
+  NEQ
+}
+
+enum TimeAggregation {
+  AVG
+  SUM
+  MIN
+  MAX
+  COUNT
+  RATE
+  NONE
+}
+
+type SegmentCondition {
+  label: String!
+  operator: String!
+  values: [String!]!
+}
+
+type AlertConnection {
+  nodes: [Alert!]!
+  pageInfo: PageInfo!
+}
+
+input AlertFilter {
+  enabled: Boolean
+  severity: SeverityLevel
+  type: AlertType
+  teamId: ID
+  search: String
+}
+
+input CreateAlertInput {
+  name: String!
+  description: String
+  severity: SeverityLevel!
+  type: AlertType!
+  condition: AlertConditionInput!
+  notificationChannelIds: [ID!]
+  teamId: ID
+  enabled: Boolean
+}
+
+input UpdateAlertInput {
+  name: String
+  description: String
+  severity: SeverityLevel
+  condition: AlertConditionInput
+  notificationChannelIds: [ID!]
+  enabled: Boolean
+}
+
+input AlertConditionInput {
+  metric: String
+  threshold: Float
+  operator: ThresholdOperator
+  timeAggregation: TimeAggregation
+  groupAggregation: String
+}
+
+# ─── Dashboards ───────────────────────────────────────────────────────────────
+
+type Dashboard {
+  id: ID!
+  name: String!
+  description: String
+  public: Boolean!
+  publicToken: String
+  teamId: ID
+  team: Team
+  panels: [DashboardPanel!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  version: Int!
+  author: User
+}
+
+type DashboardPanel {
+  id: ID!
+  name: String!
+  type: PanelType!
+  gridLayout: GridLayout!
+  content: JSON
+}
+
+enum PanelType {
+  TIMECHART
+  NUMBER
+  TEXT
+  TABLE
+  MAP
+  BAR
+  HISTOGRAM
+}
+
+type GridLayout {
+  x: Int!
+  y: Int!
+  w: Int!
+  h: Int!
+}
+
+type DashboardConnection {
+  nodes: [Dashboard!]!
+  pageInfo: PageInfo!
+}
+
+input DashboardFilter {
+  teamId: ID
+  public: Boolean
+  search: String
+}
+
+input CreateDashboardInput {
+  name: String!
+  description: String
+  public: Boolean
+  teamId: ID
+  panels: [DashboardPanelInput!]
+}
+
+input UpdateDashboardInput {
+  name: String
+  description: String
+  public: Boolean
+  panels: [DashboardPanelInput!]
+}
+
+input DashboardPanelInput {
+  name: String!
+  type: PanelType!
+  gridLayout: GridLayoutInput!
+  content: JSON
+}
+
+input GridLayoutInput {
+  x: Int!
+  y: Int!
+  w: Int!
+  h: Int!
+}
+
+# ─── Events ───────────────────────────────────────────────────────────────────
+
+type Event {
+  id: ID!
+  name: String!
+  description: String
+  severity: SeverityLevel!
+  type: EventType!
+  source: String
+  scope: String
+  tags: [EventTag!]!
+  timestamp: DateTime!
+}
+
+enum EventType {
+  CUSTOM
+  ALERT
+  KUBERNETES
+  CONTAINER
+  HOST
+  CLOUD
+  RUNTIME_POLICY
+}
+
+type EventTag {
+  key: String!
+  value: String!
+}
+
+type EventConnection {
+  nodes: [Event!]!
+  pageInfo: PageInfo!
+}
+
+input EventFilter {
+  type: EventType
+  severity: SeverityLevel
+  from: DateTime
+  to: DateTime
+  scope: String
+  search: String
+}
+
+input CreateEventInput {
+  name: String!
+  description: String
+  severity: SeverityLevel!
+  scope: String
+  tags: [EventTagInput!]
+}
+
+input EventTagInput {
+  key: String!
+  value: String!
+}
+
+# ─── Metrics ──────────────────────────────────────────────────────────────────
+
+type Metric {
+  id: ID!
+  name: String!
+  displayName: String
+  description: String
+  type: MetricType!
+  unit: String
+  scale: Float
+  groupBy: [String!]
+  timeSeriesData: [TimeSeriesPoint!]
+}
+
+enum MetricType {
+  COUNTER
+  GAUGE
+  HISTOGRAM
+  SUMMARY
+  RATE
+}
+
+type MetricDescriptor {
+  id: ID!
+  metricName: String!
+  displayName: String
+  description: String
+  type: MetricType!
+  unit: String
+  labels: [MetricLabel!]!
+}
+
+type MetricLabel {
+  name: String!
+  description: String
+}
+
+type TimeSeriesPoint {
+  timestamp: DateTime!
+  value: Float!
+  labels: JSON
+}
+
+type MetricConnection {
+  nodes: [Metric!]!
+  pageInfo: PageInfo!
+}
+
+input MetricFilter {
+  type: MetricType
+  search: String
+}
+
+# ─── Teams ────────────────────────────────────────────────────────────────────
+
+type Team {
+  id: ID!
+  name: String!
+  description: String
+  theme: String
+  show: TeamShowFilter
+  canUseSysdigCapture: Boolean
+  canUseAwsMetrics: Boolean
+  canUseBeaconMetrics: Boolean
+  users: [TeamMember!]!
+  entryPoints: [TeamEntryPoint!]!
+  filter: String
+  namespaceFilters: [NamespaceFilter!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type TeamMember {
+  userId: ID!
+  user: User
+  role: TeamRole!
+}
+
+enum TeamRole {
+  ADMIN
+  EDIT
+  READ
+  STANDARD
+}
+
+type TeamEntryPoint {
+  module: String!
+  selection: String
+}
+
+type NamespaceFilter {
+  cluster: String!
+  namespaces: [String!]!
+}
+
+type TeamShowFilter {
+  mode: String
+}
+
+type TeamConnection {
+  nodes: [Team!]!
+  pageInfo: PageInfo!
+}
+
+input CreateTeamInput {
+  name: String!
+  description: String
+  theme: String
+  filter: String
+  userIds: [ID!]
+  entryPoints: [TeamEntryPointInput!]
+}
+
+input UpdateTeamInput {
+  name: String
+  description: String
+  theme: String
+  filter: String
+  userIds: [ID!]
+}
+
+input TeamEntryPointInput {
+  module: String!
+  selection: String
+}
+
+# ─── Notification Channels ────────────────────────────────────────────────────
+
+type NotificationChannel {
+  id: ID!
+  name: String!
+  type: NotificationChannelType!
+  enabled: Boolean!
+  options: NotificationChannelOptions!
+  teamId: ID
+  team: Team
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum NotificationChannelType {
+  EMAIL
+  SLACK
+  PAGERDUTY
+  VICTOROPS
+  OPSGENIE
+  WEBHOOK
+  AMAZON_SNS
+  GOOGLE_CHAT
+  SERVICENOW
+  JIRA
+}
+
+type NotificationChannelOptions {
+  url: String
+  emailRecipients: [String!]
+  apiKey: String
+  routingKey: String
+  integrationKey: String
+  channel: String
+  notifyOnOk: Boolean
+  notifyOnNoData: Boolean
+  resolveOnOk: Boolean
+}
+
+type NotificationChannelConnection {
+  nodes: [NotificationChannel!]!
+  pageInfo: PageInfo!
+}
+
+input CreateNotificationChannelInput {
+  name: String!
+  type: NotificationChannelType!
+  enabled: Boolean
+  teamId: ID
+  options: NotificationChannelOptionsInput!
+}
+
+input UpdateNotificationChannelInput {
+  name: String
+  enabled: Boolean
+  options: NotificationChannelOptionsInput
+}
+
+input NotificationChannelOptionsInput {
+  url: String
+  emailRecipients: [String!]
+  apiKey: String
+  routingKey: String
+  integrationKey: String
+  channel: String
+  notifyOnOk: Boolean
+  notifyOnNoData: Boolean
+  resolveOnOk: Boolean
+}
+
+# ─── Vulnerabilities ──────────────────────────────────────────────────────────
+
+type Vulnerability {
+  id: ID!
+  cveId: String!
+  summary: String
+  description: String
+  severity: SeverityLevel!
+  cvssScore: Float
+  cvssVector: String
+  cwe: [String!]
+  references: [String!]
+  publishedAt: DateTime
+  modifiedAt: DateTime
+  affectedPackages: [AffectedPackage!]!
+  fixedIn: String
+  exploitable: Boolean
+}
+
+type AffectedPackage {
+  name: String!
+  version: String!
+  type: PackageType!
+  fixedVersion: String
+}
+
+enum PackageType {
+  OS
+  NPM
+  PYTHON
+  RUBY
+  JAVA
+  GO
+  PHP
+  RUST
+  DOTNET
+  UNKNOWN
+}
+
+type VulnerabilityConnection {
+  nodes: [Vulnerability!]!
+  pageInfo: PageInfo!
+}
+
+input VulnerabilityFilter {
+  severity: SeverityLevel
+  exploitable: Boolean
+  cveId: String
+  packageName: String
+  imageId: ID
+  fixable: Boolean
+}
+
+# ─── Image Scanning ───────────────────────────────────────────────────────────
+
+type ScannedImage {
+  id: ID!
+  imageId: String!
+  imageDigest: String!
+  imageTag: String
+  repository: String!
+  registry: String
+  pullString: String
+  analysisStatus: AnalysisStatus!
+  analysisAt: DateTime
+  addedAt: DateTime!
+  vulnerabilities: [Vulnerability!]!
+  vulnerabilitySummary: VulnerabilitySummary
+  packages: [PackageInfo!]!
+  sbom: SBOM
+  policyEvaluations: [PolicyEvaluation!]!
+}
+
+enum AnalysisStatus {
+  NOT_ANALYZED
+  ANALYZING
+  ANALYZED
+  ANALYSIS_FAILED
+}
+
+type VulnerabilitySummary {
+  total: Int!
+  critical: Int!
+  high: Int!
+  medium: Int!
+  low: Int!
+  negligible: Int!
+  unknown: Int!
+  fixable: Int!
+}
+
+type PackageInfo {
+  name: String!
+  version: String!
+  type: PackageType!
+  location: String
+  license: String
+}
+
+type PolicyEvaluation {
+  policyId: ID!
+  policyName: String!
+  status: PolicyEvaluationStatus!
+  checks: [PolicyCheck!]!
+}
+
+enum PolicyEvaluationStatus {
+  PASS
+  FAIL
+  WARN
+  STOP
+}
+
+type PolicyCheck {
+  id: ID!
+  name: String!
+  status: PolicyEvaluationStatus!
+  details: String
+}
+
+type ScannedImageConnection {
+  nodes: [ScannedImage!]!
+  pageInfo: PageInfo!
+}
+
+input ScannedImageFilter {
+  repository: String
+  registry: String
+  analysisStatus: AnalysisStatus
+  minSeverity: SeverityLevel
+  hasFix: Boolean
+}
+
+type ImageScanResult {
+  id: ID!
+  imageId: String!
+  status: AnalysisStatus!
+  vulnerabilities: [Vulnerability!]!
+  summary: VulnerabilitySummary
+  createdAt: DateTime!
+}
+
+type ImageScanResultConnection {
+  nodes: [ImageScanResult!]!
+  pageInfo: PageInfo!
+}
+
+input ScanResultFilter {
+  imageId: String
+  status: AnalysisStatus
+  minSeverity: SeverityLevel
+}
+
+type ImageScanJob {
+  jobId: ID!
+  imageId: String!
+  status: AnalysisStatus!
+  createdAt: DateTime!
+  estimatedCompletionAt: DateTime
+}
+
+input TriggerImageScanInput {
+  imageTag: String!
+  registry: String
+  credentials: RegistryCredentialsInput
+  annotations: JSON
+}
+
+input RegistryCredentialsInput {
+  username: String
+  password: String
+  token: String
+}
+
+# ─── SBOM ─────────────────────────────────────────────────────────────────────
+
+type SBOM {
+  imageId: ID!
+  format: SBOMFormat!
+  generatedAt: DateTime!
+  components: [SBOMComponent!]!
+}
+
+enum SBOMFormat {
+  CYCLONEDX
+  SPDX
+  SYFT
+}
+
+type SBOMComponent {
+  name: String!
+  version: String!
+  type: PackageType!
+  purl: String
+  cpe: [String!]
+  licenses: [String!]
+  supplier: String
+}
+
+# ─── Runtime Policies ─────────────────────────────────────────────────────────
+
+type RuntimePolicy {
+  id: ID!
+  name: String!
+  description: String
+  enabled: Boolean!
+  type: RuntimePolicyType!
+  severity: SeverityLevel!
+  rules: [FalcoRule!]!
+  scope: RuntimePolicyScope
+  actions: [RuntimePolicyAction!]!
+  notificationChannels: [NotificationChannel!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  version: Int!
+}
+
+enum RuntimePolicyType {
+  FALCO
+  LIST_MATCHING
+  K8S_AUDIT
+  AWS_CLOUDTRAIL
+  GCP_AUDIT_LOG
+  AZURE_PLATFORM_LOGS
+  CONTAINER_DRIFT
+  NETWORK
+}
+
+type RuntimePolicyScope {
+  hostSpec: String
+  containerSpec: String
+  namespaceSpec: String
+  clusterSpec: String
+}
+
+type RuntimePolicyAction {
+  type: PolicyActionType!
+  afterEventNs: Int
+  containerId: String
+  command: [String!]
+}
+
+enum PolicyActionType {
+  STOP_CONTAINER
+  PAUSE_CONTAINER
+  KILL_PROCESS
+  LOG_ONLY
+  CAPTURE
+}
+
+type RuntimePolicyConnection {
+  nodes: [RuntimePolicy!]!
+  pageInfo: PageInfo!
+}
+
+input PolicyFilter {
+  enabled: Boolean
+  type: RuntimePolicyType
+  severity: SeverityLevel
+  search: String
+}
+
+input CreateRuntimePolicyInput {
+  name: String!
+  description: String
+  enabled: Boolean
+  type: RuntimePolicyType!
+  severity: SeverityLevel!
+  ruleIds: [ID!]!
+  scope: RuntimePolicyScopeInput
+  actions: [RuntimePolicyActionInput!]
+  notificationChannelIds: [ID!]
+}
+
+input UpdateRuntimePolicyInput {
+  name: String
+  description: String
+  enabled: Boolean
+  severity: SeverityLevel
+  ruleIds: [ID!]
+  scope: RuntimePolicyScopeInput
+  actions: [RuntimePolicyActionInput!]
+  notificationChannelIds: [ID!]
+}
+
+input RuntimePolicyScopeInput {
+  hostSpec: String
+  containerSpec: String
+  namespaceSpec: String
+  clusterSpec: String
+}
+
+input RuntimePolicyActionInput {
+  type: PolicyActionType!
+  afterEventNs: Int
+}
+
+# ─── Falco Rules ──────────────────────────────────────────────────────────────
+
+type FalcoRule {
+  id: ID!
+  name: String!
+  description: String
+  condition: String!
+  output: String!
+  priority: SeverityLevel!
+  tags: [String!]!
+  source: FalcoRuleSource!
+  enabled: Boolean!
+  isDefault: Boolean!
+  version: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum FalcoRuleSource {
+  SYSCALL
+  K8S_AUDIT
+  AWS_CLOUDTRAIL
+  GCP_AUDIT_LOG
+  AZURE_PLATFORM_LOGS
+}
+
+type FalcoRuleConnection {
+  nodes: [FalcoRule!]!
+  pageInfo: PageInfo!
+}
+
+input FalcoRuleFilter {
+  enabled: Boolean
+  source: FalcoRuleSource
+  priority: SeverityLevel
+  isDefault: Boolean
+  search: String
+  tags: [String!]
+}
+
+input CreateFalcoRuleInput {
+  name: String!
+  description: String
+  condition: String!
+  output: String!
+  priority: SeverityLevel!
+  tags: [String!]
+  source: FalcoRuleSource!
+  enabled: Boolean
+}
+
+input UpdateFalcoRuleInput {
+  name: String
+  description: String
+  condition: String
+  output: String
+  priority: SeverityLevel
+  tags: [String!]
+  enabled: Boolean
+}
+
+# ─── Compliance ───────────────────────────────────────────────────────────────
+
+type ComplianceTask {
+  id: ID!
+  name: String!
+  description: String
+  frameworkId: ID!
+  framework: ComplianceFramework!
+  schedule: String
+  scope: String
+  status: ComplianceTaskStatus!
+  lastRunAt: DateTime
+  nextRunAt: DateTime
+  createdAt: DateTime!
+}
+
+enum ComplianceTaskStatus {
+  PENDING
+  RUNNING
+  COMPLETED
+  FAILED
+  DISABLED
+}
+
+type ComplianceFramework {
+  id: ID!
+  name: String!
+  version: String
+  description: String
+  controls: [ComplianceControl!]!
+}
+
+type ComplianceControl {
+  id: ID!
+  name: String!
+  description: String
+  category: String
+  requirements: [String!]!
+}
+
+type ComplianceResult {
+  taskId: ID!
+  task: ComplianceTask!
+  runAt: DateTime!
+  passedControls: Int!
+  failedControls: Int!
+  totalControls: Int!
+  score: Float!
+  controlResults: [ComplianceControlResult!]!
+}
+
+type ComplianceControlResult {
+  controlId: ID!
+  control: ComplianceControl!
+  status: ComplianceControlStatus!
+  findings: [ComplianceFinding!]!
+}
+
+enum ComplianceControlStatus {
+  PASS
+  FAIL
+  NOT_APPLICABLE
+  MANUAL
+}
+
+type ComplianceFinding {
+  resourceId: String!
+  resourceType: String!
+  status: ComplianceControlStatus!
+  details: String
+  remediationSteps: String
+}
+
+type ComplianceTaskConnection {
+  nodes: [ComplianceTask!]!
+  pageInfo: PageInfo!
+}
+
+input ComplianceTaskFilter {
+  frameworkId: ID
+  status: ComplianceTaskStatus
+  search: String
+}
+
+# ─── Cloud Accounts / CSPM ────────────────────────────────────────────────────
+
+type CloudAccount {
+  id: ID!
+  accountId: String!
+  provider: CloudProvider!
+  alias: String
+  enabled: Boolean!
+  features: [CloudAccountFeature!]!
+  regions: [String!]!
+  status: CloudAccountStatus!
+  lastSyncAt: DateTime
+  createdAt: DateTime!
+}
+
+enum CloudProvider {
+  AWS
+  GCP
+  AZURE
+  OCI
+}
+
+enum CloudAccountFeature {
+  CSPM
+  CIEM
+  VULN_MANAGEMENT
+  AUDIT_LOG
+  CLOUDTRAIL
+}
+
+enum CloudAccountStatus {
+  CONNECTED
+  DISCONNECTED
+  ERROR
+  PENDING
+}
+
+type CloudAccountConnection {
+  nodes: [CloudAccount!]!
+  pageInfo: PageInfo!
+}
+
+input CloudAccountFilter {
+  provider: CloudProvider
+  enabled: Boolean
+  status: CloudAccountStatus
+}
+
+type PostureFinding {
+  id: ID!
+  resourceId: String!
+  resourceType: String!
+  resourceName: String
+  provider: CloudProvider!
+  region: String
+  accountId: String!
+  ruleId: String!
+  ruleName: String!
+  severity: SeverityLevel!
+  status: PostureFindingStatus!
+  remediationUrl: String
+  detectedAt: DateTime!
+  resolvedAt: DateTime
+}
+
+enum PostureFindingStatus {
+  OPEN
+  RESOLVED
+  SUPPRESSED
+  ACKNOWLEDGED
+}
+
+type PostureFindingConnection {
+  nodes: [PostureFinding!]!
+  pageInfo: PageInfo!
+}
+
+input PostureFindingFilter {
+  provider: CloudProvider
+  severity: SeverityLevel
+  status: PostureFindingStatus
+  resourceType: String
+  accountId: String
+  region: String
+}
+
+# ─── Activity Audit ───────────────────────────────────────────────────────────
+
+type ActivityAuditEvent {
+  id: ID!
+  timestamp: DateTime!
+  userId: ID
+  user: User
+  action: String!
+  resource: String!
+  resourceId: String
+  details: JSON
+  source: String
+  ipAddress: String
+  userAgent: String
+  result: AuditEventResult!
+}
+
+enum AuditEventResult {
+  SUCCESS
+  FAILURE
+  UNKNOWN
+}
+
+type ActivityAuditEventConnection {
+  nodes: [ActivityAuditEvent!]!
+  pageInfo: PageInfo!
+}
+
+input ActivityAuditFilter {
+  userId: ID
+  action: String
+  resource: String
+  from: DateTime
+  to: DateTime
+  result: AuditEventResult
+}
+
+# ─── Network Security ─────────────────────────────────────────────────────────
+
+type NetworkPolicy {
+  id: ID!
+  name: String!
+  namespace: String!
+  cluster: String!
+  type: NetworkPolicyType!
+  podSelector: LabelSelector!
+  ingress: [NetworkPolicyRule!]!
+  egress: [NetworkPolicyRule!]!
+  generatedAt: DateTime!
+  appliedAt: DateTime
+  status: NetworkPolicyStatus!
+}
+
+enum NetworkPolicyType {
+  KUBERNETES
+  CILIUM
+}
+
+type LabelSelector {
+  matchLabels: JSON
+  matchExpressions: [LabelSelectorRequirement!]
+}
+
+type LabelSelectorRequirement {
+  key: String!
+  operator: String!
+  values: [String!]
+}
+
+type NetworkPolicyRule {
+  ports: [NetworkPolicyPort!]
+  from: [NetworkPolicyPeer!]
+  to: [NetworkPolicyPeer!]
+}
+
+type NetworkPolicyPort {
+  protocol: NetworkProtocol!
+  port: Int
+  endPort: Int
+}
+
+enum NetworkProtocol {
+  TCP
+  UDP
+  SCTP
+}
+
+type NetworkPolicyPeer {
+  podSelector: LabelSelector
+  namespaceSelector: LabelSelector
+  ipBlock: IPBlock
+}
+
+type IPBlock {
+  cidr: String!
+  except: [String!]
+}
+
+enum NetworkPolicyStatus {
+  APPLIED
+  PENDING
+  FAILED
+  DRAFT
+}
+
+type NetworkTopology {
+  nodes: [NetworkNode!]!
+  edges: [NetworkEdge!]!
+  generatedAt: DateTime!
+}
+
+type NetworkNode {
+  id: ID!
+  name: String!
+  namespace: String
+  cluster: String!
+  type: NetworkNodeType!
+  labels: JSON
+}
+
+enum NetworkNodeType {
+  POD
+  DEPLOYMENT
+  SERVICE
+  NAMESPACE
+  EXTERNAL
+}
+
+type NetworkEdge {
+  sourceId: ID!
+  destinationId: ID!
+  protocol: NetworkProtocol!
+  port: Int
+  allowed: Boolean!
+  observedAt: DateTime
+}
+
+type NetworkPolicyConnection {
+  nodes: [NetworkPolicy!]!
+  pageInfo: PageInfo!
+}
+
+input NetworkPolicyFilter {
+  namespace: String
+  cluster: String
+  type: NetworkPolicyType
+  status: NetworkPolicyStatus
+}
+
+input NetworkTopologyFilter {
+  namespace: String
+  cluster: String
+  from: DateTime
+  to: DateTime
+}
+
+# ─── Drift Detection ──────────────────────────────────────────────────────────
+
+type DriftEvent {
+  id: ID!
+  timestamp: DateTime!
+  containerId: String!
+  containerName: String
+  imageId: String!
+  podName: String
+  namespace: String
+  cluster: String
+  filePath: String!
+  fileHash: String
+  changeType: DriftChangeType!
+  severity: SeverityLevel!
+  policyId: ID
+  policy: RuntimePolicy
+  suppressed: Boolean!
+}
+
+enum DriftChangeType {
+  FILE_ADDED
+  FILE_MODIFIED
+  FILE_DELETED
+  EXECUTABLE_ADDED
+  LIBRARY_ADDED
+}
+
+type DriftEventConnection {
+  nodes: [DriftEvent!]!
+  pageInfo: PageInfo!
+}
+
+input DriftEventFilter {
+  containerId: String
+  namespace: String
+  cluster: String
+  changeType: DriftChangeType
+  severity: SeverityLevel
+  suppressed: Boolean
+  from: DateTime
+  to: DateTime
+}
+
+# ─── Users ────────────────────────────────────────────────────────────────────
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  firstName: String
+  lastName: String
+  enabled: Boolean!
+  systemRole: SystemRole!
+  teams: [TeamMember!]!
+  lastSeenAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum SystemRole {
+  ADMIN
+  STANDARD
+  VIEWER
+  SERVICE
+}
+
+type UserConnection {
+  nodes: [User!]!
+  pageInfo: PageInfo!
+}
+
+input CreateUserInput {
+  username: String!
+  email: String!
+  firstName: String
+  lastName: String
+  systemRole: SystemRole!
+  teamIds: [ID!]
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  enabled: Boolean
+  systemRole: SystemRole
+}
