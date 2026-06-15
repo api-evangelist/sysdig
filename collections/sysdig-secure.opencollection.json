@@ -1,0 +1,467 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sysdig Secure API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vulnerabilities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Vulnerability Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/scanning/v1/resultsDirect",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter expression for vulnerability results"
+              }
+            ]
+          },
+          "docs": "Retrieve vulnerability scanning results for container images and hosts."
+        },
+        {
+          "info": {
+            "name": "Get Image Vulnerabilities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/scanning/v1/images/:imageId/vulnDirect",
+            "params": [
+              {
+                "name": "imageId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve vulnerability findings for a specific container image."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "SBOM",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Image SBOM",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/scanning/v1/images/:imageId/sbom",
+            "params": [
+              {
+                "name": "imageId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the Software Bill of Materials (SBOM) for a container image in CycloneDX JSON format."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Policies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Policies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/policies/v2",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by policy type"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve all runtime security policies."
+        },
+        {
+          "info": {
+            "name": "Create Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us1.sysdig.com/api/policies/v2",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new runtime security policy."
+        },
+        {
+          "info": {
+            "name": "Get Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/policies/v2/:policyId",
+            "params": [
+              {
+                "name": "policyId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the policy"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific runtime security policy."
+        },
+        {
+          "info": {
+            "name": "Update Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.us1.sysdig.com/api/policies/v2/:policyId",
+            "params": [
+              {
+                "name": "policyId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the policy"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing runtime security policy."
+        },
+        {
+          "info": {
+            "name": "Delete Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us1.sysdig.com/api/policies/v2/:policyId",
+            "params": [
+              {
+                "name": "policyId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the policy"
+              }
+            ]
+          },
+          "docs": "Delete a runtime security policy."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Falco Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/secure/falco/v2/rules"
+          },
+          "docs": "Retrieve all Falco security rules."
+        },
+        {
+          "info": {
+            "name": "Create Falco Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us1.sysdig.com/api/secure/falco/v2/rules",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new custom Falco rule."
+        },
+        {
+          "info": {
+            "name": "Get Falco Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/secure/falco/v2/rules/:ruleId",
+            "params": [
+              {
+                "name": "ruleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Falco rule"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific Falco rule by ID."
+        },
+        {
+          "info": {
+            "name": "Update Falco Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.us1.sysdig.com/api/secure/falco/v2/rules/:ruleId",
+            "params": [
+              {
+                "name": "ruleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Falco rule"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing Falco rule."
+        },
+        {
+          "info": {
+            "name": "Delete Falco Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us1.sysdig.com/api/secure/falco/v2/rules/:ruleId",
+            "params": [
+              {
+                "name": "ruleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Falco rule"
+              }
+            ]
+          },
+          "docs": "Delete a custom Falco rule."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Compliance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Compliance Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/compliance/v2/tasks"
+          },
+          "docs": "Retrieve all compliance evaluation tasks and their statuses."
+        },
+        {
+          "info": {
+            "name": "Get Compliance Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/compliance/v2/tasks/:taskId/results",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve compliance check results for a specific task."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Activity Audit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Secure Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/v1/secureEvents",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time in Unix epoch seconds"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time in Unix epoch seconds"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter expression for events"
+              }
+            ]
+          },
+          "docs": "Retrieve runtime security events triggered by policy violations."
+        },
+        {
+          "info": {
+            "name": "List Activity Audit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/v1/activityAudit",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve audit trail of user and system activities."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Image Scanning",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Scan Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us1.sysdig.com/api/scanning/v1/image",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger a vulnerability scan for a container image."
+        },
+        {
+          "info": {
+            "name": "List Scanned Images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/scanning/v1/images",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve all container images that have been scanned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

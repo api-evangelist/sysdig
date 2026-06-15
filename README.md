@@ -1,110 +1,112 @@
-# Sysdig
+# Sysdig (sysdig)
 
 Sysdig is a cloud and container security platform that provides runtime threat detection, vulnerability management, cloud security posture management (CSPM), compliance automation, and observability for containers, Kubernetes, and cloud environments. Sysdig Monitor offers full-stack monitoring and alerting while Sysdig Secure delivers runtime security, vulnerability scanning, policy enforcement, incident response, and compliance reporting.
 
-**Website:** [https://sysdig.com/](https://sysdig.com/)
-**Documentation:** [https://docs.sysdig.com/](https://docs.sysdig.com/)
-**Developer Portal:** [https://docs.sysdig.com/en/developer-tools/](https://docs.sysdig.com/en/developer-tools/)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/apis.yml)
+
+## Scope
+
+- **Type:** Index
+
+## Tags
+
+- Cloud Security
+- Containers
+- Kubernetes
+- Runtime Security
+- Security
+- Vulnerability Management
+- Monitoring
+- Observability
+- CSPM
+- Compliance
+
+## Timestamps
+
+- **Created:** 2026-03-26
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### Sysdig Monitor
 
-Programmatic access to monitoring and observability capabilities including dashboards, alerts, events, metrics, teams, and notification channels for cloud-native environments.
+The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities including dashboards, alerts, events, metrics, teams, notification channels, and scanning results for cloud-native environments.
 
-- **Documentation:** [https://docs.sysdig.com/en/developer-tools/sysdig-api/](https://docs.sysdig.com/en/developer-tools/sysdig-api/)
-- **OpenAPI:** [openapi/sysdig-monitor-openapi.yml](openapi/sysdig-monitor-openapi.yml)
-- **Base URL:** https://api.us1.sysdig.com
+- **Human URL:** [https://docs.sysdig.com/en/developer-tools/sysdig-api/](https://docs.sysdig.com/en/developer-tools/sysdig-api/)
+- **Base URL:** `https://api.us1.sysdig.com`
+
+#### Tags
+
+- Monitoring
+- Observability
+- Alerts
+- Dashboards
+- Metrics
+- Events
+
+#### Properties
+
+- [Documentation](https://docs.sysdig.com/en/developer-tools/sysdig-api/)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/openapi/sysdig-monitor-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Getting Started](https://docs.sysdig.com/en/getting-started/)
+- [Authentication](https://docs.sysdig.com/en/developer-tools/sysdig-api/)
+- [Postman Collection](collections/sysdig-monitor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/sysdig-monitor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/sysdig-secure.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/sysdig-secure.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Sysdig Secure
 
-Programmatic access to cloud and container security including vulnerability management, runtime policies, compliance, activity audit, image scanning, SBOM retrieval, and Falco rules management.
+The Sysdig Secure API provides programmatic access to cloud and container security capabilities including vulnerability management, runtime policies, compliance checks, activity audit, incident response, image scanning, SBOM retrieval, and Falco rules management.
 
-- **Documentation:** [https://docs.sysdig.com/en/developer-tools/sysdig-api/](https://docs.sysdig.com/en/developer-tools/sysdig-api/)
-- **OpenAPI:** [openapi/sysdig-secure-openapi.yml](openapi/sysdig-secure-openapi.yml)
-- **Base URL:** https://api.us1.sysdig.com
+- **Human URL:** [https://docs.sysdig.com/en/developer-tools/sysdig-api/](https://docs.sysdig.com/en/developer-tools/sysdig-api/)
+- **Base URL:** `https://api.us1.sysdig.com`
 
-## Artifacts
+#### Tags
 
-### OpenAPI Specifications
+- Security
+- Vulnerability Management
+- Compliance
+- Runtime Security
+- Falco
+- Scanning
+- CSPM
 
-| Spec | Description |
-|------|-------------|
-| [sysdig-monitor-openapi.yml](openapi/sysdig-monitor-openapi.yml) | Sysdig Monitor - alerts, dashboards, events, metrics, teams |
-| [sysdig-secure-openapi.yml](openapi/sysdig-secure-openapi.yml) | Sysdig Secure - vulnerabilities, policies, compliance, Falco rules |
+#### Properties
 
-### Spectral Rules
+- [Documentation](https://docs.sysdig.com/en/developer-tools/sysdig-api/)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/openapi/sysdig-secure-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Getting Started](https://docs.sysdig.com/en/getting-started/)
+- [Postman Collection](collections/sysdig-monitor.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/sysdig-monitor.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/sysdig-secure.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/sysdig-secure.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
-| Ruleset | Description |
-|---------|-------------|
-| [sysdig-rules.yml](rules/sysdig-rules.yml) | Spectral linting rules for Sysdig API conventions |
+## Common Properties
 
-### Naftiko Capabilities
+- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
+- [LinkedIn](https://www.linkedin.com/company/sysdig)
+- [Website](https://sysdig.com/)
+- [Documentation](https://docs.sysdig.com/)
+- [Developer  Portal](https://docs.sysdig.com/en/developer-tools/)
+- [Getting Started](https://docs.sysdig.com/en/getting-started/)
+- [GitHub Organization](https://github.com/sysdiglabs)
+- [Blog](https://sysdig.com/blog/)
+- [Pricing](https://sysdig.com/pricing/)
+- [Sign Up](https://sysdig.com/company/free-trial/)
+- [Terraform  Provider](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest)
+- [Python  S D K](https://github.com/sysdiglabs/sysdig-sdk-python)
+- [C L I](https://sysdiglabs.github.io/sysdig-platform-cli/)
+- [Kubernetes  Operator](https://github.com/sysdiglabs/sysdig-operator)
+- [Helm  Charts](https://github.com/sysdiglabs/charts)
+- [Spectral  Rules](https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/rules/sysdig-rules.yml)
+- [Vocabulary](https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/vocabulary/sysdig-vocabulary.yml)
+- [Changelog](https://docs.sysdig.com/en/release-notes/)
+- [Support](https://sysdig.com/support/)
+- [Status Page](https://status.sysdig.com/)
+- [M C P Server](https://github.com/sysdiglabs/sysdig-mcp-server)
 
-| Capability | Description |
-|------------|-------------|
-| [cloud-security-monitoring.yaml](capabilities/cloud-security-monitoring.yaml) | Unified workflow combining Monitor + Secure for cloud security operations |
+## Maintainers
 
-**Shared Definitions:**
-
-| Shared File | Description |
-|-------------|-------------|
-| [shared/sysdig-monitor.yaml](capabilities/shared/sysdig-monitor.yaml) | Sysdig Monitor per-API capability definition |
-| [shared/sysdig-secure.yaml](capabilities/shared/sysdig-secure.yaml) | Sysdig Secure per-API capability definition |
-
-### JSON Schema
-
-| Schema | Description |
-|--------|-------------|
-| [sysdig-alert-schema.json](json-schema/sysdig-alert-schema.json) | Schema for Sysdig Monitor alert definitions |
-| [sysdig-vulnerability-schema.json](json-schema/sysdig-vulnerability-schema.json) | Schema for Sysdig Secure vulnerability findings |
-
-### JSON Structure
-
-| Structure | Description |
-|-----------|-------------|
-| [sysdig-alert-structure.json](json-structure/sysdig-alert-structure.json) | Field documentation for Sysdig alert objects |
-
-### JSON-LD
-
-| Context | Description |
-|---------|-------------|
-| [sysdig-context.jsonld](json-ld/sysdig-context.jsonld) | Linked data context for Sysdig entities |
-
-### Examples
-
-| Example | Description |
-|---------|-------------|
-| [sysdig-list-alerts-example.json](examples/sysdig-list-alerts-example.json) | Example request/response for listing alerts |
-| [sysdig-list-vulnerability-results-example.json](examples/sysdig-list-vulnerability-results-example.json) | Example request/response for listing vulnerability results |
-
-### Vocabulary
-
-| File | Description |
-|------|-------------|
-| [sysdig-vocabulary.yml](vocabulary/sysdig-vocabulary.yml) | Domain vocabulary for Sysdig platform concepts |
-
-## Developer Tools
-
-- **Python SDK:** [https://github.com/sysdiglabs/sysdig-sdk-python](https://github.com/sysdiglabs/sysdig-sdk-python)
-- **CLI:** [https://sysdiglabs.github.io/sysdig-platform-cli/](https://sysdiglabs.github.io/sysdig-platform-cli/)
-- **Terraform Provider:** [https://registry.terraform.io/providers/sysdiglabs/sysdig/latest](https://registry.terraform.io/providers/sysdiglabs/sysdig/latest)
-- **Kubernetes Operator:** [https://github.com/sysdiglabs/sysdig-operator](https://github.com/sysdiglabs/sysdig-operator)
-- **Helm Charts:** [https://github.com/sysdiglabs/charts](https://github.com/sysdiglabs/charts)
-- **GitHub Organization:** [https://github.com/sysdiglabs](https://github.com/sysdiglabs)
-
-## Authentication
-
-All Sysdig APIs use Bearer token authentication. Set the `Authorization: Bearer {token}` header using one of:
-
-- **API Token** - user-scoped token from Settings > User Profile
-- **Team-Based Service Account** - team-scoped programmatic credential
-- **Global Service Account** - organization-wide programmatic credential
-
-## Regional Endpoints
-
-| Region | Base URL |
-|--------|----------|
-| US East | https://api.us1.sysdig.com |
-| EU Central | https://api.eu1.sysdig.com |
-| Asia Pacific | https://api.au1.sysdig.com |
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com

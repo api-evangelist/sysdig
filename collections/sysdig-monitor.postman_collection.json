@@ -1,0 +1,2998 @@
+{
+  "item": [
+    {
+      "id": "c716f4ce-eecf-4541-bdbd-b0d0831d3eda",
+      "name": "Alerts",
+      "description": {
+        "content": "Manage monitoring alerts and alert notifications",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9391ca1c-3a53-4c67-93f4-f30311c5dad4",
+          "name": "List Alerts",
+          "request": {
+            "name": "List Alerts",
+            "description": {
+              "content": "Retrieve a list of all monitoring alerts configured for the team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of alerts to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Offset for pagination"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "02368963-9ec4-40f3-9d06-38fa401dc544",
+              "name": "Successful response with list of alerts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"alerts\": [\n    {\n      \"id\": 4534,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"severity\": 3,\n      \"enabled\": false,\n      \"condition\": \"string\",\n      \"segmentBy\": [\n        \"string\",\n        \"string\"\n      ],\n      \"timespan\": 4638,\n      \"type\": \"HOST_COMPARISON\",\n      \"notificationChannelIds\": [\n        4052,\n        5139\n      ]\n    },\n    {\n      \"id\": 8622,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"severity\": 6,\n      \"enabled\": false,\n      \"condition\": \"string\",\n      \"segmentBy\": [\n        \"string\",\n        \"string\"\n      ],\n      \"timespan\": 8391,\n      \"type\": \"MANUAL\",\n      \"notificationChannelIds\": [\n        4966,\n        9173\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38b8a688-a9de-494c-a6dd-4eaa98613c44",
+              "name": "Authentication credentials missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    },\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad86862b-cdf0-43e0-b06e-0f3dcb71db72",
+          "name": "Create Alert",
+          "request": {
+            "name": "Create Alert",
+            "description": {
+              "content": "Create a new monitoring alert.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alert\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"condition\": \"<string>\",\n    \"segmentBy\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"timespan\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "97b71533-f2b1-4a15-bd14-dc1b955546d7",
+              "name": "Alert created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alert\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"condition\": \"<string>\",\n    \"segmentBy\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"timespan\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"alert\": {\n    \"id\": 6216,\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"condition\": \"<string>\",\n    \"segmentBy\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"timespan\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac4ae93e-3735-4262-83f4-c13dff227bc5",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alert\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"condition\": \"<string>\",\n    \"segmentBy\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"timespan\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    },\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ab7d925-95b3-454e-8cf9-abe69edb9dad",
+              "name": "Authentication credentials missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alert\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"condition\": \"<string>\",\n    \"segmentBy\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"timespan\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    },\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3120c8fb-863a-4ac4-a122-bb53243a97c3",
+          "name": "Get Alert",
+          "request": {
+            "name": "Get Alert",
+            "description": {
+              "content": "Retrieve details of a specific monitoring alert by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "alerts",
+                ":alertId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "alertId",
+                  "description": "(Required) Unique identifier of the alert"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ec7a6d5-b640-41cf-b590-5ba78dd722ae",
+              "name": "Alert details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "alerts",
+                    ":alertId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "alertId",
+                      "description": "(Required) Unique identifier of the alert"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"alert\": {\n    \"id\": 6216,\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"condition\": \"<string>\",\n    \"segmentBy\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"timespan\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0008ad15-b435-4c59-8165-b0e34af02e4e",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "alerts",
+                    ":alertId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "alertId",
+                      "description": "(Required) Unique identifier of the alert"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    },\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "095102e5-6213-430b-b8bc-1225f0582ecc",
+          "name": "Update Alert",
+          "request": {
+            "name": "Update Alert",
+            "description": {
+              "content": "Update an existing monitoring alert.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "alerts",
+                ":alertId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "alertId",
+                  "description": "(Required) Unique identifier of the alert"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alert\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"condition\": \"<string>\",\n    \"segmentBy\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"timespan\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "228e75de-8a1a-4f21-9518-13c2e4d04b07",
+              "name": "Alert updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "alerts",
+                    ":alertId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "alertId",
+                      "description": "(Required) Unique identifier of the alert"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alert\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"condition\": \"<string>\",\n    \"segmentBy\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"timespan\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"alert\": {\n    \"id\": 6216,\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"condition\": \"<string>\",\n    \"segmentBy\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"timespan\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b93b41cd-d931-4ec5-a0da-b59eef02cb32",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "alerts",
+                    ":alertId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "alertId",
+                      "description": "(Required) Unique identifier of the alert"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alert\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"condition\": \"<string>\",\n    \"segmentBy\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"timespan\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    },\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b49500bd-c054-4a12-804b-ba55507ccdf5",
+          "name": "Delete Alert",
+          "request": {
+            "name": "Delete Alert",
+            "description": {
+              "content": "Delete a specific monitoring alert.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "alerts",
+                ":alertId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "alertId",
+                  "description": "(Required) Unique identifier of the alert"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ac1f5d66-5a0f-4265-aa4c-fc5f102b9a7d",
+              "name": "Alert deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "alerts",
+                    ":alertId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "alertId",
+                      "description": "(Required) Unique identifier of the alert"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "28876ac1-abbd-41bf-acc8-045a6d6e4700",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "alerts",
+                    ":alertId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "alertId",
+                      "description": "(Required) Unique identifier of the alert"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    },\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1a364de8-7bce-4ea3-9835-8130e2715aaa",
+      "name": "Dashboards",
+      "description": {
+        "content": "Create and manage monitoring dashboards",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0877622b-4156-4101-8295-4c8e6925d37a",
+          "name": "List Dashboards",
+          "request": {
+            "name": "List Dashboards",
+            "description": {
+              "content": "Retrieve all monitoring dashboards for the team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "dashboards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d9ef5cd-767f-497f-9e55-7eb80c0fce0c",
+              "name": "List of dashboards",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "dashboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dashboards\": [\n    {\n      \"id\": 358,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"shared\": true,\n      \"panels\": [\n        {\n          \"id\": 8277,\n          \"name\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"id\": 7080,\n          \"name\": \"string\",\n          \"type\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": 3809,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"shared\": true,\n      \"panels\": [\n        {\n          \"id\": 5233,\n          \"name\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"id\": 5831,\n          \"name\": \"string\",\n          \"type\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20baf708-0e4a-434f-837d-f63f7db179e0",
+              "name": "Authentication credentials missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "dashboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    },\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c50dab3-996d-405e-affa-9f83e75a8f27",
+          "name": "Create Dashboard",
+          "request": {
+            "name": "Create Dashboard",
+            "description": {
+              "content": "Create a new monitoring dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "dashboards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dashboard\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"sharingSettings\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d37d7172-aaa0-438c-b619-a5b52d72a5bf",
+              "name": "Dashboard created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "dashboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dashboard\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"sharingSettings\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dashboard\": {\n    \"id\": 8843,\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"sharingSettings\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d950115-dee0-4686-b9b9-107361107438",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "dashboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dashboard\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"sharingSettings\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    },\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0572c018-c332-441f-81b9-3ba1b405b977",
+          "name": "Get Dashboard",
+          "request": {
+            "name": "Get Dashboard",
+            "description": {
+              "content": "Retrieve a specific monitoring dashboard by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "dashboards",
+                ":dashboardId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "dashboardId",
+                  "description": "(Required) Unique identifier of the dashboard"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb5e4327-a99d-4ea6-9fac-6c09534c67da",
+              "name": "Dashboard details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "dashboards",
+                    ":dashboardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "dashboardId",
+                      "description": "(Required) Unique identifier of the dashboard"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dashboard\": {\n    \"id\": 8843,\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"sharingSettings\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5bc6f4f1-4fdc-4c04-afe3-209fa7f11795",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "dashboards",
+                    ":dashboardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "dashboardId",
+                      "description": "(Required) Unique identifier of the dashboard"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    },\n    {\n      \"type\": \"string\",\n      \"reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7e76975d-9dec-4c7c-9c8f-5494ed46d05f",
+          "name": "Update Dashboard",
+          "request": {
+            "name": "Update Dashboard",
+            "description": {
+              "content": "Update an existing monitoring dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "dashboards",
+                ":dashboardId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "dashboardId",
+                  "description": "(Required) Unique identifier of the dashboard"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dashboard\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"sharingSettings\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e009e1a-03b5-4a20-ae68-2a87257041f5",
+              "name": "Dashboard updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "dashboards",
+                    ":dashboardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "dashboardId",
+                      "description": "(Required) Unique identifier of the dashboard"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dashboard\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"sharingSettings\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dashboard\": {\n    \"id\": 8843,\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"sharingSettings\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"metrics\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e518dd6c-9255-4fef-8e40-539847de4d4a",
+          "name": "Delete Dashboard",
+          "request": {
+            "name": "Delete Dashboard",
+            "description": {
+              "content": "Delete a monitoring dashboard.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "dashboards",
+                ":dashboardId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "dashboardId",
+                  "description": "(Required) Unique identifier of the dashboard"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2de4e798-f87d-4779-b336-aee18236b608",
+              "name": "Dashboard deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "dashboards",
+                    ":dashboardId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "dashboardId",
+                      "description": "(Required) Unique identifier of the dashboard"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "44e55f24-6256-4102-aff6-edea63ef6455",
+      "name": "Events",
+      "description": {
+        "content": "Retrieve and create custom events",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8fa6e709-8a48-439d-9cc5-8add6dab8682",
+          "name": "List Events",
+          "request": {
+            "name": "List Events",
+            "description": {
+              "content": "Retrieve monitoring events including custom events, alerts, and system events.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<long>",
+                  "description": "Start time in Unix epoch microseconds"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<long>",
+                  "description": "End time in Unix epoch microseconds"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of events to return"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5e4bffbe-99bc-4f87-88d6-85cb273a8d25",
+              "name": "List of events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"events\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"severity\": \"EMERGENCY\",\n      \"timestamp\": 7928,\n      \"scope\": \"string\",\n      \"tags\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"severity\": \"WARNING\",\n      \"timestamp\": 8372,\n      \"scope\": \"string\",\n      \"tags\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"total\": 4561\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e568e81b-70ac-4905-ad94-ab16ed86bfcc",
+          "name": "Create Event",
+          "request": {
+            "name": "Create Event",
+            "description": {
+              "content": "Create a custom event in Sysdig Monitor.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<string>\",\n    \"timestamp\": \"<long>\",\n    \"scope\": \"<string>\",\n    \"tags\": {\n      \"key_0\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e31616bf-8260-44c9-9e26-4a2ead21c95b",
+              "name": "Event created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<string>\",\n    \"timestamp\": \"<long>\",\n    \"scope\": \"<string>\",\n    \"tags\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"event\": {\n    \"id\": \"string\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<string>\",\n    \"timestamp\": \"<long>\",\n    \"scope\": \"<string>\",\n    \"tags\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "148bc6bc-e1c5-4f3a-b7f4-b57eb9d85877",
+      "name": "Notification Channels",
+      "description": {
+        "content": "Configure notification channels for alerts",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7b02187f-09ae-4e1a-8d20-8de4df8537cc",
+          "name": "List Notification Channels",
+          "request": {
+            "name": "List Notification Channels",
+            "description": {
+              "content": "Retrieve all notification channels configured for alert routing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "notificationChannels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0e26de18-c613-4dfa-a00f-54e4b52d38a7",
+              "name": "List of notification channels",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "notificationChannels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"notificationChannels\": [\n    {\n      \"id\": 5786,\n      \"name\": \"string\",\n      \"type\": \"OPSGENIE\",\n      \"options\": {\n        \"key_0\": true\n      },\n      \"enabled\": false\n    },\n    {\n      \"id\": 8901,\n      \"name\": \"string\",\n      \"type\": \"OPSGENIE\",\n      \"options\": {\n        \"key_0\": 3630.3325276595356\n      },\n      \"enabled\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b39efc11-a512-4467-8389-0c3b982f5995",
+          "name": "Create Notification Channel",
+          "request": {
+            "name": "Create Notification Channel",
+            "description": {
+              "content": "Create a new notification channel for alert routing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "notificationChannels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notificationChannel\": {\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"options\": {\n      \"key_0\": 7316.51399427257,\n      \"key_1\": 7928.449179768881,\n      \"key_2\": \"string\"\n    },\n    \"enabled\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4b641fe2-cdcf-44cb-a5f4-a82cbd5a9dac",
+              "name": "Notification channel created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "notificationChannels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notificationChannel\": {\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"options\": {\n      \"key_0\": 5255,\n      \"key_1\": false\n    },\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"notificationChannel\": {\n    \"id\": 7846,\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"options\": {\n      \"key_0\": true\n    },\n    \"enabled\": \"<boolean>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e63c170-74fe-474f-b8ac-f446734cff0e",
+          "name": "Get Notification Channel",
+          "request": {
+            "name": "Get Notification Channel",
+            "description": {
+              "content": "Retrieve details of a specific notification channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "notificationChannels",
+                ":channelId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "channelId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ed1199c7-466d-4f8f-85e6-5eb4ea392e26",
+              "name": "Notification channel details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "notificationChannels",
+                    ":channelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "channelId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"notificationChannel\": {\n    \"id\": 7846,\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"options\": {\n      \"key_0\": true\n    },\n    \"enabled\": \"<boolean>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ecf6b2cd-40c9-4cdb-b172-4a9955671d71",
+          "name": "Update Notification Channel",
+          "request": {
+            "name": "Update Notification Channel",
+            "description": {
+              "content": "Update an existing notification channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "notificationChannels",
+                ":channelId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "channelId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notificationChannel\": {\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"options\": {\n      \"key_0\": 7316.51399427257,\n      \"key_1\": 7928.449179768881,\n      \"key_2\": \"string\"\n    },\n    \"enabled\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "77753557-883f-41ab-a8bb-f953a500bdc5",
+              "name": "Notification channel updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "notificationChannels",
+                    ":channelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "channelId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notificationChannel\": {\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"options\": {\n      \"key_0\": 5255,\n      \"key_1\": false\n    },\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"notificationChannel\": {\n    \"id\": 7846,\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"options\": {\n      \"key_0\": true\n    },\n    \"enabled\": \"<boolean>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "75724bba-7075-4c23-8a0e-28851db63163",
+          "name": "Delete Notification Channel",
+          "request": {
+            "name": "Delete Notification Channel",
+            "description": {
+              "content": "Delete a notification channel.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "notificationChannels",
+                ":channelId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "channelId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c69ebf1b-9573-41cb-8a1a-c1562cd2dba3",
+              "name": "Notification channel deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "notificationChannels",
+                    ":channelId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "channelId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f73fc913-cbe2-458f-982a-e679a665170e",
+      "name": "Teams",
+      "description": {
+        "content": "Manage teams and team memberships",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "26f2abc3-baa9-4abd-aaad-d23517621210",
+          "name": "List Teams",
+          "request": {
+            "name": "List Teams",
+            "description": {
+              "content": "Retrieve all teams in the Sysdig organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "teams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a8ba71bc-98e5-4408-9dd8-ac5b68598319",
+              "name": "List of teams",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"teams\": [\n    {\n      \"id\": 2256,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"theme\": \"string\",\n      \"defaultTeamRole\": \"ROLE_TEAM_EDIT\",\n      \"entryPoint\": {\n        \"module\": \"string\"\n      },\n      \"filter\": \"string\"\n    },\n    {\n      \"id\": 3070,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"theme\": \"string\",\n      \"defaultTeamRole\": \"ROLE_TEAM_EDIT\",\n      \"entryPoint\": {\n        \"module\": \"string\"\n      },\n      \"filter\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce01e3e4-b70d-4a6a-8b4c-8819c25a40d1",
+          "name": "Create Team",
+          "request": {
+            "name": "Create Team",
+            "description": {
+              "content": "Create a new team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "teams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"team\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"defaultTeamRole\": \"<string>\",\n    \"entryPoint\": {\n      \"module\": \"<string>\"\n    },\n    \"filter\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "48a0fbdd-eacf-4ee2-a1c1-65bc29595787",
+              "name": "Team created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"team\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"defaultTeamRole\": \"<string>\",\n    \"entryPoint\": {\n      \"module\": \"<string>\"\n    },\n    \"filter\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"team\": {\n    \"id\": 4058,\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"defaultTeamRole\": \"<string>\",\n    \"entryPoint\": {\n      \"module\": \"<string>\"\n    },\n    \"filter\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "80297b51-f79e-4bf6-bac2-908f73f8c485",
+          "name": "Get Team",
+          "request": {
+            "name": "Get Team",
+            "description": {
+              "content": "Retrieve details of a specific team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "teams",
+                ":teamId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "teamId",
+                  "description": "(Required) Unique identifier of the team"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4a675a4e-d1a3-4854-8f94-875593ff97f8",
+              "name": "Team details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "teams",
+                    ":teamId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "teamId",
+                      "description": "(Required) Unique identifier of the team"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"team\": {\n    \"id\": 4058,\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"defaultTeamRole\": \"<string>\",\n    \"entryPoint\": {\n      \"module\": \"<string>\"\n    },\n    \"filter\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e43e7fa0-807f-464f-9674-2eded7b10176",
+          "name": "Update Team",
+          "request": {
+            "name": "Update Team",
+            "description": {
+              "content": "Update an existing team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "teams",
+                ":teamId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "teamId",
+                  "description": "(Required) Unique identifier of the team"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"team\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"defaultTeamRole\": \"<string>\",\n    \"entryPoint\": {\n      \"module\": \"<string>\"\n    },\n    \"filter\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6909575a-58e4-4f29-9e9d-3a7440658770",
+              "name": "Team updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "teams",
+                    ":teamId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "teamId",
+                      "description": "(Required) Unique identifier of the team"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"team\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"defaultTeamRole\": \"<string>\",\n    \"entryPoint\": {\n      \"module\": \"<string>\"\n    },\n    \"filter\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"team\": {\n    \"id\": 4058,\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"defaultTeamRole\": \"<string>\",\n    \"entryPoint\": {\n      \"module\": \"<string>\"\n    },\n    \"filter\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31adc686-1d98-4647-9d07-107f5a79ffdb",
+          "name": "Delete Team",
+          "request": {
+            "name": "Delete Team",
+            "description": {
+              "content": "Delete a team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "teams",
+                ":teamId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "teamId",
+                  "description": "(Required) Unique identifier of the team"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95934b2f-1f8c-4005-a441-554c19f6d6c0",
+              "name": "Team deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "teams",
+                    ":teamId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "teamId",
+                      "description": "(Required) Unique identifier of the team"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "bd0ec663-4b51-44ff-a3b2-55eadac1491c",
+      "name": "Metrics",
+      "description": {
+        "content": "Query and retrieve metrics data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f950bf92-21e1-4799-b004-8e1ca2800476",
+          "name": "Find Metrics",
+          "request": {
+            "name": "Find Metrics",
+            "description": {
+              "content": "Search for available metrics by name pattern.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "metrics",
+                "find"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Metric name pattern to search for"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59ee5e7a-d2a7-4d87-b568-ebb464eba506",
+              "name": "List of matching metrics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "metrics",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metrics\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"type\": \"string\",\n      \"metricType\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"type\": \"string\",\n      \"metricType\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1cf465a9-5c2b-4fe7-a629-b55daefb74a5",
+          "name": "Get Metric Descriptors",
+          "request": {
+            "name": "Get Metric Descriptors",
+            "description": {
+              "content": "Retrieve descriptors for specified metrics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "metrics",
+                "descriptors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metrics\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ff861ac6-eaff-4b35-baf3-9329f971c412",
+              "name": "Metric descriptors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "metrics",
+                    "descriptors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metrics\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metrics\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us1.sysdig.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2edcd210-eb0a-45d7-86cc-5a397cd2e4c3",
+    "name": "Sysdig Monitor API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+      "type": "text/plain"
+    }
+  }
+}

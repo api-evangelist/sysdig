@@ -1,0 +1,503 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sysdig Monitor API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Alerts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/v2/alerts",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of alerts to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all monitoring alerts configured for the team."
+        },
+        {
+          "info": {
+            "name": "Create Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us1.sysdig.com/api/v2/alerts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new monitoring alert."
+        },
+        {
+          "info": {
+            "name": "Get Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/v2/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the alert"
+              }
+            ]
+          },
+          "docs": "Retrieve details of a specific monitoring alert by ID."
+        },
+        {
+          "info": {
+            "name": "Update Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.us1.sysdig.com/api/v2/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the alert"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing monitoring alert."
+        },
+        {
+          "info": {
+            "name": "Delete Alert",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us1.sysdig.com/api/v2/alerts/:alertId",
+            "params": [
+              {
+                "name": "alertId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the alert"
+              }
+            ]
+          },
+          "docs": "Delete a specific monitoring alert."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Dashboards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Dashboards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/v3/dashboards"
+          },
+          "docs": "Retrieve all monitoring dashboards for the team."
+        },
+        {
+          "info": {
+            "name": "Create Dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us1.sysdig.com/api/v3/dashboards",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new monitoring dashboard."
+        },
+        {
+          "info": {
+            "name": "Get Dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/v3/dashboards/:dashboardId",
+            "params": [
+              {
+                "name": "dashboardId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the dashboard"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific monitoring dashboard by ID."
+        },
+        {
+          "info": {
+            "name": "Update Dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.us1.sysdig.com/api/v3/dashboards/:dashboardId",
+            "params": [
+              {
+                "name": "dashboardId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the dashboard"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing monitoring dashboard."
+        },
+        {
+          "info": {
+            "name": "Delete Dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us1.sysdig.com/api/v3/dashboards/:dashboardId",
+            "params": [
+              {
+                "name": "dashboardId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the dashboard"
+              }
+            ]
+          },
+          "docs": "Delete a monitoring dashboard."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/v2/events",
+            "params": [
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start time in Unix epoch microseconds"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time in Unix epoch microseconds"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of events to return"
+              }
+            ]
+          },
+          "docs": "Retrieve monitoring events including custom events, alerts, and system events."
+        },
+        {
+          "info": {
+            "name": "Create Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us1.sysdig.com/api/v2/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a custom event in Sysdig Monitor."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Notification Channels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Notification Channels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/notificationChannels"
+          },
+          "docs": "Retrieve all notification channels configured for alert routing."
+        },
+        {
+          "info": {
+            "name": "Create Notification Channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us1.sysdig.com/api/notificationChannels",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new notification channel for alert routing."
+        },
+        {
+          "info": {
+            "name": "Get Notification Channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/notificationChannels/:channelId",
+            "params": [
+              {
+                "name": "channelId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details of a specific notification channel."
+        },
+        {
+          "info": {
+            "name": "Update Notification Channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.us1.sysdig.com/api/notificationChannels/:channelId",
+            "params": [
+              {
+                "name": "channelId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing notification channel."
+        },
+        {
+          "info": {
+            "name": "Delete Notification Channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us1.sysdig.com/api/notificationChannels/:channelId",
+            "params": [
+              {
+                "name": "channelId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a notification channel."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Teams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/v2/teams"
+          },
+          "docs": "Retrieve all teams in the Sysdig organization."
+        },
+        {
+          "info": {
+            "name": "Create Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us1.sysdig.com/api/v2/teams",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new team."
+        },
+        {
+          "info": {
+            "name": "Get Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/v2/teams/:teamId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the team"
+              }
+            ]
+          },
+          "docs": "Retrieve details of a specific team."
+        },
+        {
+          "info": {
+            "name": "Update Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.us1.sysdig.com/api/v2/teams/:teamId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the team"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing team."
+        },
+        {
+          "info": {
+            "name": "Delete Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.us1.sysdig.com/api/v2/teams/:teamId",
+            "params": [
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the team"
+              }
+            ]
+          },
+          "docs": "Delete a team."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/v2/metrics/find",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Metric name pattern to search for"
+              }
+            ]
+          },
+          "docs": "Search for available metrics by name pattern."
+        },
+        {
+          "info": {
+            "name": "Get Metric Descriptors",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.us1.sysdig.com/api/v2/metrics/descriptors",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve descriptors for specified metrics."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
