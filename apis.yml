@@ -7,7 +7,7 @@ description: Sysdig is a cloud and container security platform that provides run
   runtime security, vulnerability scanning, policy enforcement, incident response,
   and compliance reporting.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Cloud Security
 - Containers
