@@ -2,8 +2,11 @@
   "repo": "sysdig",
   "feeds": [
     {
-      "source": "https://sysdig.com/blog/rss.xml",
-      "error": "URLError"
+      "source": "https://sysdig.com/feed/",
+      "feed_url": "https://sysdig.com/feed/",
+      "title": "",
+      "saved": 4,
+      "method": "feed"
     },
     {
       "source": "https://github.com/sysdiglabs",
@@ -13,6 +16,6 @@
       "method": "none"
     }
   ],
-  "post_count": 28,
-  "fetched": "2026-06-14T20:42:17Z"
+  "post_count": 34,
+  "fetched": "2026-06-27T12:03:07Z"
 }
