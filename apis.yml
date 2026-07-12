@@ -79,6 +79,10 @@ apis:
   - FN: Sysdig Support
     url: https://sysdig.com/support/
 common:
+- type: DomainSecurity
+  url: security/sysdig-domain-security.yml
+- type: Authentication
+  url: authentication/sysdig-authentication.yml
 - type: Arazzo
   url: arazzo/sysdig-author-falco-rule-and-attach-policy-workflow.yml
   name: Sysdig Author Falco Rule and Attach to Policy

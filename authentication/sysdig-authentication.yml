@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/sysdig-monitor-openapi.yml, openapi/sysdig-secure-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: Authenticate using a Sysdig API Token, Team-Based Service Account, or Global
+    Service Account token as a Bearer token.
+  sources:
+  - openapi/sysdig-monitor-openapi.yml
+  - openapi/sysdig-secure-openapi.yml
