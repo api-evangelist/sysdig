@@ -79,6 +79,8 @@ apis:
   - FN: Sysdig Support
     url: https://sysdig.com/support/
 common:
+- type: AgenticAccess
+  url: agentic-access/sysdig-agentic-access.yml
 - type: DomainSecurity
   url: security/sysdig-domain-security.yml
 - type: Authentication
