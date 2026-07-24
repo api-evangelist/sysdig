@@ -1,0 +1,170 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Monitor Activity Audit Notification Channels API
+  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  version: 1.0.0
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+servers:
+- url: https://api.us1.sysdig.com
+  description: US East
+- url: https://api.eu1.sysdig.com
+  description: EU Central
+- url: https://api.au1.sysdig.com
+  description: Asia Pacific
+security:
+- BearerAuth: []
+tags:
+- name: Notification Channels
+  description: Configure notification channels for alerts
+paths:
+  /api/notificationChannels:
+    get:
+      operationId: listNotificationChannels
+      summary: List Notification Channels
+      description: Retrieve all notification channels configured for alert routing.
+      tags:
+      - Notification Channels
+      responses:
+        '200':
+          description: List of notification channels
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationChannelListResponse'
+    post:
+      operationId: createNotificationChannel
+      summary: Create Notification Channel
+      description: Create a new notification channel for alert routing.
+      tags:
+      - Notification Channels
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationChannelRequest'
+      responses:
+        '201':
+          description: Notification channel created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationChannelResponse'
+  /api/notificationChannels/{channelId}:
+    get:
+      operationId: getNotificationChannel
+      summary: Get Notification Channel
+      description: Retrieve details of a specific notification channel.
+      tags:
+      - Notification Channels
+      parameters:
+      - name: channelId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Notification channel details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationChannelResponse'
+    put:
+      operationId: updateNotificationChannel
+      summary: Update Notification Channel
+      description: Update an existing notification channel.
+      tags:
+      - Notification Channels
+      parameters:
+      - name: channelId
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationChannelRequest'
+      responses:
+        '200':
+          description: Notification channel updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationChannelResponse'
+    delete:
+      operationId: deleteNotificationChannel
+      summary: Delete Notification Channel
+      description: Delete a notification channel.
+      tags:
+      - Notification Channels
+      parameters:
+      - name: channelId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Notification channel deleted
+components:
+  schemas:
+    NotificationChannel:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - EMAIL
+          - SNS
+          - OPSGENIE
+          - VICTOROPS
+          - WEBHOOK
+          - SLACK
+          - PAGERDUTY
+        options:
+          type: object
+          additionalProperties: true
+        enabled:
+          type: boolean
+    NotificationChannelRequest:
+      type: object
+      required:
+      - notificationChannel
+      properties:
+        notificationChannel:
+          $ref: '#/components/schemas/NotificationChannel'
+    NotificationChannelListResponse:
+      type: object
+      properties:
+        notificationChannels:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationChannel'
+    NotificationChannelResponse:
+      type: object
+      properties:
+        notificationChannel:
+          $ref: '#/components/schemas/NotificationChannel'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using a Sysdig API Token, Team-Based Service Account, or Global Service Account token as a Bearer token.
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/

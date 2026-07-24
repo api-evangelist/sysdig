@@ -1,0 +1,213 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Monitor Activity Audit Dashboards API
+  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  version: 1.0.0
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+servers:
+- url: https://api.us1.sysdig.com
+  description: US East
+- url: https://api.eu1.sysdig.com
+  description: EU Central
+- url: https://api.au1.sysdig.com
+  description: Asia Pacific
+security:
+- BearerAuth: []
+tags:
+- name: Dashboards
+  description: Create and manage monitoring dashboards
+paths:
+  /api/v3/dashboards:
+    get:
+      operationId: listDashboards
+      summary: List Dashboards
+      description: Retrieve all monitoring dashboards for the team.
+      tags:
+      - Dashboards
+      responses:
+        '200':
+          description: List of dashboards
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createDashboard
+      summary: Create Dashboard
+      description: Create a new monitoring dashboard.
+      tags:
+      - Dashboards
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DashboardRequest'
+      responses:
+        '201':
+          description: Dashboard created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /api/v3/dashboards/{dashboardId}:
+    get:
+      operationId: getDashboard
+      summary: Get Dashboard
+      description: Retrieve a specific monitoring dashboard by ID.
+      tags:
+      - Dashboards
+      parameters:
+      - $ref: '#/components/parameters/DashboardId'
+      responses:
+        '200':
+          description: Dashboard details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateDashboard
+      summary: Update Dashboard
+      description: Update an existing monitoring dashboard.
+      tags:
+      - Dashboards
+      parameters:
+      - $ref: '#/components/parameters/DashboardId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DashboardRequest'
+      responses:
+        '200':
+          description: Dashboard updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+    delete:
+      operationId: deleteDashboard
+      summary: Delete Dashboard
+      description: Delete a monitoring dashboard.
+      tags:
+      - Dashboards
+      parameters:
+      - $ref: '#/components/parameters/DashboardId'
+      responses:
+        '204':
+          description: Dashboard deleted
+components:
+  schemas:
+    DashboardRequest:
+      type: object
+      required:
+      - dashboard
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/Dashboard'
+    DashboardResponse:
+      type: object
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/Dashboard'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              reason:
+                type: string
+    DashboardListResponse:
+      type: object
+      properties:
+        dashboards:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dashboard'
+    Dashboard:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+        shared:
+          type: boolean
+        sharingSettings:
+          type: array
+          items:
+            type: object
+        panels:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              type:
+                type: string
+              metrics:
+                type: array
+                items:
+                  type: object
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    DashboardId:
+      name: dashboardId
+      in: path
+      required: true
+      description: Unique identifier of the dashboard
+      schema:
+        type: integer
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using a Sysdig API Token, Team-Based Service Account, or Global Service Account token as a Bearer token.
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/

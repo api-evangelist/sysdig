@@ -1,0 +1,198 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Monitor Activity Audit Vulnerabilities API
+  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  version: 1.0.0
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+servers:
+- url: https://api.us1.sysdig.com
+  description: US East
+- url: https://api.eu1.sysdig.com
+  description: EU Central
+- url: https://api.au1.sysdig.com
+  description: Asia Pacific
+security:
+- BearerAuth: []
+tags:
+- name: Vulnerabilities
+  description: Manage vulnerability findings and scanning results
+paths:
+  /api/scanning/v1/resultsDirect:
+    get:
+      operationId: listVulnerabilityResults
+      summary: List Vulnerability Results
+      description: Retrieve vulnerability scanning results for container images and hosts.
+      tags:
+      - Vulnerabilities
+      parameters:
+      - name: limit
+        in: query
+        description: Maximum number of results to return
+        required: false
+        schema:
+          type: integer
+          default: 100
+      - name: cursor
+        in: query
+        description: Pagination cursor
+        required: false
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: Filter expression for vulnerability results
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Vulnerability results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VulnerabilityResultListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/scanning/v1/images/{imageId}/vulnDirect:
+    get:
+      operationId: getImageVulnerabilities
+      summary: Get Image Vulnerabilities
+      description: Retrieve vulnerability findings for a specific container image.
+      tags:
+      - Vulnerabilities
+      parameters:
+      - name: imageId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 100
+      responses:
+        '200':
+          description: Image vulnerability details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageVulnerabilityResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    VulnerabilityResult:
+      type: object
+      properties:
+        imageId:
+          type: string
+        imageName:
+          type: string
+        imageTag:
+          type: string
+        analysisStatus:
+          type: string
+          enum:
+          - analyzed
+          - not_analyzed
+          - analyzing
+        vulnCount:
+          type: integer
+        criticalCount:
+          type: integer
+        highCount:
+          type: integer
+        mediumCount:
+          type: integer
+        lowCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+    PageInfo:
+      type: object
+      properties:
+        returned:
+          type: integer
+        next:
+          type: string
+    VulnerabilityResultListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VulnerabilityResult'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    ImageVulnerabilityResponse:
+      type: object
+      properties:
+        imageId:
+          type: string
+        vulnerabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vulnerability'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+    Vulnerability:
+      type: object
+      properties:
+        vuln:
+          type: string
+          description: CVE identifier
+        severity:
+          type: string
+          enum:
+          - Critical
+          - High
+          - Medium
+          - Low
+          - Negligible
+        package:
+          type: string
+        packageVersion:
+          type: string
+        fixVersion:
+          type: string
+        url:
+          type: string
+        description:
+          type: string
+  responses:
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using a Sysdig API Token, Team-Based Service Account, or Global Service Account token as a Bearer token.
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/

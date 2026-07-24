@@ -1,0 +1,136 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Monitor Activity Audit Image Scanning API
+  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  version: 1.0.0
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+servers:
+- url: https://api.us1.sysdig.com
+  description: US East
+- url: https://api.eu1.sysdig.com
+  description: EU Central
+- url: https://api.au1.sysdig.com
+  description: Asia Pacific
+security:
+- BearerAuth: []
+tags:
+- name: Image Scanning
+  description: Scan container images for vulnerabilities
+paths:
+  /api/scanning/v1/image:
+    post:
+      operationId: scanImage
+      summary: Scan Image
+      description: Trigger a vulnerability scan for a container image.
+      tags:
+      - Image Scanning
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageScanRequest'
+      responses:
+        '200':
+          description: Image scan initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageScanResponse'
+  /api/scanning/v1/images:
+    get:
+      operationId: listScannedImages
+      summary: List Scanned Images
+      description: Retrieve all container images that have been scanned.
+      tags:
+      - Image Scanning
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 100
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of scanned images
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScannedImageListResponse'
+components:
+  schemas:
+    ImageScanResponse:
+      type: object
+      properties:
+        imageId:
+          type: string
+        analysisStatus:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    PageInfo:
+      type: object
+      properties:
+        returned:
+          type: integer
+        next:
+          type: string
+    ImageScanRequest:
+      type: object
+      required:
+      - tag
+      properties:
+        tag:
+          type: string
+          description: Container image tag to scan
+        digest:
+          type: string
+          description: Image digest
+    ScannedImageListResponse:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScannedImage'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    ScannedImage:
+      type: object
+      properties:
+        imageId:
+          type: string
+        fullTag:
+          type: string
+        registry:
+          type: string
+        repository:
+          type: string
+        tag:
+          type: string
+        analysisStatus:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using a Sysdig API Token, Team-Based Service Account, or Global Service Account token as a Bearer token.
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/

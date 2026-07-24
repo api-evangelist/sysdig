@@ -1,0 +1,181 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Monitor Activity Audit Rules API
+  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  version: 1.0.0
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+servers:
+- url: https://api.us1.sysdig.com
+  description: US East
+- url: https://api.eu1.sysdig.com
+  description: EU Central
+- url: https://api.au1.sysdig.com
+  description: Asia Pacific
+security:
+- BearerAuth: []
+tags:
+- name: Rules
+  description: Manage Falco security rules
+paths:
+  /api/secure/falco/v2/rules:
+    get:
+      operationId: listFalcoRules
+      summary: List Falco Rules
+      description: Retrieve all Falco security rules.
+      tags:
+      - Rules
+      responses:
+        '200':
+          description: List of Falco rules
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FalcoRuleListResponse'
+    post:
+      operationId: createFalcoRule
+      summary: Create Falco Rule
+      description: Create a new custom Falco rule.
+      tags:
+      - Rules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FalcoRuleRequest'
+      responses:
+        '201':
+          description: Falco rule created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FalcoRuleResponse'
+  /api/secure/falco/v2/rules/{ruleId}:
+    get:
+      operationId: getFalcoRule
+      summary: Get Falco Rule
+      description: Retrieve a specific Falco rule by ID.
+      tags:
+      - Rules
+      parameters:
+      - $ref: '#/components/parameters/RuleId'
+      responses:
+        '200':
+          description: Falco rule details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FalcoRuleResponse'
+    put:
+      operationId: updateFalcoRule
+      summary: Update Falco Rule
+      description: Update an existing Falco rule.
+      tags:
+      - Rules
+      parameters:
+      - $ref: '#/components/parameters/RuleId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FalcoRuleRequest'
+      responses:
+        '200':
+          description: Falco rule updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FalcoRuleResponse'
+    delete:
+      operationId: deleteFalcoRule
+      summary: Delete Falco Rule
+      description: Delete a custom Falco rule.
+      tags:
+      - Rules
+      parameters:
+      - $ref: '#/components/parameters/RuleId'
+      responses:
+        '204':
+          description: Falco rule deleted
+components:
+  schemas:
+    FalcoRule:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+        condition:
+          type: string
+          description: Falco condition expression
+        output:
+          type: string
+        priority:
+          type: string
+          enum:
+          - EMERGENCY
+          - ALERT
+          - CRITICAL
+          - ERROR
+          - WARNING
+          - NOTICE
+          - INFORMATIONAL
+          - DEBUG
+        source:
+          type: string
+          enum:
+          - syscall
+          - k8s_audit
+          - awscloudtrail
+        tags:
+          type: array
+          items:
+            type: string
+        enabled:
+          type: boolean
+    FalcoRuleListResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/FalcoRule'
+    FalcoRuleRequest:
+      type: object
+      required:
+      - rule
+      properties:
+        rule:
+          $ref: '#/components/schemas/FalcoRule'
+    FalcoRuleResponse:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/FalcoRule'
+  parameters:
+    RuleId:
+      name: ruleId
+      in: path
+      required: true
+      description: Unique identifier of the Falco rule
+      schema:
+        type: integer
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using a Sysdig API Token, Team-Based Service Account, or Global Service Account token as a Bearer token.
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/

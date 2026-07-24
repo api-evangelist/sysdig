@@ -1,0 +1,241 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Monitor Activity Audit Alerts API
+  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  version: 1.0.0
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+servers:
+- url: https://api.us1.sysdig.com
+  description: US East
+- url: https://api.eu1.sysdig.com
+  description: EU Central
+- url: https://api.au1.sysdig.com
+  description: Asia Pacific
+security:
+- BearerAuth: []
+tags:
+- name: Alerts
+  description: Manage monitoring alerts and alert notifications
+paths:
+  /api/v2/alerts:
+    get:
+      operationId: listAlerts
+      summary: List Alerts
+      description: Retrieve a list of all monitoring alerts configured for the team.
+      tags:
+      - Alerts
+      parameters:
+      - name: limit
+        in: query
+        description: Maximum number of alerts to return
+        required: false
+        schema:
+          type: integer
+          default: 100
+      - name: offset
+        in: query
+        description: Offset for pagination
+        required: false
+        schema:
+          type: integer
+          default: 0
+      responses:
+        '200':
+          description: Successful response with list of alerts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAlert
+      summary: Create Alert
+      description: Create a new monitoring alert.
+      tags:
+      - Alerts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertRequest'
+      responses:
+        '201':
+          description: Alert created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v2/alerts/{alertId}:
+    get:
+      operationId: getAlert
+      summary: Get Alert
+      description: Retrieve details of a specific monitoring alert by ID.
+      tags:
+      - Alerts
+      parameters:
+      - $ref: '#/components/parameters/AlertId'
+      responses:
+        '200':
+          description: Alert details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateAlert
+      summary: Update Alert
+      description: Update an existing monitoring alert.
+      tags:
+      - Alerts
+      parameters:
+      - $ref: '#/components/parameters/AlertId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertRequest'
+      responses:
+        '200':
+          description: Alert updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAlert
+      summary: Delete Alert
+      description: Delete a specific monitoring alert.
+      tags:
+      - Alerts
+      parameters:
+      - $ref: '#/components/parameters/AlertId'
+      responses:
+        '204':
+          description: Alert deleted successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    AlertListResponse:
+      type: object
+      properties:
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alert'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              reason:
+                type: string
+    AlertRequest:
+      type: object
+      required:
+      - alert
+      properties:
+        alert:
+          $ref: '#/components/schemas/Alert'
+    Alert:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          description: Alert name
+        description:
+          type: string
+        severity:
+          type: integer
+          description: Alert severity (0-7, where 0 is highest)
+          minimum: 0
+          maximum: 7
+        enabled:
+          type: boolean
+        condition:
+          type: string
+          description: Alert condition expression
+        segmentBy:
+          type: array
+          items:
+            type: string
+        timespan:
+          type: integer
+          description: Duration in microseconds
+        type:
+          type: string
+          enum:
+          - MANUAL
+          - BASELINE
+          - HOST_COMPARISON
+        notificationChannelIds:
+          type: array
+          items:
+            type: integer
+    AlertResponse:
+      type: object
+      properties:
+        alert:
+          $ref: '#/components/schemas/Alert'
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    AlertId:
+      name: alertId
+      in: path
+      required: true
+      description: Unique identifier of the alert
+      schema:
+        type: integer
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using a Sysdig API Token, Team-Based Service Account, or Global Service Account token as a Bearer token.
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/

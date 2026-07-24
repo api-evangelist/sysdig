@@ -1,0 +1,168 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Monitor Activity Audit Teams API
+  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  version: 1.0.0
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+servers:
+- url: https://api.us1.sysdig.com
+  description: US East
+- url: https://api.eu1.sysdig.com
+  description: EU Central
+- url: https://api.au1.sysdig.com
+  description: Asia Pacific
+security:
+- BearerAuth: []
+tags:
+- name: Teams
+  description: Manage teams and team memberships
+paths:
+  /api/v2/teams:
+    get:
+      operationId: listTeams
+      summary: List Teams
+      description: Retrieve all teams in the Sysdig organization.
+      tags:
+      - Teams
+      responses:
+        '200':
+          description: List of teams
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamListResponse'
+    post:
+      operationId: createTeam
+      summary: Create Team
+      description: Create a new team.
+      tags:
+      - Teams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamRequest'
+      responses:
+        '201':
+          description: Team created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamResponse'
+  /api/v2/teams/{teamId}:
+    get:
+      operationId: getTeam
+      summary: Get Team
+      description: Retrieve details of a specific team.
+      tags:
+      - Teams
+      parameters:
+      - $ref: '#/components/parameters/TeamId'
+      responses:
+        '200':
+          description: Team details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamResponse'
+    put:
+      operationId: updateTeam
+      summary: Update Team
+      description: Update an existing team.
+      tags:
+      - Teams
+      parameters:
+      - $ref: '#/components/parameters/TeamId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamRequest'
+      responses:
+        '200':
+          description: Team updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamResponse'
+    delete:
+      operationId: deleteTeam
+      summary: Delete Team
+      description: Delete a team.
+      tags:
+      - Teams
+      parameters:
+      - $ref: '#/components/parameters/TeamId'
+      responses:
+        '204':
+          description: Team deleted
+components:
+  parameters:
+    TeamId:
+      name: teamId
+      in: path
+      required: true
+      description: Unique identifier of the team
+      schema:
+        type: integer
+  schemas:
+    TeamListResponse:
+      type: object
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+    TeamResponse:
+      type: object
+      properties:
+        team:
+          $ref: '#/components/schemas/Team'
+    TeamRequest:
+      type: object
+      required:
+      - team
+      properties:
+        team:
+          $ref: '#/components/schemas/Team'
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+        theme:
+          type: string
+        defaultTeamRole:
+          type: string
+          enum:
+          - ROLE_TEAM_EDIT
+          - ROLE_TEAM_READ
+        entryPoint:
+          type: object
+          properties:
+            module:
+              type: string
+        filter:
+          type: string
+          description: Scope filter expression for the team
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using a Sysdig API Token, Team-Based Service Account, or Global Service Account token as a Bearer token.
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/

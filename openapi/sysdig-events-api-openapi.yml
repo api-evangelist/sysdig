@@ -1,0 +1,141 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Monitor Activity Audit Events API
+  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  version: 1.0.0
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+servers:
+- url: https://api.us1.sysdig.com
+  description: US East
+- url: https://api.eu1.sysdig.com
+  description: EU Central
+- url: https://api.au1.sysdig.com
+  description: Asia Pacific
+security:
+- BearerAuth: []
+tags:
+- name: Events
+  description: Retrieve and create custom events
+paths:
+  /api/v2/events:
+    get:
+      operationId: listEvents
+      summary: List Events
+      description: Retrieve monitoring events including custom events, alerts, and system events.
+      tags:
+      - Events
+      parameters:
+      - name: from
+        in: query
+        description: Start time in Unix epoch microseconds
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: to
+        in: query
+        description: End time in Unix epoch microseconds
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: Maximum number of events to return
+        required: false
+        schema:
+          type: integer
+          default: 100
+      responses:
+        '200':
+          description: List of events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventListResponse'
+    post:
+      operationId: createEvent
+      summary: Create Event
+      description: Create a custom event in Sysdig Monitor.
+      tags:
+      - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRequest'
+      responses:
+        '201':
+          description: Event created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+components:
+  schemas:
+    EventResponse:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/Event'
+    EventListResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        total:
+          type: integer
+    EventRequest:
+      type: object
+      required:
+      - event
+      properties:
+        event:
+          $ref: '#/components/schemas/Event'
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+        severity:
+          type: string
+          enum:
+          - EMERGENCY
+          - ALERT
+          - CRITICAL
+          - ERROR
+          - WARNING
+          - NOTICE
+          - INFO
+          - DEBUG
+        timestamp:
+          type: integer
+          format: int64
+        scope:
+          type: string
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using a Sysdig API Token, Team-Based Service Account, or Global Service Account token as a Bearer token.
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/

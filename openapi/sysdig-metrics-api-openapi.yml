@@ -1,0 +1,124 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Monitor Activity Audit Metrics API
+  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  version: 1.0.0
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+servers:
+- url: https://api.us1.sysdig.com
+  description: US East
+- url: https://api.eu1.sysdig.com
+  description: EU Central
+- url: https://api.au1.sysdig.com
+  description: Asia Pacific
+security:
+- BearerAuth: []
+tags:
+- name: Metrics
+  description: Query and retrieve metrics data
+paths:
+  /api/v2/metrics/find:
+    get:
+      operationId: findMetrics
+      summary: Find Metrics
+      description: Search for available metrics by name pattern.
+      tags:
+      - Metrics
+      parameters:
+      - name: name
+        in: query
+        description: Metric name pattern to search for
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of matching metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricListResponse'
+  /api/v2/metrics/descriptors:
+    post:
+      operationId: getMetricDescriptors
+      summary: Get Metric Descriptors
+      description: Retrieve descriptors for specified metrics.
+      tags:
+      - Metrics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metrics:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+      responses:
+        '200':
+          description: Metric descriptors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricDescriptorResponse'
+components:
+  schemas:
+    MetricDescriptorResponse:
+      type: object
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricDescriptor'
+    Metric:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        metricType:
+          type: string
+    MetricListResponse:
+      type: object
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metric'
+    MetricDescriptor:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        groupBy:
+          type: array
+          items:
+            type: object
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using a Sysdig API Token, Team-Based Service Account, or Global Service Account token as a Bearer token.
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/

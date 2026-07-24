@@ -1,0 +1,225 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Monitor Activity Audit Policies API
+  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  version: 1.0.0
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+servers:
+- url: https://api.us1.sysdig.com
+  description: US East
+- url: https://api.eu1.sysdig.com
+  description: EU Central
+- url: https://api.au1.sysdig.com
+  description: Asia Pacific
+security:
+- BearerAuth: []
+tags:
+- name: Policies
+  description: Manage runtime security policies
+paths:
+  /api/policies/v2:
+    get:
+      operationId: listPolicies
+      summary: List Policies
+      description: Retrieve all runtime security policies.
+      tags:
+      - Policies
+      parameters:
+      - name: type
+        in: query
+        description: Filter by policy type
+        required: false
+        schema:
+          type: string
+          enum:
+          - falco
+          - list
+          - awscloudtrail
+          - k8s_audit
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 100
+      responses:
+        '200':
+          description: List of policies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyListResponse'
+    post:
+      operationId: createPolicy
+      summary: Create Policy
+      description: Create a new runtime security policy.
+      tags:
+      - Policies
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyRequest'
+      responses:
+        '201':
+          description: Policy created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyResponse'
+  /api/policies/v2/{policyId}:
+    get:
+      operationId: getPolicy
+      summary: Get Policy
+      description: Retrieve a specific runtime security policy.
+      tags:
+      - Policies
+      parameters:
+      - $ref: '#/components/parameters/PolicyId'
+      responses:
+        '200':
+          description: Policy details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updatePolicy
+      summary: Update Policy
+      description: Update an existing runtime security policy.
+      tags:
+      - Policies
+      parameters:
+      - $ref: '#/components/parameters/PolicyId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyRequest'
+      responses:
+        '200':
+          description: Policy updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyResponse'
+    delete:
+      operationId: deletePolicy
+      summary: Delete Policy
+      description: Delete a runtime security policy.
+      tags:
+      - Policies
+      parameters:
+      - $ref: '#/components/parameters/PolicyId'
+      responses:
+        '204':
+          description: Policy deleted
+components:
+  parameters:
+    PolicyId:
+      name: policyId
+      in: path
+      required: true
+      description: Unique identifier of the policy
+      schema:
+        type: integer
+  schemas:
+    PolicyListResponse:
+      type: object
+      properties:
+        policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Policy'
+        total:
+          type: integer
+    PolicyRequest:
+      type: object
+      required:
+      - policy
+      properties:
+        policy:
+          $ref: '#/components/schemas/Policy'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+    PolicyResponse:
+      type: object
+      properties:
+        policy:
+          $ref: '#/components/schemas/Policy'
+    Policy:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+        severity:
+          type: integer
+          minimum: 0
+          maximum: 7
+        enabled:
+          type: boolean
+        type:
+          type: string
+          enum:
+          - falco
+          - list
+          - awscloudtrail
+          - k8s_audit
+        scope:
+          type: string
+        runAsUser:
+          type: boolean
+        actions:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              isLimitedToContainer:
+                type: boolean
+        ruleNames:
+          type: array
+          items:
+            type: string
+        notificationChannelIds:
+          type: array
+          items:
+            type: integer
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using a Sysdig API Token, Team-Based Service Account, or Global Service Account token as a Bearer token.
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/

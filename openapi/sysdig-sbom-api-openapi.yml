@@ -1,0 +1,72 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Monitor Activity Audit SBOM API
+  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  version: 1.0.0
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+servers:
+- url: https://api.us1.sysdig.com
+  description: US East
+- url: https://api.eu1.sysdig.com
+  description: EU Central
+- url: https://api.au1.sysdig.com
+  description: Asia Pacific
+security:
+- BearerAuth: []
+tags:
+- name: SBOM
+  description: Software Bill of Materials management
+paths:
+  /api/scanning/v1/images/{imageId}/sbom:
+    get:
+      operationId: getImageSBOM
+      summary: Get Image SBOM
+      description: Retrieve the Software Bill of Materials (SBOM) for a container image in CycloneDX JSON format.
+      tags:
+      - SBOM
+      parameters:
+      - name: imageId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Image SBOM in CycloneDX format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SBOMResponse'
+components:
+  schemas:
+    SBOMResponse:
+      type: object
+      description: CycloneDX SBOM format
+      properties:
+        bomFormat:
+          type: string
+          example: CycloneDX
+        specVersion:
+          type: string
+        serialNumber:
+          type: string
+        version:
+          type: integer
+        components:
+          type: array
+          items:
+            type: object
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using a Sysdig API Token, Team-Based Service Account, or Global Service Account token as a Bearer token.
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/

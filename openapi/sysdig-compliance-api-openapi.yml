@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Monitor Activity Audit Compliance API
+  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  version: 1.0.0
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+servers:
+- url: https://api.us1.sysdig.com
+  description: US East
+- url: https://api.eu1.sysdig.com
+  description: EU Central
+- url: https://api.au1.sysdig.com
+  description: Asia Pacific
+security:
+- BearerAuth: []
+tags:
+- name: Compliance
+  description: Compliance checks and reporting
+paths:
+  /api/compliance/v2/tasks:
+    get:
+      operationId: listComplianceTasks
+      summary: List Compliance Tasks
+      description: Retrieve all compliance evaluation tasks and their statuses.
+      tags:
+      - Compliance
+      responses:
+        '200':
+          description: List of compliance tasks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceTaskListResponse'
+  /api/compliance/v2/tasks/{taskId}/results:
+    get:
+      operationId: getComplianceResults
+      summary: Get Compliance Results
+      description: Retrieve compliance check results for a specific task.
+      tags:
+      - Compliance
+      parameters:
+      - name: taskId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 100
+      responses:
+        '200':
+          description: Compliance results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceResultResponse'
+components:
+  schemas:
+    ComplianceTaskListResponse:
+      type: object
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceTask'
+    ComplianceResult:
+      type: object
+      properties:
+        controlId:
+          type: string
+        controlName:
+          type: string
+        result:
+          type: string
+          enum:
+          - pass
+          - fail
+          - warn
+          - skip
+        severity:
+          type: string
+        resource:
+          type: string
+    ComplianceResultResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceResult'
+        total:
+          type: integer
+        pass:
+          type: integer
+        fail:
+          type: integer
+    ComplianceTask:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        enabled:
+          type: boolean
+        schedule:
+          type: string
+        schema:
+          type: string
+        scope:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using a Sysdig API Token, Team-Based Service Account, or Global Service Account token as a Bearer token.
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/

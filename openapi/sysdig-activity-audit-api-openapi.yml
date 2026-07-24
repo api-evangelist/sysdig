@@ -1,0 +1,171 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Monitor Activity Audit API
+  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  version: 1.0.0
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+servers:
+- url: https://api.us1.sysdig.com
+  description: US East
+- url: https://api.eu1.sysdig.com
+  description: EU Central
+- url: https://api.au1.sysdig.com
+  description: Asia Pacific
+security:
+- BearerAuth: []
+tags:
+- name: Activity Audit
+  description: Audit trail of user and system activities
+paths:
+  /api/v1/secureEvents:
+    get:
+      operationId: listSecureEvents
+      summary: List Secure Events
+      description: Retrieve runtime security events triggered by policy violations.
+      tags:
+      - Activity Audit
+      parameters:
+      - name: from
+        in: query
+        description: Start time in Unix epoch seconds
+        required: false
+        schema:
+          type: integer
+      - name: to
+        in: query
+        description: End time in Unix epoch seconds
+        required: false
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 100
+      - name: filter
+        in: query
+        description: Filter expression for events
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of secure events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecureEventListResponse'
+  /api/v1/activityAudit:
+    get:
+      operationId: listActivityAudit
+      summary: List Activity Audit
+      description: Retrieve audit trail of user and system activities.
+      tags:
+      - Activity Audit
+      parameters:
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 100
+      responses:
+        '200':
+          description: Activity audit entries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityAuditResponse'
+components:
+  schemas:
+    PageInfo:
+      type: object
+      properties:
+        returned:
+          type: integer
+        next:
+          type: string
+    ActivityAuditEntry:
+      type: object
+      properties:
+        id:
+          type: string
+        timestamp:
+          type: integer
+        category:
+          type: string
+        type:
+          type: string
+        user:
+          type: string
+        description:
+          type: string
+        source:
+          type: string
+    SecureEventListResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecureEvent'
+        total:
+          type: integer
+    SecureEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        severity:
+          type: integer
+        category:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
+        containerId:
+          type: string
+        containerName:
+          type: string
+        hostName:
+          type: string
+        content:
+          type: object
+    ActivityAuditResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityAuditEntry'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using a Sysdig API Token, Team-Based Service Account, or Global Service Account token as a Bearer token.
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
