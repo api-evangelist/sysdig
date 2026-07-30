@@ -7,7 +7,20 @@ description: Sysdig is a cloud and container security platform that provides run
   runtime security, vulnerability scanning, policy enforcement, incident response,
   and compliance reporting.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/sysdig.png
 tags:
 - Cloud Security
 - Containers
@@ -24,61 +37,243 @@ created: '2026-03-26'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-- aid: sysdig:sysdig-monitor
-  name: Sysdig Monitor
-  description: The Sysdig Monitor API provides programmatic access to monitoring and
-    observability capabilities including dashboards, alerts, events, metrics, teams,
-    notification channels, and scanning results for cloud-native environments.
+- aid: sysdig:sysdig-activity-audit-api
+  name: Sysdig Activity Audit API
+  description: Audit trail of user and system activities
   humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
   baseURL: https://api.us1.sysdig.com
   tags:
-  - Monitoring
-  - Observability
-  - Alerts
-  - Dashboards
-  - Metrics
-  - Events
+  - Activity Audit
   properties:
+  - type: OpenAPI
+    url: openapi/sysdig-activity-audit-api-openapi.yml
   - type: Documentation
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/openapi/sysdig-monitor-openapi.yml
   - type: GettingStarted
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - url: graphql/sysdig-graphql.md
-    type: GraphQL
-  contact:
-  - FN: Sysdig Support
-    url: https://sysdig.com/support/
-- aid: sysdig:sysdig-secure
-  name: Sysdig Secure
-  description: The Sysdig Secure API provides programmatic access to cloud and container
-    security capabilities including vulnerability management, runtime policies, compliance
-    checks, activity audit, incident response, image scanning, SBOM retrieval, and
-    Falco rules management.
+  - type: GraphQL
+    url: graphql/sysdig-graphql.md
+- aid: sysdig:sysdig-alerts-api
+  name: Sysdig Alerts API
+  description: Manage monitoring alerts and alert notifications
   humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
   baseURL: https://api.us1.sysdig.com
   tags:
-  - Security
-  - Vulnerability Management
-  - Compliance
-  - Runtime Security
-  - Falco
-  - Scanning
-  - CSPM
+  - Alerts
   properties:
+  - type: OpenAPI
+    url: openapi/sysdig-alerts-api-openapi.yml
   - type: Documentation
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/sysdig/refs/heads/main/openapi/sysdig-secure-openapi.yml
   - type: GettingStarted
     url: https://docs.sysdig.com/en/getting-started/
-  contact:
-  - FN: Sysdig Support
-    url: https://sysdig.com/support/
+  - type: Authentication
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GraphQL
+    url: graphql/sysdig-graphql.md
+- aid: sysdig:sysdig-compliance-api
+  name: Sysdig Compliance API
+  description: Compliance checks and reporting
+  humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  baseURL: https://api.us1.sysdig.com
+  tags:
+  - Compliance
+  properties:
+  - type: OpenAPI
+    url: openapi/sysdig-compliance-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GettingStarted
+    url: https://docs.sysdig.com/en/getting-started/
+  - type: Authentication
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GraphQL
+    url: graphql/sysdig-graphql.md
+- aid: sysdig:sysdig-dashboards-api
+  name: Sysdig Dashboards API
+  description: Create and manage monitoring dashboards
+  humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  baseURL: https://api.us1.sysdig.com
+  tags:
+  - Dashboards
+  properties:
+  - type: OpenAPI
+    url: openapi/sysdig-dashboards-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GettingStarted
+    url: https://docs.sysdig.com/en/getting-started/
+  - type: Authentication
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GraphQL
+    url: graphql/sysdig-graphql.md
+- aid: sysdig:sysdig-events-api
+  name: Sysdig Events API
+  description: Retrieve and create custom events
+  humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  baseURL: https://api.us1.sysdig.com
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/sysdig-events-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GettingStarted
+    url: https://docs.sysdig.com/en/getting-started/
+  - type: Authentication
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GraphQL
+    url: graphql/sysdig-graphql.md
+- aid: sysdig:sysdig-image-scanning-api
+  name: Sysdig Image Scanning API
+  description: Scan container images for vulnerabilities
+  humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  baseURL: https://api.us1.sysdig.com
+  tags:
+  - Image Scanning
+  properties:
+  - type: OpenAPI
+    url: openapi/sysdig-image-scanning-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GettingStarted
+    url: https://docs.sysdig.com/en/getting-started/
+  - type: Authentication
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GraphQL
+    url: graphql/sysdig-graphql.md
+- aid: sysdig:sysdig-metrics-api
+  name: Sysdig Metrics API
+  description: Query and retrieve metrics data
+  humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  baseURL: https://api.us1.sysdig.com
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/sysdig-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GettingStarted
+    url: https://docs.sysdig.com/en/getting-started/
+  - type: Authentication
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GraphQL
+    url: graphql/sysdig-graphql.md
+- aid: sysdig:sysdig-notification-channels-api
+  name: Sysdig Notification Channels API
+  description: Configure notification channels for alerts
+  humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  baseURL: https://api.us1.sysdig.com
+  tags:
+  - Notification Channels
+  properties:
+  - type: OpenAPI
+    url: openapi/sysdig-notification-channels-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GettingStarted
+    url: https://docs.sysdig.com/en/getting-started/
+  - type: Authentication
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GraphQL
+    url: graphql/sysdig-graphql.md
+- aid: sysdig:sysdig-policies-api
+  name: Sysdig Policies API
+  description: Manage runtime security policies
+  humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  baseURL: https://api.us1.sysdig.com
+  tags:
+  - Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/sysdig-policies-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GettingStarted
+    url: https://docs.sysdig.com/en/getting-started/
+  - type: Authentication
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GraphQL
+    url: graphql/sysdig-graphql.md
+- aid: sysdig:sysdig-rules-api
+  name: Sysdig Rules API
+  description: Manage Falco security rules
+  humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  baseURL: https://api.us1.sysdig.com
+  tags:
+  - Rules
+  properties:
+  - type: OpenAPI
+    url: openapi/sysdig-rules-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GettingStarted
+    url: https://docs.sysdig.com/en/getting-started/
+  - type: Authentication
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GraphQL
+    url: graphql/sysdig-graphql.md
+- aid: sysdig:sysdig-sbom-api
+  name: Sysdig SBOM API
+  description: Software Bill of Materials management
+  humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  baseURL: https://api.us1.sysdig.com
+  tags:
+  - SBOM
+  properties:
+  - type: OpenAPI
+    url: openapi/sysdig-sbom-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GettingStarted
+    url: https://docs.sysdig.com/en/getting-started/
+  - type: Authentication
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GraphQL
+    url: graphql/sysdig-graphql.md
+- aid: sysdig:sysdig-teams-api
+  name: Sysdig Teams API
+  description: Manage teams and team memberships
+  humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  baseURL: https://api.us1.sysdig.com
+  tags:
+  - Teams
+  properties:
+  - type: OpenAPI
+    url: openapi/sysdig-teams-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GettingStarted
+    url: https://docs.sysdig.com/en/getting-started/
+  - type: Authentication
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GraphQL
+    url: graphql/sysdig-graphql.md
+- aid: sysdig:sysdig-vulnerabilities-api
+  name: Sysdig Vulnerabilities API
+  description: Manage vulnerability findings and scanning results
+  humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  baseURL: https://api.us1.sysdig.com
+  tags:
+  - Vulnerabilities
+  properties:
+  - type: OpenAPI
+    url: openapi/sysdig-vulnerabilities-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GettingStarted
+    url: https://docs.sysdig.com/en/getting-started/
+  - type: Authentication
+    url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+  - type: GraphQL
+    url: graphql/sysdig-graphql.md
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/sysdig/overview
 - type: AgenticAccess
   url: agentic-access/sysdig-agentic-access.yml
 - type: DomainSecurity
