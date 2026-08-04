@@ -1,0 +1,690 @@
+{
+  "info": {
+    "_postman_id": "7f7e989a-4595-4f40-a905-cccd0651bf1e",
+    "name": "Sysdig Monitor Activity Audit Dashboards API",
+    "description": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:07:31.000Z",
+    "updatedAt": "2026-07-28T03:07:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7f7e989a-4595-4f40-a905-cccd0651bf1e"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v3",
+          "item": [
+            {
+              "name": "dashboards",
+              "item": [
+                {
+                  "name": "{dashboardId}",
+                  "item": [
+                    {
+                      "name": "Get Dashboard",
+                      "id": "a2a1c587-3938-4410-be1e-84cbf8c2d2f3",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v3/dashboards/:dashboardId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v3",
+                            "dashboards",
+                            ":dashboardId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "391d7bd5-852d-43a5-94d6-ee10547fc8d1",
+                              "key": "dashboardId",
+                              "value": "<integer>",
+                              "description": "(Required) Unique identifier of the dashboard"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve a specific monitoring dashboard by ID."
+                      },
+                      "response": [
+                        {
+                          "id": "c84cbbe7-dc98-4096-bb84-cd939661eb39",
+                          "name": "Dashboard details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v3/dashboards/:dashboardId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v3",
+                                "dashboards",
+                                ":dashboardId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboardId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"dashboard\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T03:07:32.000Z",
+                          "updatedAt": "2026-07-28T03:07:32.000Z",
+                          "uid": "35240-c84cbbe7-dc98-4096-bb84-cd939661eb39"
+                        },
+                        {
+                          "id": "223be157-8914-45fe-b963-fee2084ab6ab",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v3/dashboards/:dashboardId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v3",
+                                "dashboards",
+                                ":dashboardId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboardId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errors\": [\n    {\n      \"type\": \"<string>\",\n      \"reason\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"reason\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:07:32.000Z",
+                          "updatedAt": "2026-07-28T03:07:32.000Z",
+                          "uid": "35240-223be157-8914-45fe-b963-fee2084ab6ab"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:07:32.000Z",
+                      "updatedAt": "2026-07-28T03:07:32.000Z",
+                      "uid": "35240-a2a1c587-3938-4410-be1e-84cbf8c2d2f3"
+                    },
+                    {
+                      "name": "Update Dashboard",
+                      "id": "c3092538-4882-401f-8050-58fc31d8a769",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"dashboard\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v3/dashboards/:dashboardId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v3",
+                            "dashboards",
+                            ":dashboardId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "44b3782b-f577-4a84-8136-c5fe657bdab8",
+                              "key": "dashboardId",
+                              "value": "<integer>",
+                              "description": "(Required) Unique identifier of the dashboard"
+                            }
+                          ]
+                        },
+                        "description": "Update an existing monitoring dashboard."
+                      },
+                      "response": [
+                        {
+                          "id": "9a035301-5d81-479e-ab4b-f5ca01ba2b4a",
+                          "name": "Dashboard updated",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"dashboard\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v3/dashboards/:dashboardId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v3",
+                                "dashboards",
+                                ":dashboardId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboardId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"dashboard\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T03:07:32.000Z",
+                          "updatedAt": "2026-07-28T03:07:32.000Z",
+                          "uid": "35240-9a035301-5d81-479e-ab4b-f5ca01ba2b4a"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:07:32.000Z",
+                      "updatedAt": "2026-07-28T03:07:32.000Z",
+                      "uid": "35240-c3092538-4882-401f-8050-58fc31d8a769"
+                    },
+                    {
+                      "name": "Delete Dashboard",
+                      "id": "eeeea9d1-4205-4913-b461-51c4aa58f7da",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v3/dashboards/:dashboardId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v3",
+                            "dashboards",
+                            ":dashboardId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "9b7d76c5-62c1-4d62-8452-561c2a6a853f",
+                              "key": "dashboardId",
+                              "value": "<integer>",
+                              "description": "(Required) Unique identifier of the dashboard"
+                            }
+                          ]
+                        },
+                        "description": "Delete a monitoring dashboard."
+                      },
+                      "response": [
+                        {
+                          "id": "dff4d8c5-dc3f-4419-b075-d42fa1107cdd",
+                          "name": "Dashboard deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v3/dashboards/:dashboardId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v3",
+                                "dashboards",
+                                ":dashboardId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboardId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:07:32.000Z",
+                          "updatedAt": "2026-07-28T03:07:32.000Z",
+                          "uid": "35240-dff4d8c5-dc3f-4419-b075-d42fa1107cdd"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:07:32.000Z",
+                      "updatedAt": "2026-07-28T03:07:32.000Z",
+                      "uid": "35240-eeeea9d1-4205-4913-b461-51c4aa58f7da"
+                    }
+                  ],
+                  "id": "85ac9c37-8bb5-47fb-a163-81b780b2b6cb",
+                  "createdAt": "2026-07-28T03:07:32.000Z",
+                  "updatedAt": "2026-07-28T03:07:32.000Z",
+                  "uid": "35240-85ac9c37-8bb5-47fb-a163-81b780b2b6cb"
+                },
+                {
+                  "name": "List Dashboards",
+                  "id": "56464453-aeeb-44b0-b439-15ffd12c00a8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v3/dashboards",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v3",
+                        "dashboards"
+                      ]
+                    },
+                    "description": "Retrieve all monitoring dashboards for the team."
+                  },
+                  "response": [
+                    {
+                      "id": "6f1308dc-25c2-4fdf-a40f-d972f2413ee0",
+                      "name": "List of dashboards",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v3/dashboards",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v3",
+                            "dashboards"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"dashboards\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"shared\": \"<boolean>\",\n      \"panels\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"shared\": \"<boolean>\",\n      \"panels\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:07:32.000Z",
+                      "updatedAt": "2026-07-28T03:07:32.000Z",
+                      "uid": "35240-6f1308dc-25c2-4fdf-a40f-d972f2413ee0"
+                    },
+                    {
+                      "id": "6cad2790-1924-4b3a-b331-1ae68e321ebf",
+                      "name": "Authentication credentials missing or invalid",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v3/dashboards",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v3",
+                            "dashboards"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": [\n    {\n      \"type\": \"<string>\",\n      \"reason\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"reason\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:07:32.000Z",
+                      "updatedAt": "2026-07-28T03:07:32.000Z",
+                      "uid": "35240-6cad2790-1924-4b3a-b331-1ae68e321ebf"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:07:32.000Z",
+                  "updatedAt": "2026-07-28T03:07:32.000Z",
+                  "uid": "35240-56464453-aeeb-44b0-b439-15ffd12c00a8"
+                },
+                {
+                  "name": "Create Dashboard",
+                  "id": "2c4a202b-e449-4de5-a3c1-eb00533bce39",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"dashboard\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v3/dashboards",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v3",
+                        "dashboards"
+                      ]
+                    },
+                    "description": "Create a new monitoring dashboard."
+                  },
+                  "response": [
+                    {
+                      "id": "e3107a6b-19cb-4e54-bbb3-b9eb1d62e250",
+                      "name": "Dashboard created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"dashboard\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v3/dashboards",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v3",
+                            "dashboards"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"dashboard\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T03:07:32.000Z",
+                      "updatedAt": "2026-07-28T03:07:32.000Z",
+                      "uid": "35240-e3107a6b-19cb-4e54-bbb3-b9eb1d62e250"
+                    },
+                    {
+                      "id": "aa43209d-941f-451d-a85f-4dc0aecc12e8",
+                      "name": "Invalid request parameters",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"dashboard\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"shared\": \"<boolean>\",\n    \"panels\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v3/dashboards",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v3",
+                            "dashboards"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": [\n    {\n      \"type\": \"<string>\",\n      \"reason\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"reason\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:07:32.000Z",
+                      "updatedAt": "2026-07-28T03:07:32.000Z",
+                      "uid": "35240-aa43209d-941f-451d-a85f-4dc0aecc12e8"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:07:32.000Z",
+                  "updatedAt": "2026-07-28T03:07:32.000Z",
+                  "uid": "35240-2c4a202b-e449-4de5-a3c1-eb00533bce39"
+                }
+              ],
+              "id": "d4606c5b-7c94-42ae-8b53-3aeca6259b9f",
+              "createdAt": "2026-07-28T03:07:32.000Z",
+              "updatedAt": "2026-07-28T03:07:32.000Z",
+              "uid": "35240-d4606c5b-7c94-42ae-8b53-3aeca6259b9f"
+            }
+          ],
+          "id": "779b92ea-28a7-4511-9175-effafe08156f",
+          "createdAt": "2026-07-28T03:07:32.000Z",
+          "updatedAt": "2026-07-28T03:07:32.000Z",
+          "uid": "35240-779b92ea-28a7-4511-9175-effafe08156f"
+        }
+      ],
+      "id": "c72d6dac-0594-44ca-9bbb-e871815092f4",
+      "createdAt": "2026-07-28T03:07:32.000Z",
+      "updatedAt": "2026-07-28T03:07:32.000Z",
+      "uid": "35240-c72d6dac-0594-44ca-9bbb-e871815092f4"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.us1.sysdig.com"
+    }
+  ]
+}

@@ -1,0 +1,271 @@
+{
+  "info": {
+    "_postman_id": "249031d8-0846-48c8-97da-185a0a8bf25b",
+    "name": "Sysdig Monitor Activity Audit Compliance API",
+    "description": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:07:24.000Z",
+    "updatedAt": "2026-07-28T03:07:24.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-249031d8-0846-48c8-97da-185a0a8bf25b"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "compliance",
+          "item": [
+            {
+              "name": "v2",
+              "item": [
+                {
+                  "name": "tasks",
+                  "item": [
+                    {
+                      "name": "{taskId}",
+                      "item": [
+                        {
+                          "name": "results",
+                          "item": [
+                            {
+                              "name": "Get Compliance Results",
+                              "id": "ff046ee3-fb7d-4a83-a65b-786e4b15f5fb",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/compliance/v2/tasks/:taskId/results?limit=100",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "compliance",
+                                    "v2",
+                                    "tasks",
+                                    ":taskId",
+                                    "results"
+                                  ],
+                                  "query": [
+                                    {
+                                      "key": "limit",
+                                      "value": "100"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "a0d828a3-c176-4d77-a276-ccdd82889b5a",
+                                      "key": "taskId",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieve compliance check results for a specific task."
+                              },
+                              "response": [
+                                {
+                                  "id": "2e393b4c-12c2-4b3f-9953-57b384b3df77",
+                                  "name": "Compliance results",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/compliance/v2/tasks/:taskId/results?limit=100",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "compliance",
+                                        "v2",
+                                        "tasks",
+                                        ":taskId",
+                                        "results"
+                                      ],
+                                      "query": [
+                                        {
+                                          "key": "limit",
+                                          "value": "100"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "taskId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"results\": [\n    {\n      \"controlId\": \"<string>\",\n      \"controlName\": \"<string>\",\n      \"result\": \"fail\",\n      \"severity\": \"<string>\",\n      \"resource\": \"<string>\"\n    },\n    {\n      \"controlId\": \"<string>\",\n      \"controlName\": \"<string>\",\n      \"result\": \"skip\",\n      \"severity\": \"<string>\",\n      \"resource\": \"<string>\"\n    }\n  ],\n  \"total\": \"<integer>\",\n  \"pass\": \"<integer>\",\n  \"fail\": \"<integer>\"\n}",
+                                  "createdAt": "2026-07-28T03:07:25.000Z",
+                                  "updatedAt": "2026-07-28T03:07:25.000Z",
+                                  "uid": "35240-2e393b4c-12c2-4b3f-9953-57b384b3df77"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:07:25.000Z",
+                              "updatedAt": "2026-07-28T03:07:25.000Z",
+                              "uid": "35240-ff046ee3-fb7d-4a83-a65b-786e4b15f5fb"
+                            }
+                          ],
+                          "id": "ab393360-3eac-4e96-b7e6-67aa3d723e0a",
+                          "createdAt": "2026-07-28T03:07:25.000Z",
+                          "updatedAt": "2026-07-28T03:07:25.000Z",
+                          "uid": "35240-ab393360-3eac-4e96-b7e6-67aa3d723e0a"
+                        }
+                      ],
+                      "id": "396154c5-7995-4d26-b2e5-96629d670a7a",
+                      "createdAt": "2026-07-28T03:07:25.000Z",
+                      "updatedAt": "2026-07-28T03:07:25.000Z",
+                      "uid": "35240-396154c5-7995-4d26-b2e5-96629d670a7a"
+                    },
+                    {
+                      "name": "List Compliance Tasks",
+                      "id": "dfc17f69-3138-4b8e-86b3-4065a3ede55b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/compliance/v2/tasks",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "compliance",
+                            "v2",
+                            "tasks"
+                          ]
+                        },
+                        "description": "Retrieve all compliance evaluation tasks and their statuses."
+                      },
+                      "response": [
+                        {
+                          "id": "1774aee1-c9de-4dfa-88e1-80c819b81cff",
+                          "name": "List of compliance tasks",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/compliance/v2/tasks",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "compliance",
+                                "v2",
+                                "tasks"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"tasks\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"schedule\": \"<string>\",\n      \"schema\": \"<string>\",\n      \"scope\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"schedule\": \"<string>\",\n      \"schema\": \"<string>\",\n      \"scope\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:07:25.000Z",
+                          "updatedAt": "2026-07-28T03:07:25.000Z",
+                          "uid": "35240-1774aee1-c9de-4dfa-88e1-80c819b81cff"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:07:25.000Z",
+                      "updatedAt": "2026-07-28T03:07:25.000Z",
+                      "uid": "35240-dfc17f69-3138-4b8e-86b3-4065a3ede55b"
+                    }
+                  ],
+                  "id": "08f9879c-a093-40a8-83ae-b8e9b4aafe20",
+                  "createdAt": "2026-07-28T03:07:25.000Z",
+                  "updatedAt": "2026-07-28T03:07:25.000Z",
+                  "uid": "35240-08f9879c-a093-40a8-83ae-b8e9b4aafe20"
+                }
+              ],
+              "id": "8684b321-476c-4ae1-899c-def75155f177",
+              "createdAt": "2026-07-28T03:07:25.000Z",
+              "updatedAt": "2026-07-28T03:07:25.000Z",
+              "uid": "35240-8684b321-476c-4ae1-899c-def75155f177"
+            }
+          ],
+          "id": "915985c9-e1c4-4bf0-9426-9cc07cf9af84",
+          "createdAt": "2026-07-28T03:07:25.000Z",
+          "updatedAt": "2026-07-28T03:07:25.000Z",
+          "uid": "35240-915985c9-e1c4-4bf0-9426-9cc07cf9af84"
+        }
+      ],
+      "id": "50cecf06-1a6d-462d-9d1f-1f8c9544639b",
+      "createdAt": "2026-07-28T03:07:25.000Z",
+      "updatedAt": "2026-07-28T03:07:25.000Z",
+      "uid": "35240-50cecf06-1a6d-462d-9d1f-1f8c9544639b"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.us1.sysdig.com"
+    }
+  ]
+}

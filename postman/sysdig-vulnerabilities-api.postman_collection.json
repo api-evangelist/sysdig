@@ -1,0 +1,434 @@
+{
+  "info": {
+    "_postman_id": "2826b5a3-eac4-460e-a7c2-de1c32a26cf6",
+    "name": "Sysdig Monitor Activity Audit Vulnerabilities API",
+    "description": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:07:41.000Z",
+    "updatedAt": "2026-07-28T03:07:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2826b5a3-eac4-460e-a7c2-de1c32a26cf6"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "scanning",
+          "item": [
+            {
+              "name": "v1",
+              "item": [
+                {
+                  "name": "resultsDirect",
+                  "item": [
+                    {
+                      "name": "List Vulnerability Results",
+                      "id": "caeb3946-8638-4d8e-bbf6-715792921e9c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/scanning/v1/resultsDirect?limit=100&cursor=<string>&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "scanning",
+                            "v1",
+                            "resultsDirect"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of results to return",
+                              "key": "limit",
+                              "value": "100"
+                            },
+                            {
+                              "description": "Pagination cursor",
+                              "key": "cursor",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter expression for vulnerability results",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve vulnerability scanning results for container images and hosts."
+                      },
+                      "response": [
+                        {
+                          "id": "336f22e0-7993-4eb7-843c-e6ba8e17a95f",
+                          "name": "Vulnerability results",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/scanning/v1/resultsDirect?limit=100&cursor=<string>&filter=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "scanning",
+                                "v1",
+                                "resultsDirect"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Maximum number of results to return",
+                                  "key": "limit",
+                                  "value": "100"
+                                },
+                                {
+                                  "description": "Pagination cursor",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter expression for vulnerability results",
+                                  "key": "filter",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"imageId\": \"<string>\",\n      \"imageName\": \"<string>\",\n      \"imageTag\": \"<string>\",\n      \"analysisStatus\": \"not_analyzed\",\n      \"vulnCount\": \"<integer>\",\n      \"criticalCount\": \"<integer>\",\n      \"highCount\": \"<integer>\",\n      \"mediumCount\": \"<integer>\",\n      \"lowCount\": \"<integer>\",\n      \"createdAt\": \"<dateTime>\"\n    },\n    {\n      \"imageId\": \"<string>\",\n      \"imageName\": \"<string>\",\n      \"imageTag\": \"<string>\",\n      \"analysisStatus\": \"not_analyzed\",\n      \"vulnCount\": \"<integer>\",\n      \"criticalCount\": \"<integer>\",\n      \"highCount\": \"<integer>\",\n      \"mediumCount\": \"<integer>\",\n      \"lowCount\": \"<integer>\",\n      \"createdAt\": \"<dateTime>\"\n    }\n  ],\n  \"page\": {\n    \"returned\": \"<integer>\",\n    \"next\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:07:42.000Z",
+                          "updatedAt": "2026-07-28T03:07:42.000Z",
+                          "uid": "35240-336f22e0-7993-4eb7-843c-e6ba8e17a95f"
+                        },
+                        {
+                          "id": "58b523e7-e6d4-46ea-87e6-9f05836e45e9",
+                          "name": "Authentication credentials missing or invalid",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/scanning/v1/resultsDirect?limit=100&cursor=<string>&filter=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "scanning",
+                                "v1",
+                                "resultsDirect"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Maximum number of results to return",
+                                  "key": "limit",
+                                  "value": "100"
+                                },
+                                {
+                                  "description": "Pagination cursor",
+                                  "key": "cursor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter expression for vulnerability results",
+                                  "key": "filter",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:07:42.000Z",
+                          "updatedAt": "2026-07-28T03:07:42.000Z",
+                          "uid": "35240-58b523e7-e6d4-46ea-87e6-9f05836e45e9"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:07:42.000Z",
+                      "updatedAt": "2026-07-28T03:07:42.000Z",
+                      "uid": "35240-caeb3946-8638-4d8e-bbf6-715792921e9c"
+                    }
+                  ],
+                  "id": "5845db73-c282-4132-851d-49c9f922e854",
+                  "createdAt": "2026-07-28T03:07:42.000Z",
+                  "updatedAt": "2026-07-28T03:07:42.000Z",
+                  "uid": "35240-5845db73-c282-4132-851d-49c9f922e854"
+                },
+                {
+                  "name": "images",
+                  "item": [
+                    {
+                      "name": "{imageId}",
+                      "item": [
+                        {
+                          "name": "vulnDirect",
+                          "item": [
+                            {
+                              "name": "Get Image Vulnerabilities",
+                              "id": "732f23ba-e7fb-4035-9034-461188576b19",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/scanning/v1/images/:imageId/vulnDirect?limit=100",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "scanning",
+                                    "v1",
+                                    "images",
+                                    ":imageId",
+                                    "vulnDirect"
+                                  ],
+                                  "query": [
+                                    {
+                                      "key": "limit",
+                                      "value": "100"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "eeee9bc6-a0a8-44bf-b329-12cbf92703ac",
+                                      "key": "imageId",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieve vulnerability findings for a specific container image."
+                              },
+                              "response": [
+                                {
+                                  "id": "2e4b69fc-47a5-4665-b416-8848e670618e",
+                                  "name": "Image vulnerability details",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/scanning/v1/images/:imageId/vulnDirect?limit=100",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "scanning",
+                                        "v1",
+                                        "images",
+                                        ":imageId",
+                                        "vulnDirect"
+                                      ],
+                                      "query": [
+                                        {
+                                          "key": "limit",
+                                          "value": "100"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "imageId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"imageId\": \"<string>\",\n  \"vulnerabilities\": [\n    {\n      \"vuln\": \"<string>\",\n      \"severity\": \"Medium\",\n      \"package\": \"<string>\",\n      \"packageVersion\": \"<string>\",\n      \"fixVersion\": \"<string>\",\n      \"url\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"vuln\": \"<string>\",\n      \"severity\": \"Negligible\",\n      \"package\": \"<string>\",\n      \"packageVersion\": \"<string>\",\n      \"fixVersion\": \"<string>\",\n      \"url\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T03:07:42.000Z",
+                                  "updatedAt": "2026-07-28T03:07:42.000Z",
+                                  "uid": "35240-2e4b69fc-47a5-4665-b416-8848e670618e"
+                                },
+                                {
+                                  "id": "fbe07001-5e5f-4230-a223-0960d09fcca3",
+                                  "name": "Resource not found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/scanning/v1/images/:imageId/vulnDirect?limit=100",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "scanning",
+                                        "v1",
+                                        "images",
+                                        ":imageId",
+                                        "vulnDirect"
+                                      ],
+                                      "query": [
+                                        {
+                                          "key": "limit",
+                                          "value": "100"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "imageId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T03:07:42.000Z",
+                                  "updatedAt": "2026-07-28T03:07:42.000Z",
+                                  "uid": "35240-fbe07001-5e5f-4230-a223-0960d09fcca3"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:07:42.000Z",
+                              "updatedAt": "2026-07-28T03:07:42.000Z",
+                              "uid": "35240-732f23ba-e7fb-4035-9034-461188576b19"
+                            }
+                          ],
+                          "id": "7f1ca2f2-d695-47e1-9969-5828411842cf",
+                          "createdAt": "2026-07-28T03:07:42.000Z",
+                          "updatedAt": "2026-07-28T03:07:42.000Z",
+                          "uid": "35240-7f1ca2f2-d695-47e1-9969-5828411842cf"
+                        }
+                      ],
+                      "id": "e37bcb0b-cf52-44b7-8ad0-1bfd8c48a33d",
+                      "createdAt": "2026-07-28T03:07:42.000Z",
+                      "updatedAt": "2026-07-28T03:07:42.000Z",
+                      "uid": "35240-e37bcb0b-cf52-44b7-8ad0-1bfd8c48a33d"
+                    }
+                  ],
+                  "id": "7acb49ff-59a5-4fd1-9e59-84824a66c0f7",
+                  "createdAt": "2026-07-28T03:07:42.000Z",
+                  "updatedAt": "2026-07-28T03:07:42.000Z",
+                  "uid": "35240-7acb49ff-59a5-4fd1-9e59-84824a66c0f7"
+                }
+              ],
+              "id": "077c821a-bd09-48e9-b75c-e446a0859dec",
+              "createdAt": "2026-07-28T03:07:42.000Z",
+              "updatedAt": "2026-07-28T03:07:42.000Z",
+              "uid": "35240-077c821a-bd09-48e9-b75c-e446a0859dec"
+            }
+          ],
+          "id": "040f790c-0a5d-44b6-83c8-0a935efb10d7",
+          "createdAt": "2026-07-28T03:07:42.000Z",
+          "updatedAt": "2026-07-28T03:07:42.000Z",
+          "uid": "35240-040f790c-0a5d-44b6-83c8-0a935efb10d7"
+        }
+      ],
+      "id": "4637a333-00de-44b7-ba56-feb3a2e3b057",
+      "createdAt": "2026-07-28T03:07:42.000Z",
+      "updatedAt": "2026-07-28T03:07:42.000Z",
+      "uid": "35240-4637a333-00de-44b7-ba56-feb3a2e3b057"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.us1.sysdig.com"
+    }
+  ]
+}

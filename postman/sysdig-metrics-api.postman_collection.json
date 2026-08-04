@@ -1,0 +1,275 @@
+{
+  "info": {
+    "_postman_id": "9add5fa5-63d3-41b7-8f5b-7cbf055caf03",
+    "name": "Sysdig Monitor Activity Audit Metrics API",
+    "description": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:07:34.000Z",
+    "updatedAt": "2026-07-28T03:07:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9add5fa5-63d3-41b7-8f5b-7cbf055caf03"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "metrics",
+              "item": [
+                {
+                  "name": "find",
+                  "item": [
+                    {
+                      "name": "Find Metrics",
+                      "id": "2714e064-f038-44bc-a882-a40d563c1de1",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/metrics/find?name=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "metrics",
+                            "find"
+                          ],
+                          "query": [
+                            {
+                              "description": "Metric name pattern to search for",
+                              "key": "name",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "Search for available metrics by name pattern."
+                      },
+                      "response": [
+                        {
+                          "id": "fbf819e6-7263-433f-ad4b-4ba82036eb4e",
+                          "name": "List of matching metrics",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/metrics/find?name=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "metrics",
+                                "find"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Metric name pattern to search for",
+                                  "key": "name",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"metrics\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"type\": \"<string>\",\n      \"metricType\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"type\": \"<string>\",\n      \"metricType\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:07:35.000Z",
+                          "updatedAt": "2026-07-28T03:07:35.000Z",
+                          "uid": "35240-fbf819e6-7263-433f-ad4b-4ba82036eb4e"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:07:35.000Z",
+                      "updatedAt": "2026-07-28T03:07:35.000Z",
+                      "uid": "35240-2714e064-f038-44bc-a882-a40d563c1de1"
+                    }
+                  ],
+                  "id": "0f918e88-ef0c-482f-a347-8749787cbad6",
+                  "createdAt": "2026-07-28T03:07:35.000Z",
+                  "updatedAt": "2026-07-28T03:07:35.000Z",
+                  "uid": "35240-0f918e88-ef0c-482f-a347-8749787cbad6"
+                },
+                {
+                  "name": "descriptors",
+                  "item": [
+                    {
+                      "name": "Get Metric Descriptors",
+                      "id": "ed2ffa3a-03b5-4339-8f58-85384fe65342",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"metrics\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/metrics/descriptors",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "metrics",
+                            "descriptors"
+                          ]
+                        },
+                        "description": "Retrieve descriptors for specified metrics."
+                      },
+                      "response": [
+                        {
+                          "id": "04d7728a-e64b-44fc-b359-1df641574718",
+                          "name": "Metric descriptors",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"metrics\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/metrics/descriptors",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "metrics",
+                                "descriptors"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"metrics\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T03:07:35.000Z",
+                          "updatedAt": "2026-07-28T03:07:35.000Z",
+                          "uid": "35240-04d7728a-e64b-44fc-b359-1df641574718"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:07:35.000Z",
+                      "updatedAt": "2026-07-28T03:07:35.000Z",
+                      "uid": "35240-ed2ffa3a-03b5-4339-8f58-85384fe65342"
+                    }
+                  ],
+                  "id": "af44094e-94ff-43bc-9432-5baefe998900",
+                  "createdAt": "2026-07-28T03:07:35.000Z",
+                  "updatedAt": "2026-07-28T03:07:35.000Z",
+                  "uid": "35240-af44094e-94ff-43bc-9432-5baefe998900"
+                }
+              ],
+              "id": "80a84a5e-5f47-4a59-9f26-d0e59f9e58d9",
+              "createdAt": "2026-07-28T03:07:35.000Z",
+              "updatedAt": "2026-07-28T03:07:35.000Z",
+              "uid": "35240-80a84a5e-5f47-4a59-9f26-d0e59f9e58d9"
+            }
+          ],
+          "id": "75c07628-a8bc-4d62-8b68-23d549f77a35",
+          "createdAt": "2026-07-28T03:07:35.000Z",
+          "updatedAt": "2026-07-28T03:07:35.000Z",
+          "uid": "35240-75c07628-a8bc-4d62-8b68-23d549f77a35"
+        }
+      ],
+      "id": "31435b7f-a811-42c2-ac43-e0d8c0382035",
+      "createdAt": "2026-07-28T03:07:35.000Z",
+      "updatedAt": "2026-07-28T03:07:35.000Z",
+      "uid": "35240-31435b7f-a811-42c2-ac43-e0d8c0382035"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.us1.sysdig.com"
+    }
+  ]
+}

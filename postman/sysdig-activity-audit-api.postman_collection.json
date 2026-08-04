@@ -1,0 +1,290 @@
+{
+  "info": {
+    "_postman_id": "fdd4c2e2-9f30-438b-8eab-0c0cb54791ad",
+    "name": "Sysdig Monitor Activity Audit API",
+    "description": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:07:23.000Z",
+    "updatedAt": "2026-07-28T03:07:23.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-fdd4c2e2-9f30-438b-8eab-0c0cb54791ad"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "secureEvents",
+              "item": [
+                {
+                  "name": "List Secure Events",
+                  "id": "dc93e388-6ed1-4996-b034-581d49d9c454",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/secureEvents?from=<integer>&to=<integer>&limit=100&filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "secureEvents"
+                      ],
+                      "query": [
+                        {
+                          "description": "Start time in Unix epoch seconds",
+                          "key": "from",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "End time in Unix epoch seconds",
+                          "key": "to",
+                          "value": "<integer>"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "100"
+                        },
+                        {
+                          "description": "Filter expression for events",
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve runtime security events triggered by policy violations."
+                  },
+                  "response": [
+                    {
+                      "id": "cc0f740c-6685-4987-bc4c-486a5bc3c2ea",
+                      "name": "List of secure events",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/secureEvents?from=<integer>&to=<integer>&limit=100&filter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "secureEvents"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start time in Unix epoch seconds",
+                              "key": "from",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "End time in Unix epoch seconds",
+                              "key": "to",
+                              "value": "<integer>"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "100"
+                            },
+                            {
+                              "description": "Filter expression for events",
+                              "key": "filter",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"events\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"severity\": \"<integer>\",\n      \"category\": \"<string>\",\n      \"timestamp\": \"<long>\",\n      \"containerId\": \"<string>\",\n      \"containerName\": \"<string>\",\n      \"hostName\": \"<string>\",\n      \"content\": {}\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"severity\": \"<integer>\",\n      \"category\": \"<string>\",\n      \"timestamp\": \"<long>\",\n      \"containerId\": \"<string>\",\n      \"containerName\": \"<string>\",\n      \"hostName\": \"<string>\",\n      \"content\": {}\n    }\n  ],\n  \"total\": \"<integer>\"\n}",
+                      "createdAt": "2026-07-28T03:07:23.000Z",
+                      "updatedAt": "2026-07-28T03:07:23.000Z",
+                      "uid": "35240-cc0f740c-6685-4987-bc4c-486a5bc3c2ea"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:07:23.000Z",
+                  "updatedAt": "2026-07-28T03:07:23.000Z",
+                  "uid": "35240-dc93e388-6ed1-4996-b034-581d49d9c454"
+                }
+              ],
+              "id": "23314e36-6108-4c67-b891-16942e39f94e",
+              "createdAt": "2026-07-28T03:07:23.000Z",
+              "updatedAt": "2026-07-28T03:07:23.000Z",
+              "uid": "35240-23314e36-6108-4c67-b891-16942e39f94e"
+            },
+            {
+              "name": "activityAudit",
+              "item": [
+                {
+                  "name": "List Activity Audit",
+                  "id": "5fc35e06-02d2-4335-8aba-10a1f0e2aa0a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/activityAudit?from=<integer>&to=<integer>&limit=100",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "activityAudit"
+                      ],
+                      "query": [
+                        {
+                          "key": "from",
+                          "value": "<integer>"
+                        },
+                        {
+                          "key": "to",
+                          "value": "<integer>"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "100"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve audit trail of user and system activities."
+                  },
+                  "response": [
+                    {
+                      "id": "920914cd-e317-45cc-85cc-1f8c5300638a",
+                      "name": "Activity audit entries",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/activityAudit?from=<integer>&to=<integer>&limit=100",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "activityAudit"
+                          ],
+                          "query": [
+                            {
+                              "key": "from",
+                              "value": "<integer>"
+                            },
+                            {
+                              "key": "to",
+                              "value": "<integer>"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "100"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"timestamp\": \"<integer>\",\n      \"category\": \"<string>\",\n      \"type\": \"<string>\",\n      \"user\": \"<string>\",\n      \"description\": \"<string>\",\n      \"source\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"timestamp\": \"<integer>\",\n      \"category\": \"<string>\",\n      \"type\": \"<string>\",\n      \"user\": \"<string>\",\n      \"description\": \"<string>\",\n      \"source\": \"<string>\"\n    }\n  ],\n  \"page\": {\n    \"returned\": \"<integer>\",\n    \"next\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:07:23.000Z",
+                      "updatedAt": "2026-07-28T03:07:23.000Z",
+                      "uid": "35240-920914cd-e317-45cc-85cc-1f8c5300638a"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:07:23.000Z",
+                  "updatedAt": "2026-07-28T03:07:23.000Z",
+                  "uid": "35240-5fc35e06-02d2-4335-8aba-10a1f0e2aa0a"
+                }
+              ],
+              "id": "14196e2b-b325-483b-a828-450128f27554",
+              "createdAt": "2026-07-28T03:07:23.000Z",
+              "updatedAt": "2026-07-28T03:07:23.000Z",
+              "uid": "35240-14196e2b-b325-483b-a828-450128f27554"
+            }
+          ],
+          "id": "72759843-d945-47a1-8a06-cdc88d212ea1",
+          "createdAt": "2026-07-28T03:07:23.000Z",
+          "updatedAt": "2026-07-28T03:07:23.000Z",
+          "uid": "35240-72759843-d945-47a1-8a06-cdc88d212ea1"
+        }
+      ],
+      "id": "70f1c8fc-8d52-4db3-bdf9-ffe0c6fc5003",
+      "createdAt": "2026-07-28T03:07:23.000Z",
+      "updatedAt": "2026-07-28T03:07:23.000Z",
+      "uid": "35240-70f1c8fc-8d52-4db3-bdf9-ffe0c6fc5003"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.us1.sysdig.com"
+    }
+  ]
+}

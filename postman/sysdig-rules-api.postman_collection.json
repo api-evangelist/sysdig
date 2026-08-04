@@ -1,0 +1,576 @@
+{
+  "info": {
+    "_postman_id": "f2de86ed-5381-4a53-b227-019234096d34",
+    "name": "Sysdig Monitor Activity Audit Rules API",
+    "description": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:07:37.000Z",
+    "updatedAt": "2026-07-28T03:07:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f2de86ed-5381-4a53-b227-019234096d34"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "secure",
+          "item": [
+            {
+              "name": "falco",
+              "item": [
+                {
+                  "name": "v2",
+                  "item": [
+                    {
+                      "name": "rules",
+                      "item": [
+                        {
+                          "name": "{ruleId}",
+                          "item": [
+                            {
+                              "name": "Get Falco Rule",
+                              "id": "8ddfe45e-5c1b-478e-ae39-04783e0357e2",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/secure/falco/v2/rules/:ruleId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "secure",
+                                    "falco",
+                                    "v2",
+                                    "rules",
+                                    ":ruleId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "5c03711e-a65a-441d-8940-002cfbeb8025",
+                                      "key": "ruleId",
+                                      "value": "<integer>",
+                                      "description": "(Required) Unique identifier of the Falco rule"
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieve a specific Falco rule by ID."
+                              },
+                              "response": [
+                                {
+                                  "id": "c6e325c5-14dd-4a4d-9afa-6afb882cb99c",
+                                  "name": "Falco rule details",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/secure/falco/v2/rules/:ruleId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "secure",
+                                        "falco",
+                                        "v2",
+                                        "rules",
+                                        ":ruleId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "ruleId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"rule\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"condition\": \"<string>\",\n    \"output\": \"<string>\",\n    \"priority\": \"NOTICE\",\n    \"source\": \"awscloudtrail\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                                  "createdAt": "2026-07-28T03:07:38.000Z",
+                                  "updatedAt": "2026-07-28T03:07:38.000Z",
+                                  "uid": "35240-c6e325c5-14dd-4a4d-9afa-6afb882cb99c"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:07:38.000Z",
+                              "updatedAt": "2026-07-28T03:07:38.000Z",
+                              "uid": "35240-8ddfe45e-5c1b-478e-ae39-04783e0357e2"
+                            },
+                            {
+                              "name": "Update Falco Rule",
+                              "id": "3e825b08-067e-4ae7-b61a-2c5fd2adae63",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"rule\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"condition\": \"<string>\",\n    \"output\": \"<string>\",\n    \"priority\": \"CRITICAL\",\n    \"source\": \"k8s_audit\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/secure/falco/v2/rules/:ruleId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "secure",
+                                    "falco",
+                                    "v2",
+                                    "rules",
+                                    ":ruleId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "d5aa9900-320f-40f3-82dc-3d193ac6689a",
+                                      "key": "ruleId",
+                                      "value": "<integer>",
+                                      "description": "(Required) Unique identifier of the Falco rule"
+                                    }
+                                  ]
+                                },
+                                "description": "Update an existing Falco rule."
+                              },
+                              "response": [
+                                {
+                                  "id": "ad791801-55bc-404b-b5aa-15a6e2984b39",
+                                  "name": "Falco rule updated",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"rule\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"condition\": \"<string>\",\n    \"output\": \"<string>\",\n    \"priority\": \"CRITICAL\",\n    \"source\": \"k8s_audit\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/secure/falco/v2/rules/:ruleId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "secure",
+                                        "falco",
+                                        "v2",
+                                        "rules",
+                                        ":ruleId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "ruleId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"rule\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"condition\": \"<string>\",\n    \"output\": \"<string>\",\n    \"priority\": \"NOTICE\",\n    \"source\": \"awscloudtrail\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                                  "createdAt": "2026-07-28T03:07:38.000Z",
+                                  "updatedAt": "2026-07-28T03:07:38.000Z",
+                                  "uid": "35240-ad791801-55bc-404b-b5aa-15a6e2984b39"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:07:38.000Z",
+                              "updatedAt": "2026-07-28T03:07:38.000Z",
+                              "uid": "35240-3e825b08-067e-4ae7-b61a-2c5fd2adae63"
+                            },
+                            {
+                              "name": "Delete Falco Rule",
+                              "id": "cc116eeb-906f-487d-940a-dca03359eb2d",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/secure/falco/v2/rules/:ruleId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "secure",
+                                    "falco",
+                                    "v2",
+                                    "rules",
+                                    ":ruleId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "abee9964-da6e-4b62-b552-b739477696d2",
+                                      "key": "ruleId",
+                                      "value": "<integer>",
+                                      "description": "(Required) Unique identifier of the Falco rule"
+                                    }
+                                  ]
+                                },
+                                "description": "Delete a custom Falco rule."
+                              },
+                              "response": [
+                                {
+                                  "id": "3f5b6ac8-44ca-41e9-a3d3-1a5e71252a05",
+                                  "name": "Falco rule deleted",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/secure/falco/v2/rules/:ruleId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "secure",
+                                        "falco",
+                                        "v2",
+                                        "rules",
+                                        ":ruleId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "ruleId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T03:07:38.000Z",
+                                  "updatedAt": "2026-07-28T03:07:38.000Z",
+                                  "uid": "35240-3f5b6ac8-44ca-41e9-a3d3-1a5e71252a05"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:07:38.000Z",
+                              "updatedAt": "2026-07-28T03:07:38.000Z",
+                              "uid": "35240-cc116eeb-906f-487d-940a-dca03359eb2d"
+                            }
+                          ],
+                          "id": "c95e3f51-a001-43d9-962b-5f55d2a6b3ef",
+                          "createdAt": "2026-07-28T03:07:38.000Z",
+                          "updatedAt": "2026-07-28T03:07:38.000Z",
+                          "uid": "35240-c95e3f51-a001-43d9-962b-5f55d2a6b3ef"
+                        },
+                        {
+                          "name": "List Falco Rules",
+                          "id": "09223abc-7f68-4317-8839-587a8c109236",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/secure/falco/v2/rules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "secure",
+                                "falco",
+                                "v2",
+                                "rules"
+                              ]
+                            },
+                            "description": "Retrieve all Falco security rules."
+                          },
+                          "response": [
+                            {
+                              "id": "2537b527-53bc-4185-ac63-7c191ece4008",
+                              "name": "List of Falco rules",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/secure/falco/v2/rules",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "secure",
+                                    "falco",
+                                    "v2",
+                                    "rules"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"rules\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"condition\": \"<string>\",\n      \"output\": \"<string>\",\n      \"priority\": \"CRITICAL\",\n      \"source\": \"awscloudtrail\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enabled\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"condition\": \"<string>\",\n      \"output\": \"<string>\",\n      \"priority\": \"INFORMATIONAL\",\n      \"source\": \"syscall\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"enabled\": \"<boolean>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T03:07:38.000Z",
+                              "updatedAt": "2026-07-28T03:07:38.000Z",
+                              "uid": "35240-2537b527-53bc-4185-ac63-7c191ece4008"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:07:38.000Z",
+                          "updatedAt": "2026-07-28T03:07:38.000Z",
+                          "uid": "35240-09223abc-7f68-4317-8839-587a8c109236"
+                        },
+                        {
+                          "name": "Create Falco Rule",
+                          "id": "a2851f8b-39a8-4de1-8f9b-106d979080ad",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"rule\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"condition\": \"<string>\",\n    \"output\": \"<string>\",\n    \"priority\": \"CRITICAL\",\n    \"source\": \"k8s_audit\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/secure/falco/v2/rules",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "secure",
+                                "falco",
+                                "v2",
+                                "rules"
+                              ]
+                            },
+                            "description": "Create a new custom Falco rule."
+                          },
+                          "response": [
+                            {
+                              "id": "9d4880e3-aa99-42a2-aa2f-1fa89aed0f5d",
+                              "name": "Falco rule created",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"rule\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"condition\": \"<string>\",\n    \"output\": \"<string>\",\n    \"priority\": \"CRITICAL\",\n    \"source\": \"k8s_audit\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/secure/falco/v2/rules",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "secure",
+                                    "falco",
+                                    "v2",
+                                    "rules"
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"rule\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"condition\": \"<string>\",\n    \"output\": \"<string>\",\n    \"priority\": \"NOTICE\",\n    \"source\": \"awscloudtrail\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                              "createdAt": "2026-07-28T03:07:38.000Z",
+                              "updatedAt": "2026-07-28T03:07:38.000Z",
+                              "uid": "35240-9d4880e3-aa99-42a2-aa2f-1fa89aed0f5d"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:07:38.000Z",
+                          "updatedAt": "2026-07-28T03:07:38.000Z",
+                          "uid": "35240-a2851f8b-39a8-4de1-8f9b-106d979080ad"
+                        }
+                      ],
+                      "id": "05e1d9e6-dc76-427a-95a8-d47ed48e4226",
+                      "createdAt": "2026-07-28T03:07:38.000Z",
+                      "updatedAt": "2026-07-28T03:07:38.000Z",
+                      "uid": "35240-05e1d9e6-dc76-427a-95a8-d47ed48e4226"
+                    }
+                  ],
+                  "id": "6c494d33-28de-4fa9-b9e3-6276037d94d3",
+                  "createdAt": "2026-07-28T03:07:38.000Z",
+                  "updatedAt": "2026-07-28T03:07:38.000Z",
+                  "uid": "35240-6c494d33-28de-4fa9-b9e3-6276037d94d3"
+                }
+              ],
+              "id": "52ceba2d-b0c4-4183-98b2-cb9b6f0b0402",
+              "createdAt": "2026-07-28T03:07:38.000Z",
+              "updatedAt": "2026-07-28T03:07:38.000Z",
+              "uid": "35240-52ceba2d-b0c4-4183-98b2-cb9b6f0b0402"
+            }
+          ],
+          "id": "c7a75071-1945-4c2d-a2e4-dde7dfba1ac9",
+          "createdAt": "2026-07-28T03:07:38.000Z",
+          "updatedAt": "2026-07-28T03:07:38.000Z",
+          "uid": "35240-c7a75071-1945-4c2d-a2e4-dde7dfba1ac9"
+        }
+      ],
+      "id": "3eef7b77-3a74-4b19-b501-518b38920259",
+      "createdAt": "2026-07-28T03:07:38.000Z",
+      "updatedAt": "2026-07-28T03:07:38.000Z",
+      "uid": "35240-3eef7b77-3a74-4b19-b501-518b38920259"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.us1.sysdig.com"
+    }
+  ]
+}

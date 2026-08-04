@@ -1,0 +1,273 @@
+{
+  "info": {
+    "_postman_id": "1319b418-ad47-42a3-b9a8-98a2569f662b",
+    "name": "Sysdig Monitor Activity Audit Events API",
+    "description": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:07:32.000Z",
+    "updatedAt": "2026-07-28T03:07:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1319b418-ad47-42a3-b9a8-98a2569f662b"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "events",
+              "item": [
+                {
+                  "name": "List Events",
+                  "id": "4427f3be-0ddd-4e09-88e3-91c02f1a851a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/events?from=<long>&to=<long>&limit=100",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "events"
+                      ],
+                      "query": [
+                        {
+                          "description": "Start time in Unix epoch microseconds",
+                          "key": "from",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "End time in Unix epoch microseconds",
+                          "key": "to",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "Maximum number of events to return",
+                          "key": "limit",
+                          "value": "100"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve monitoring events including custom events, alerts, and system events."
+                  },
+                  "response": [
+                    {
+                      "id": "0b99a240-78f2-436c-affc-1e839338e7d0",
+                      "name": "List of events",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/events?from=<long>&to=<long>&limit=100",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "events"
+                          ],
+                          "query": [
+                            {
+                              "description": "Start time in Unix epoch microseconds",
+                              "key": "from",
+                              "value": "<long>"
+                            },
+                            {
+                              "description": "End time in Unix epoch microseconds",
+                              "key": "to",
+                              "value": "<long>"
+                            },
+                            {
+                              "description": "Maximum number of events to return",
+                              "key": "limit",
+                              "value": "100"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"events\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"severity\": \"NOTICE\",\n      \"timestamp\": \"<long>\",\n      \"scope\": \"<string>\",\n      \"tags\": {\n        \"Excepteur_f\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"severity\": \"INFO\",\n      \"timestamp\": \"<long>\",\n      \"scope\": \"<string>\",\n      \"tags\": {\n        \"ea_cc6\": \"<string>\"\n      }\n    }\n  ],\n  \"total\": \"<integer>\"\n}",
+                      "createdAt": "2026-07-28T03:07:33.000Z",
+                      "updatedAt": "2026-07-28T03:07:33.000Z",
+                      "uid": "35240-0b99a240-78f2-436c-affc-1e839338e7d0"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:07:33.000Z",
+                  "updatedAt": "2026-07-28T03:07:33.000Z",
+                  "uid": "35240-4427f3be-0ddd-4e09-88e3-91c02f1a851a"
+                },
+                {
+                  "name": "Create Event",
+                  "id": "a91cf065-f3c3-4e23-b97a-9f7c7282c904",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"event\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"EMERGENCY\",\n    \"timestamp\": \"<long>\",\n    \"scope\": \"<string>\",\n    \"tags\": {\n      \"minim_7_\": \"<string>\",\n      \"occaecat_74\": \"<string>\"\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "events"
+                      ]
+                    },
+                    "description": "Create a custom event in Sysdig Monitor."
+                  },
+                  "response": [
+                    {
+                      "id": "922e2399-de54-4db2-9571-a9bb027849c0",
+                      "name": "Event created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"event\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"EMERGENCY\",\n    \"timestamp\": \"<long>\",\n    \"scope\": \"<string>\",\n    \"tags\": {\n      \"minim_7_\": \"<string>\",\n      \"occaecat_74\": \"<string>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/events",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "events"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"event\": {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"EMERGENCY\",\n    \"timestamp\": \"<long>\",\n    \"scope\": \"<string>\",\n    \"tags\": {\n      \"sed_5\": \"<string>\"\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T03:07:33.000Z",
+                      "updatedAt": "2026-07-28T03:07:33.000Z",
+                      "uid": "35240-922e2399-de54-4db2-9571-a9bb027849c0"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:07:33.000Z",
+                  "updatedAt": "2026-07-28T03:07:33.000Z",
+                  "uid": "35240-a91cf065-f3c3-4e23-b97a-9f7c7282c904"
+                }
+              ],
+              "id": "f17b3831-d145-486e-8cac-f7a33f1389c8",
+              "createdAt": "2026-07-28T03:07:33.000Z",
+              "updatedAt": "2026-07-28T03:07:33.000Z",
+              "uid": "35240-f17b3831-d145-486e-8cac-f7a33f1389c8"
+            }
+          ],
+          "id": "2f5645ed-4414-4ddc-9858-43303ce5dddd",
+          "createdAt": "2026-07-28T03:07:33.000Z",
+          "updatedAt": "2026-07-28T03:07:33.000Z",
+          "uid": "35240-2f5645ed-4414-4ddc-9858-43303ce5dddd"
+        }
+      ],
+      "id": "cd27fd59-f4d4-48a3-bb4c-90c9597e44d7",
+      "createdAt": "2026-07-28T03:07:33.000Z",
+      "updatedAt": "2026-07-28T03:07:33.000Z",
+      "uid": "35240-cd27fd59-f4d4-48a3-bb4c-90c9597e44d7"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.us1.sysdig.com"
+    }
+  ]
+}

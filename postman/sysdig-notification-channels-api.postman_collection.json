@@ -1,0 +1,519 @@
+{
+  "info": {
+    "_postman_id": "d673474e-92d7-4dd0-a397-e404c4a12015",
+    "name": "Sysdig Monitor Activity Audit Notification Channels API",
+    "description": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:07:35.000Z",
+    "updatedAt": "2026-07-28T03:07:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d673474e-92d7-4dd0-a397-e404c4a12015"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "notificationChannels",
+          "item": [
+            {
+              "name": "{channelId}",
+              "item": [
+                {
+                  "name": "Get Notification Channel",
+                  "id": "3128b344-cb56-4f50-a50d-5d5c8a8dfc5c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/notificationChannels/:channelId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "notificationChannels",
+                        ":channelId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "d67987ce-fe97-4ad1-a23d-b0dd7908e20d",
+                          "key": "channelId",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Retrieve details of a specific notification channel."
+                  },
+                  "response": [
+                    {
+                      "id": "29a6c547-b6a6-4e4e-9525-f874410bccec",
+                      "name": "Notification channel details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/notificationChannels/:channelId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "notificationChannels",
+                            ":channelId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "channelId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"notificationChannel\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"type\": \"VICTOROPS\",\n    \"options\": {\n      \"reprehenderit_917\": \"laboris labore\",\n      \"est5a2\": false\n    },\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:07:36.000Z",
+                      "updatedAt": "2026-07-28T03:07:36.000Z",
+                      "uid": "35240-29a6c547-b6a6-4e4e-9525-f874410bccec"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:07:36.000Z",
+                  "updatedAt": "2026-07-28T03:07:36.000Z",
+                  "uid": "35240-3128b344-cb56-4f50-a50d-5d5c8a8dfc5c"
+                },
+                {
+                  "name": "Update Notification Channel",
+                  "id": "a2f4516f-d7b7-4de6-85c3-baa52ab6877c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"notificationChannel\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"type\": \"WEBHOOK\",\n    \"options\": {\n      \"voluptate_890\": true\n    },\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/notificationChannels/:channelId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "notificationChannels",
+                        ":channelId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "5c3facf4-1b8b-4421-baf7-71910791c4be",
+                          "key": "channelId",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Update an existing notification channel."
+                  },
+                  "response": [
+                    {
+                      "id": "7ef1cd97-96bf-4472-95e4-170a11aa2e54",
+                      "name": "Notification channel updated",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"notificationChannel\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"type\": \"WEBHOOK\",\n    \"options\": {\n      \"voluptate_890\": true\n    },\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/notificationChannels/:channelId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "notificationChannels",
+                            ":channelId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "channelId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"notificationChannel\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"type\": \"VICTOROPS\",\n    \"options\": {\n      \"reprehenderit_917\": \"laboris labore\",\n      \"est5a2\": false\n    },\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:07:36.000Z",
+                      "updatedAt": "2026-07-28T03:07:36.000Z",
+                      "uid": "35240-7ef1cd97-96bf-4472-95e4-170a11aa2e54"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:07:36.000Z",
+                  "updatedAt": "2026-07-28T03:07:36.000Z",
+                  "uid": "35240-a2f4516f-d7b7-4de6-85c3-baa52ab6877c"
+                },
+                {
+                  "name": "Delete Notification Channel",
+                  "id": "3f0d7ddb-6ab6-4449-9425-7f867b79b479",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/notificationChannels/:channelId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "notificationChannels",
+                        ":channelId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "36712e5c-613a-47c2-93af-365619ee8574",
+                          "key": "channelId",
+                          "value": "<integer>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Delete a notification channel."
+                  },
+                  "response": [
+                    {
+                      "id": "908cd767-c83f-46a8-be60-c4521e201f54",
+                      "name": "Notification channel deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/notificationChannels/:channelId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "notificationChannels",
+                            ":channelId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "channelId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T03:07:36.000Z",
+                      "updatedAt": "2026-07-28T03:07:36.000Z",
+                      "uid": "35240-908cd767-c83f-46a8-be60-c4521e201f54"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:07:36.000Z",
+                  "updatedAt": "2026-07-28T03:07:36.000Z",
+                  "uid": "35240-3f0d7ddb-6ab6-4449-9425-7f867b79b479"
+                }
+              ],
+              "id": "79e26479-80f9-4781-ab45-9688874da338",
+              "createdAt": "2026-07-28T03:07:36.000Z",
+              "updatedAt": "2026-07-28T03:07:36.000Z",
+              "uid": "35240-79e26479-80f9-4781-ab45-9688874da338"
+            },
+            {
+              "name": "List Notification Channels",
+              "id": "a8aeb53d-bbd4-40a3-b8c7-b7580860c2c6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/notificationChannels",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "notificationChannels"
+                  ]
+                },
+                "description": "Retrieve all notification channels configured for alert routing."
+              },
+              "response": [
+                {
+                  "id": "22667d48-2f02-4dfa-9bd8-baf4761a7463",
+                  "name": "List of notification channels",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/notificationChannels",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "notificationChannels"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"notificationChannels\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": \"PAGERDUTY\",\n      \"options\": {\n        \"in_7b8\": false\n      },\n      \"enabled\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": \"OPSGENIE\",\n      \"options\": {\n        \"aliqua_6ca\": -59672470.62411913\n      },\n      \"enabled\": \"<boolean>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:07:36.000Z",
+                  "updatedAt": "2026-07-28T03:07:36.000Z",
+                  "uid": "35240-22667d48-2f02-4dfa-9bd8-baf4761a7463"
+                }
+              ],
+              "createdAt": "2026-07-28T03:07:36.000Z",
+              "updatedAt": "2026-07-28T03:07:36.000Z",
+              "uid": "35240-a8aeb53d-bbd4-40a3-b8c7-b7580860c2c6"
+            },
+            {
+              "name": "Create Notification Channel",
+              "id": "b4d96a56-7954-4a1f-b2a4-0cfcdc12133b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notificationChannel\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"type\": \"WEBHOOK\",\n    \"options\": {\n      \"voluptate_890\": true\n    },\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/notificationChannels",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "notificationChannels"
+                  ]
+                },
+                "description": "Create a new notification channel for alert routing."
+              },
+              "response": [
+                {
+                  "id": "75371bcd-d057-4b75-983e-db4bcd4ba61a",
+                  "name": "Notification channel created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"notificationChannel\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"type\": \"WEBHOOK\",\n    \"options\": {\n      \"voluptate_890\": true\n    },\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/notificationChannels",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "notificationChannels"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"notificationChannel\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"type\": \"VICTOROPS\",\n    \"options\": {\n      \"reprehenderit_917\": \"laboris labore\",\n      \"est5a2\": false\n    },\n    \"enabled\": \"<boolean>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:07:36.000Z",
+                  "updatedAt": "2026-07-28T03:07:36.000Z",
+                  "uid": "35240-75371bcd-d057-4b75-983e-db4bcd4ba61a"
+                }
+              ],
+              "createdAt": "2026-07-28T03:07:36.000Z",
+              "updatedAt": "2026-07-28T03:07:36.000Z",
+              "uid": "35240-b4d96a56-7954-4a1f-b2a4-0cfcdc12133b"
+            }
+          ],
+          "id": "bdb3c996-af0d-475c-a4f2-ae49a84262c2",
+          "createdAt": "2026-07-28T03:07:36.000Z",
+          "updatedAt": "2026-07-28T03:07:36.000Z",
+          "uid": "35240-bdb3c996-af0d-475c-a4f2-ae49a84262c2"
+        }
+      ],
+      "id": "31e970b6-71cf-44b9-95c3-f081e22c0985",
+      "createdAt": "2026-07-28T03:07:36.000Z",
+      "updatedAt": "2026-07-28T03:07:36.000Z",
+      "uid": "35240-31e970b6-71cf-44b9-95c3-f081e22c0985"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.us1.sysdig.com"
+    }
+  ]
+}

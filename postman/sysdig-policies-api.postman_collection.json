@@ -1,0 +1,610 @@
+{
+  "info": {
+    "_postman_id": "baa57453-1db1-4f2c-8d27-2ceb849f2079",
+    "name": "Sysdig Monitor Activity Audit Policies API",
+    "description": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:07:36.000Z",
+    "updatedAt": "2026-07-28T03:07:36.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-baa57453-1db1-4f2c-8d27-2ceb849f2079"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "policies",
+          "item": [
+            {
+              "name": "v2",
+              "item": [
+                {
+                  "name": "{policyId}",
+                  "item": [
+                    {
+                      "name": "Get Policy",
+                      "id": "4b442445-c268-472e-b49a-420ae0cf8eeb",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/policies/v2/:policyId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "policies",
+                            "v2",
+                            ":policyId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "0da6ed6e-363b-48b4-a5ce-324395c0232e",
+                              "key": "policyId",
+                              "value": "<integer>",
+                              "description": "(Required) Unique identifier of the policy"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve a specific runtime security policy."
+                      },
+                      "response": [
+                        {
+                          "id": "d080bcd0-f48a-4ff4-bfbf-4d77b12857e3",
+                          "name": "Policy details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/policies/v2/:policyId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "policies",
+                                "v2",
+                                ":policyId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policyId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"policy\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"type\": \"falco\",\n    \"scope\": \"<string>\",\n    \"runAsUser\": \"<boolean>\",\n    \"actions\": [\n      {\n        \"type\": \"<string>\",\n        \"isLimitedToContainer\": \"<boolean>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"isLimitedToContainer\": \"<boolean>\"\n      }\n    ],\n    \"ruleNames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T03:07:37.000Z",
+                          "updatedAt": "2026-07-28T03:07:37.000Z",
+                          "uid": "35240-d080bcd0-f48a-4ff4-bfbf-4d77b12857e3"
+                        },
+                        {
+                          "id": "5b1c64f7-342b-4c8a-9fd7-8eeaaffa67d6",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/policies/v2/:policyId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "policies",
+                                "v2",
+                                ":policyId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policyId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:07:37.000Z",
+                          "updatedAt": "2026-07-28T03:07:37.000Z",
+                          "uid": "35240-5b1c64f7-342b-4c8a-9fd7-8eeaaffa67d6"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:07:37.000Z",
+                      "updatedAt": "2026-07-28T03:07:37.000Z",
+                      "uid": "35240-4b442445-c268-472e-b49a-420ae0cf8eeb"
+                    },
+                    {
+                      "name": "Update Policy",
+                      "id": "653d793b-e56a-42f0-a636-a7b5133e9f1e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"policy\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"type\": \"falco\",\n    \"scope\": \"<string>\",\n    \"runAsUser\": \"<boolean>\",\n    \"actions\": [\n      {\n        \"type\": \"<string>\",\n        \"isLimitedToContainer\": \"<boolean>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"isLimitedToContainer\": \"<boolean>\"\n      }\n    ],\n    \"ruleNames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/policies/v2/:policyId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "policies",
+                            "v2",
+                            ":policyId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "9b763b24-ffeb-4f6f-84be-479abe4df915",
+                              "key": "policyId",
+                              "value": "<integer>",
+                              "description": "(Required) Unique identifier of the policy"
+                            }
+                          ]
+                        },
+                        "description": "Update an existing runtime security policy."
+                      },
+                      "response": [
+                        {
+                          "id": "c8e14b91-c2b8-47e7-af75-ea0d90884341",
+                          "name": "Policy updated",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"policy\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"type\": \"falco\",\n    \"scope\": \"<string>\",\n    \"runAsUser\": \"<boolean>\",\n    \"actions\": [\n      {\n        \"type\": \"<string>\",\n        \"isLimitedToContainer\": \"<boolean>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"isLimitedToContainer\": \"<boolean>\"\n      }\n    ],\n    \"ruleNames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/policies/v2/:policyId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "policies",
+                                "v2",
+                                ":policyId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policyId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"policy\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"type\": \"falco\",\n    \"scope\": \"<string>\",\n    \"runAsUser\": \"<boolean>\",\n    \"actions\": [\n      {\n        \"type\": \"<string>\",\n        \"isLimitedToContainer\": \"<boolean>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"isLimitedToContainer\": \"<boolean>\"\n      }\n    ],\n    \"ruleNames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T03:07:37.000Z",
+                          "updatedAt": "2026-07-28T03:07:37.000Z",
+                          "uid": "35240-c8e14b91-c2b8-47e7-af75-ea0d90884341"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:07:37.000Z",
+                      "updatedAt": "2026-07-28T03:07:37.000Z",
+                      "uid": "35240-653d793b-e56a-42f0-a636-a7b5133e9f1e"
+                    },
+                    {
+                      "name": "Delete Policy",
+                      "id": "4b66e92b-4056-4204-a5ee-84629d09ce10",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/policies/v2/:policyId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "policies",
+                            "v2",
+                            ":policyId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c15b81f3-89a8-4d9e-8bd7-a3fac37888ac",
+                              "key": "policyId",
+                              "value": "<integer>",
+                              "description": "(Required) Unique identifier of the policy"
+                            }
+                          ]
+                        },
+                        "description": "Delete a runtime security policy."
+                      },
+                      "response": [
+                        {
+                          "id": "4e9b2a6c-b1be-4c29-babf-e5e4b5209b3d",
+                          "name": "Policy deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/policies/v2/:policyId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "policies",
+                                "v2",
+                                ":policyId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "policyId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:07:37.000Z",
+                          "updatedAt": "2026-07-28T03:07:37.000Z",
+                          "uid": "35240-4e9b2a6c-b1be-4c29-babf-e5e4b5209b3d"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:07:37.000Z",
+                      "updatedAt": "2026-07-28T03:07:37.000Z",
+                      "uid": "35240-4b66e92b-4056-4204-a5ee-84629d09ce10"
+                    }
+                  ],
+                  "id": "98f03203-ba17-44af-99c1-479af48d6c95",
+                  "createdAt": "2026-07-28T03:07:37.000Z",
+                  "updatedAt": "2026-07-28T03:07:37.000Z",
+                  "uid": "35240-98f03203-ba17-44af-99c1-479af48d6c95"
+                },
+                {
+                  "name": "List Policies",
+                  "id": "2989eabb-4641-46f4-8c30-a63b4115c43e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/policies/v2?type=list&limit=100",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "policies",
+                        "v2"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter by policy type",
+                          "key": "type",
+                          "value": "list"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "100"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve all runtime security policies."
+                  },
+                  "response": [
+                    {
+                      "id": "83fcafbd-762c-4277-ba49-5cae124a3662",
+                      "name": "List of policies",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/policies/v2?type=list&limit=100",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "policies",
+                            "v2"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter by policy type",
+                              "key": "type",
+                              "value": "list"
+                            },
+                            {
+                              "key": "limit",
+                              "value": "100"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"policies\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"severity\": \"<integer>\",\n      \"enabled\": \"<boolean>\",\n      \"type\": \"awscloudtrail\",\n      \"scope\": \"<string>\",\n      \"runAsUser\": \"<boolean>\",\n      \"actions\": [\n        {\n          \"type\": \"<string>\",\n          \"isLimitedToContainer\": \"<boolean>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"isLimitedToContainer\": \"<boolean>\"\n        }\n      ],\n      \"ruleNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"notificationChannelIds\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"severity\": \"<integer>\",\n      \"enabled\": \"<boolean>\",\n      \"type\": \"k8s_audit\",\n      \"scope\": \"<string>\",\n      \"runAsUser\": \"<boolean>\",\n      \"actions\": [\n        {\n          \"type\": \"<string>\",\n          \"isLimitedToContainer\": \"<boolean>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"isLimitedToContainer\": \"<boolean>\"\n        }\n      ],\n      \"ruleNames\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"notificationChannelIds\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"total\": \"<integer>\"\n}",
+                      "createdAt": "2026-07-28T03:07:37.000Z",
+                      "updatedAt": "2026-07-28T03:07:37.000Z",
+                      "uid": "35240-83fcafbd-762c-4277-ba49-5cae124a3662"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:07:37.000Z",
+                  "updatedAt": "2026-07-28T03:07:37.000Z",
+                  "uid": "35240-2989eabb-4641-46f4-8c30-a63b4115c43e"
+                },
+                {
+                  "name": "Create Policy",
+                  "id": "b3753b43-41ae-4064-8d5e-b8395f6183f5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"policy\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"type\": \"falco\",\n    \"scope\": \"<string>\",\n    \"runAsUser\": \"<boolean>\",\n    \"actions\": [\n      {\n        \"type\": \"<string>\",\n        \"isLimitedToContainer\": \"<boolean>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"isLimitedToContainer\": \"<boolean>\"\n      }\n    ],\n    \"ruleNames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/policies/v2",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "policies",
+                        "v2"
+                      ]
+                    },
+                    "description": "Create a new runtime security policy."
+                  },
+                  "response": [
+                    {
+                      "id": "429798c1-5a5e-4590-88ba-bcaac403356d",
+                      "name": "Policy created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"policy\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"type\": \"falco\",\n    \"scope\": \"<string>\",\n    \"runAsUser\": \"<boolean>\",\n    \"actions\": [\n      {\n        \"type\": \"<string>\",\n        \"isLimitedToContainer\": \"<boolean>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"isLimitedToContainer\": \"<boolean>\"\n      }\n    ],\n    \"ruleNames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/policies/v2",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "policies",
+                            "v2"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"policy\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"severity\": \"<integer>\",\n    \"enabled\": \"<boolean>\",\n    \"type\": \"falco\",\n    \"scope\": \"<string>\",\n    \"runAsUser\": \"<boolean>\",\n    \"actions\": [\n      {\n        \"type\": \"<string>\",\n        \"isLimitedToContainer\": \"<boolean>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"isLimitedToContainer\": \"<boolean>\"\n      }\n    ],\n    \"ruleNames\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"notificationChannelIds\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T03:07:37.000Z",
+                      "updatedAt": "2026-07-28T03:07:37.000Z",
+                      "uid": "35240-429798c1-5a5e-4590-88ba-bcaac403356d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:07:37.000Z",
+                  "updatedAt": "2026-07-28T03:07:37.000Z",
+                  "uid": "35240-b3753b43-41ae-4064-8d5e-b8395f6183f5"
+                }
+              ],
+              "id": "c38d4578-ab4b-4007-9369-c43927fe4202",
+              "createdAt": "2026-07-28T03:07:37.000Z",
+              "updatedAt": "2026-07-28T03:07:37.000Z",
+              "uid": "35240-c38d4578-ab4b-4007-9369-c43927fe4202"
+            }
+          ],
+          "id": "dc700e32-7b01-4bed-9e07-e19cae5da41d",
+          "createdAt": "2026-07-28T03:07:37.000Z",
+          "updatedAt": "2026-07-28T03:07:37.000Z",
+          "uid": "35240-dc700e32-7b01-4bed-9e07-e19cae5da41d"
+        }
+      ],
+      "id": "094beb5c-c292-4b3c-b3d1-4749a01ddd2e",
+      "createdAt": "2026-07-28T03:07:37.000Z",
+      "updatedAt": "2026-07-28T03:07:37.000Z",
+      "uid": "35240-094beb5c-c292-4b3c-b3d1-4749a01ddd2e"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.us1.sysdig.com"
+    }
+  ]
+}

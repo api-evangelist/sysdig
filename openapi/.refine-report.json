@@ -1,0 +1,38 @@
+{
+  "provider": "sysdig",
+  "sources": [
+    "sysdig-activity-audit-api-openapi.yml",
+    "sysdig-alerts-api-openapi.yml",
+    "sysdig-compliance-api-openapi.yml",
+    "sysdig-dashboards-api-openapi.yml",
+    "sysdig-events-api-openapi.yml",
+    "sysdig-image-scanning-api-openapi.yml",
+    "sysdig-metrics-api-openapi.yml",
+    "sysdig-notification-channels-api-openapi.yml",
+    "sysdig-policies-api-openapi.yml",
+    "sysdig-rules-api-openapi.yml",
+    "sysdig-sbom-api-openapi.yml",
+    "sysdig-teams-api-openapi.yml",
+    "sysdig-vulnerabilities-api-openapi.yml"
+  ],
+  "outputs": [
+    "sysdig-activity-audit-api-openapi.yml",
+    "sysdig-alerts-api-openapi.yml",
+    "sysdig-compliance-api-openapi.yml",
+    "sysdig-dashboards-api-openapi.yml",
+    "sysdig-events-api-openapi.yml",
+    "sysdig-image-scanning-api-openapi.yml",
+    "sysdig-metrics-api-openapi.yml",
+    "sysdig-notification-channels-api-openapi.yml",
+    "sysdig-policies-api-openapi.yml",
+    "sysdig-rules-api-openapi.yml",
+    "sysdig-sbom-api-openapi.yml",
+    "sysdig-teams-api-openapi.yml",
+    "sysdig-vulnerabilities-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

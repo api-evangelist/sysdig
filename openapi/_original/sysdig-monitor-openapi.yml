@@ -1,0 +1,901 @@
+openapi: 3.0.3
+info:
+  title: Sysdig Monitor API
+  description: >-
+    The Sysdig Monitor API provides programmatic access to monitoring and
+    observability capabilities for cloud-native environments. Manage dashboards,
+    alerts, events, metrics, notification channels, teams, and scanning results
+    for containers and Kubernetes workloads.
+  version: '1.0.0'
+  contact:
+    name: Sysdig Support
+    url: https://sysdig.com/support/
+  termsOfService: https://sysdig.com/legal/
+  license:
+    name: Proprietary
+    url: https://sysdig.com/legal/
+externalDocs:
+  description: Sysdig Developer Tools Documentation
+  url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
+servers:
+  - url: https://api.us1.sysdig.com
+    description: US East
+  - url: https://api.eu1.sysdig.com
+    description: EU Central
+  - url: https://api.au1.sysdig.com
+    description: Asia Pacific
+tags:
+  - name: Alerts
+    description: Manage monitoring alerts and alert notifications
+  - name: Dashboards
+    description: Create and manage monitoring dashboards
+  - name: Events
+    description: Retrieve and create custom events
+  - name: Notification Channels
+    description: Configure notification channels for alerts
+  - name: Teams
+    description: Manage teams and team memberships
+  - name: Metrics
+    description: Query and retrieve metrics data
+security:
+  - BearerAuth: []
+paths:
+  /api/v2/alerts:
+    get:
+      operationId: listAlerts
+      summary: List Alerts
+      description: Retrieve a list of all monitoring alerts configured for the team.
+      tags:
+        - Alerts
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of alerts to return
+          required: false
+          schema:
+            type: integer
+            default: 100
+        - name: offset
+          in: query
+          description: Offset for pagination
+          required: false
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Successful response with list of alerts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAlert
+      summary: Create Alert
+      description: Create a new monitoring alert.
+      tags:
+        - Alerts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertRequest'
+      responses:
+        '201':
+          description: Alert created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/v2/alerts/{alertId}:
+    get:
+      operationId: getAlert
+      summary: Get Alert
+      description: Retrieve details of a specific monitoring alert by ID.
+      tags:
+        - Alerts
+      parameters:
+        - $ref: '#/components/parameters/AlertId'
+      responses:
+        '200':
+          description: Alert details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateAlert
+      summary: Update Alert
+      description: Update an existing monitoring alert.
+      tags:
+        - Alerts
+      parameters:
+        - $ref: '#/components/parameters/AlertId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertRequest'
+      responses:
+        '200':
+          description: Alert updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAlert
+      summary: Delete Alert
+      description: Delete a specific monitoring alert.
+      tags:
+        - Alerts
+      parameters:
+        - $ref: '#/components/parameters/AlertId'
+      responses:
+        '204':
+          description: Alert deleted successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/v3/dashboards:
+    get:
+      operationId: listDashboards
+      summary: List Dashboards
+      description: Retrieve all monitoring dashboards for the team.
+      tags:
+        - Dashboards
+      responses:
+        '200':
+          description: List of dashboards
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createDashboard
+      summary: Create Dashboard
+      description: Create a new monitoring dashboard.
+      tags:
+        - Dashboards
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DashboardRequest'
+      responses:
+        '201':
+          description: Dashboard created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /api/v3/dashboards/{dashboardId}:
+    get:
+      operationId: getDashboard
+      summary: Get Dashboard
+      description: Retrieve a specific monitoring dashboard by ID.
+      tags:
+        - Dashboards
+      parameters:
+        - $ref: '#/components/parameters/DashboardId'
+      responses:
+        '200':
+          description: Dashboard details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateDashboard
+      summary: Update Dashboard
+      description: Update an existing monitoring dashboard.
+      tags:
+        - Dashboards
+      parameters:
+        - $ref: '#/components/parameters/DashboardId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DashboardRequest'
+      responses:
+        '200':
+          description: Dashboard updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+    delete:
+      operationId: deleteDashboard
+      summary: Delete Dashboard
+      description: Delete a monitoring dashboard.
+      tags:
+        - Dashboards
+      parameters:
+        - $ref: '#/components/parameters/DashboardId'
+      responses:
+        '204':
+          description: Dashboard deleted
+
+  /api/v2/events:
+    get:
+      operationId: listEvents
+      summary: List Events
+      description: Retrieve monitoring events including custom events, alerts, and system events.
+      tags:
+        - Events
+      parameters:
+        - name: from
+          in: query
+          description: Start time in Unix epoch microseconds
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: to
+          in: query
+          description: End time in Unix epoch microseconds
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: limit
+          in: query
+          description: Maximum number of events to return
+          required: false
+          schema:
+            type: integer
+            default: 100
+      responses:
+        '200':
+          description: List of events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventListResponse'
+    post:
+      operationId: createEvent
+      summary: Create Event
+      description: Create a custom event in Sysdig Monitor.
+      tags:
+        - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRequest'
+      responses:
+        '201':
+          description: Event created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+
+  /api/notificationChannels:
+    get:
+      operationId: listNotificationChannels
+      summary: List Notification Channels
+      description: Retrieve all notification channels configured for alert routing.
+      tags:
+        - Notification Channels
+      responses:
+        '200':
+          description: List of notification channels
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationChannelListResponse'
+    post:
+      operationId: createNotificationChannel
+      summary: Create Notification Channel
+      description: Create a new notification channel for alert routing.
+      tags:
+        - Notification Channels
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationChannelRequest'
+      responses:
+        '201':
+          description: Notification channel created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationChannelResponse'
+
+  /api/notificationChannels/{channelId}:
+    get:
+      operationId: getNotificationChannel
+      summary: Get Notification Channel
+      description: Retrieve details of a specific notification channel.
+      tags:
+        - Notification Channels
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Notification channel details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationChannelResponse'
+    put:
+      operationId: updateNotificationChannel
+      summary: Update Notification Channel
+      description: Update an existing notification channel.
+      tags:
+        - Notification Channels
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationChannelRequest'
+      responses:
+        '200':
+          description: Notification channel updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationChannelResponse'
+    delete:
+      operationId: deleteNotificationChannel
+      summary: Delete Notification Channel
+      description: Delete a notification channel.
+      tags:
+        - Notification Channels
+      parameters:
+        - name: channelId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Notification channel deleted
+
+  /api/v2/teams:
+    get:
+      operationId: listTeams
+      summary: List Teams
+      description: Retrieve all teams in the Sysdig organization.
+      tags:
+        - Teams
+      responses:
+        '200':
+          description: List of teams
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamListResponse'
+    post:
+      operationId: createTeam
+      summary: Create Team
+      description: Create a new team.
+      tags:
+        - Teams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamRequest'
+      responses:
+        '201':
+          description: Team created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamResponse'
+
+  /api/v2/teams/{teamId}:
+    get:
+      operationId: getTeam
+      summary: Get Team
+      description: Retrieve details of a specific team.
+      tags:
+        - Teams
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      responses:
+        '200':
+          description: Team details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamResponse'
+    put:
+      operationId: updateTeam
+      summary: Update Team
+      description: Update an existing team.
+      tags:
+        - Teams
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamRequest'
+      responses:
+        '200':
+          description: Team updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamResponse'
+    delete:
+      operationId: deleteTeam
+      summary: Delete Team
+      description: Delete a team.
+      tags:
+        - Teams
+      parameters:
+        - $ref: '#/components/parameters/TeamId'
+      responses:
+        '204':
+          description: Team deleted
+
+  /api/v2/metrics/find:
+    get:
+      operationId: findMetrics
+      summary: Find Metrics
+      description: Search for available metrics by name pattern.
+      tags:
+        - Metrics
+      parameters:
+        - name: name
+          in: query
+          description: Metric name pattern to search for
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of matching metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricListResponse'
+
+  /api/v2/metrics/descriptors:
+    post:
+      operationId: getMetricDescriptors
+      summary: Get Metric Descriptors
+      description: Retrieve descriptors for specified metrics.
+      tags:
+        - Metrics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metrics:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+      responses:
+        '200':
+          description: Metric descriptors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricDescriptorResponse'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Authenticate using a Sysdig API Token, Team-Based Service Account, or
+        Global Service Account token as a Bearer token.
+
+  parameters:
+    AlertId:
+      name: alertId
+      in: path
+      required: true
+      description: Unique identifier of the alert
+      schema:
+        type: integer
+    DashboardId:
+      name: dashboardId
+      in: path
+      required: true
+      description: Unique identifier of the dashboard
+      schema:
+        type: integer
+    TeamId:
+      name: teamId
+      in: path
+      required: true
+      description: Unique identifier of the team
+      schema:
+        type: integer
+
+  responses:
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              reason:
+                type: string
+
+    AlertListResponse:
+      type: object
+      properties:
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alert'
+
+    AlertResponse:
+      type: object
+      properties:
+        alert:
+          $ref: '#/components/schemas/Alert'
+
+    AlertRequest:
+      type: object
+      required:
+        - alert
+      properties:
+        alert:
+          $ref: '#/components/schemas/Alert'
+
+    Alert:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          description: Alert name
+        description:
+          type: string
+        severity:
+          type: integer
+          description: Alert severity (0-7, where 0 is highest)
+          minimum: 0
+          maximum: 7
+        enabled:
+          type: boolean
+        condition:
+          type: string
+          description: Alert condition expression
+        segmentBy:
+          type: array
+          items:
+            type: string
+        timespan:
+          type: integer
+          description: Duration in microseconds
+        type:
+          type: string
+          enum:
+            - MANUAL
+            - BASELINE
+            - HOST_COMPARISON
+        notificationChannelIds:
+          type: array
+          items:
+            type: integer
+
+    DashboardListResponse:
+      type: object
+      properties:
+        dashboards:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dashboard'
+
+    DashboardResponse:
+      type: object
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/Dashboard'
+
+    DashboardRequest:
+      type: object
+      required:
+        - dashboard
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/Dashboard'
+
+    Dashboard:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+        shared:
+          type: boolean
+        sharingSettings:
+          type: array
+          items:
+            type: object
+        panels:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              type:
+                type: string
+              metrics:
+                type: array
+                items:
+                  type: object
+
+    EventListResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        total:
+          type: integer
+
+    EventResponse:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/Event'
+
+    EventRequest:
+      type: object
+      required:
+        - event
+      properties:
+        event:
+          $ref: '#/components/schemas/Event'
+
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+        severity:
+          type: string
+          enum:
+            - EMERGENCY
+            - ALERT
+            - CRITICAL
+            - ERROR
+            - WARNING
+            - NOTICE
+            - INFO
+            - DEBUG
+        timestamp:
+          type: integer
+          format: int64
+        scope:
+          type: string
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+
+    NotificationChannelListResponse:
+      type: object
+      properties:
+        notificationChannels:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationChannel'
+
+    NotificationChannelResponse:
+      type: object
+      properties:
+        notificationChannel:
+          $ref: '#/components/schemas/NotificationChannel'
+
+    NotificationChannelRequest:
+      type: object
+      required:
+        - notificationChannel
+      properties:
+        notificationChannel:
+          $ref: '#/components/schemas/NotificationChannel'
+
+    NotificationChannel:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - EMAIL
+            - SNS
+            - OPSGENIE
+            - VICTOROPS
+            - WEBHOOK
+            - SLACK
+            - PAGERDUTY
+        options:
+          type: object
+          additionalProperties: true
+        enabled:
+          type: boolean
+
+    TeamListResponse:
+      type: object
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+
+    TeamResponse:
+      type: object
+      properties:
+        team:
+          $ref: '#/components/schemas/Team'
+
+    TeamRequest:
+      type: object
+      required:
+        - team
+      properties:
+        team:
+          $ref: '#/components/schemas/Team'
+
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+        theme:
+          type: string
+        defaultTeamRole:
+          type: string
+          enum:
+            - ROLE_TEAM_EDIT
+            - ROLE_TEAM_READ
+        entryPoint:
+          type: object
+          properties:
+            module:
+              type: string
+        filter:
+          type: string
+          description: Scope filter expression for the team
+
+    MetricListResponse:
+      type: object
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metric'
+
+    MetricDescriptorResponse:
+      type: object
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricDescriptor'
+
+    Metric:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        metricType:
+          type: string
+
+    MetricDescriptor:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        groupBy:
+          type: array
+          items:
+            type: object

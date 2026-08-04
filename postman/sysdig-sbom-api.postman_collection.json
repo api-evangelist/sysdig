@@ -1,0 +1,180 @@
+{
+  "info": {
+    "_postman_id": "c1bd29cf-7c39-4fc8-b9d9-3f44d2173ba7",
+    "name": "Sysdig Monitor Activity Audit SBOM API",
+    "description": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:07:39.000Z",
+    "updatedAt": "2026-07-28T03:07:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c1bd29cf-7c39-4fc8-b9d9-3f44d2173ba7"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "scanning",
+          "item": [
+            {
+              "name": "v1",
+              "item": [
+                {
+                  "name": "images",
+                  "item": [
+                    {
+                      "name": "{imageId}",
+                      "item": [
+                        {
+                          "name": "sbom",
+                          "item": [
+                            {
+                              "name": "Get Image SBOM",
+                              "id": "be65015b-e55a-45d7-9514-61ecd08a2081",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/scanning/v1/images/:imageId/sbom",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "scanning",
+                                    "v1",
+                                    "images",
+                                    ":imageId",
+                                    "sbom"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "ca34cea9-2a14-4829-9547-468501fcc9cf",
+                                      "key": "imageId",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieve the Software Bill of Materials (SBOM) for a container image in CycloneDX JSON format."
+                              },
+                              "response": [
+                                {
+                                  "id": "2e8fb3da-9016-4ba4-9c31-0149f0da4a25",
+                                  "name": "Image SBOM in CycloneDX format",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/scanning/v1/images/:imageId/sbom",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "scanning",
+                                        "v1",
+                                        "images",
+                                        ":imageId",
+                                        "sbom"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "imageId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"bomFormat\": \"<string>\",\n  \"specVersion\": \"<string>\",\n  \"serialNumber\": \"<string>\",\n  \"version\": \"<integer>\"\n}",
+                                  "createdAt": "2026-07-28T03:07:40.000Z",
+                                  "updatedAt": "2026-07-28T03:07:40.000Z",
+                                  "uid": "35240-2e8fb3da-9016-4ba4-9c31-0149f0da4a25"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T03:07:40.000Z",
+                              "updatedAt": "2026-07-28T03:07:40.000Z",
+                              "uid": "35240-be65015b-e55a-45d7-9514-61ecd08a2081"
+                            }
+                          ],
+                          "id": "d3cc9a95-ddd3-45c1-a6c8-16e0110aeb3b",
+                          "createdAt": "2026-07-28T03:07:40.000Z",
+                          "updatedAt": "2026-07-28T03:07:40.000Z",
+                          "uid": "35240-d3cc9a95-ddd3-45c1-a6c8-16e0110aeb3b"
+                        }
+                      ],
+                      "id": "24c5af0c-bfcf-4fca-9df2-608f300fcd38",
+                      "createdAt": "2026-07-28T03:07:40.000Z",
+                      "updatedAt": "2026-07-28T03:07:40.000Z",
+                      "uid": "35240-24c5af0c-bfcf-4fca-9df2-608f300fcd38"
+                    }
+                  ],
+                  "id": "407d9eba-bb8a-4f6a-8f86-f590425b0572",
+                  "createdAt": "2026-07-28T03:07:40.000Z",
+                  "updatedAt": "2026-07-28T03:07:40.000Z",
+                  "uid": "35240-407d9eba-bb8a-4f6a-8f86-f590425b0572"
+                }
+              ],
+              "id": "e5688249-8d0e-416f-ba75-91c7d1aa5e49",
+              "createdAt": "2026-07-28T03:07:40.000Z",
+              "updatedAt": "2026-07-28T03:07:40.000Z",
+              "uid": "35240-e5688249-8d0e-416f-ba75-91c7d1aa5e49"
+            }
+          ],
+          "id": "c14fa1ae-1d55-4845-9cc1-82fed0671499",
+          "createdAt": "2026-07-28T03:07:40.000Z",
+          "updatedAt": "2026-07-28T03:07:40.000Z",
+          "uid": "35240-c14fa1ae-1d55-4845-9cc1-82fed0671499"
+        }
+      ],
+      "id": "0cdb2c31-7988-431d-be27-9ec1e002c3b5",
+      "createdAt": "2026-07-28T03:07:40.000Z",
+      "updatedAt": "2026-07-28T03:07:40.000Z",
+      "uid": "35240-0cdb2c31-7988-431d-be27-9ec1e002c3b5"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.us1.sysdig.com"
+    }
+  ]
+}

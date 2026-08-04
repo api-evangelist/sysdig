@@ -1,0 +1,538 @@
+{
+  "info": {
+    "_postman_id": "680ddd41-d970-4ec1-a29b-bd2bc603ffd1",
+    "name": "Sysdig Monitor Activity Audit Teams API",
+    "description": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:07:40.000Z",
+    "updatedAt": "2026-07-28T03:07:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-680ddd41-d970-4ec1-a29b-bd2bc603ffd1"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "teams",
+              "item": [
+                {
+                  "name": "{teamId}",
+                  "item": [
+                    {
+                      "name": "Get Team",
+                      "id": "9514fe54-491d-4aa7-a764-a3386eac6627",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/teams/:teamId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "teams",
+                            ":teamId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "1c259b9f-2c79-4853-8a13-a3f668067a8b",
+                              "key": "teamId",
+                              "value": "<integer>",
+                              "description": "(Required) Unique identifier of the team"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve details of a specific team."
+                      },
+                      "response": [
+                        {
+                          "id": "ebf5083b-237f-4666-a2a7-102a36e446c8",
+                          "name": "Team details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/teams/:teamId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "teams",
+                                ":teamId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"team\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"defaultTeamRole\": \"ROLE_TEAM_READ\",\n    \"entryPoint\": {\n      \"module\": \"<string>\"\n    },\n    \"filter\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:07:41.000Z",
+                          "updatedAt": "2026-07-28T03:07:41.000Z",
+                          "uid": "35240-ebf5083b-237f-4666-a2a7-102a36e446c8"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:07:41.000Z",
+                      "updatedAt": "2026-07-28T03:07:41.000Z",
+                      "uid": "35240-9514fe54-491d-4aa7-a764-a3386eac6627"
+                    },
+                    {
+                      "name": "Update Team",
+                      "id": "a087aa94-dbe7-41db-a06e-43802ccc6760",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"team\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"defaultTeamRole\": \"ROLE_TEAM_EDIT\",\n    \"entryPoint\": {\n      \"module\": \"<string>\"\n    },\n    \"filter\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/teams/:teamId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "teams",
+                            ":teamId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c5c87469-0e9b-41f4-ac4e-625dbac6ef44",
+                              "key": "teamId",
+                              "value": "<integer>",
+                              "description": "(Required) Unique identifier of the team"
+                            }
+                          ]
+                        },
+                        "description": "Update an existing team."
+                      },
+                      "response": [
+                        {
+                          "id": "a7e66b02-577f-4ac2-bf64-437046d855f0",
+                          "name": "Team updated",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"team\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"defaultTeamRole\": \"ROLE_TEAM_EDIT\",\n    \"entryPoint\": {\n      \"module\": \"<string>\"\n    },\n    \"filter\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/teams/:teamId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "teams",
+                                ":teamId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"team\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"defaultTeamRole\": \"ROLE_TEAM_READ\",\n    \"entryPoint\": {\n      \"module\": \"<string>\"\n    },\n    \"filter\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:07:41.000Z",
+                          "updatedAt": "2026-07-28T03:07:41.000Z",
+                          "uid": "35240-a7e66b02-577f-4ac2-bf64-437046d855f0"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:07:41.000Z",
+                      "updatedAt": "2026-07-28T03:07:41.000Z",
+                      "uid": "35240-a087aa94-dbe7-41db-a06e-43802ccc6760"
+                    },
+                    {
+                      "name": "Delete Team",
+                      "id": "50731d31-d5cc-4e6b-83ac-9cfc780611a4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/teams/:teamId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "teams",
+                            ":teamId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f4e91961-101b-4eb9-917d-9a8722d18015",
+                              "key": "teamId",
+                              "value": "<integer>",
+                              "description": "(Required) Unique identifier of the team"
+                            }
+                          ]
+                        },
+                        "description": "Delete a team."
+                      },
+                      "response": [
+                        {
+                          "id": "b270b3cc-42f6-4f38-b37f-b624c96c9f6e",
+                          "name": "Team deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/teams/:teamId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "teams",
+                                ":teamId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "teamId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:07:41.000Z",
+                          "updatedAt": "2026-07-28T03:07:41.000Z",
+                          "uid": "35240-b270b3cc-42f6-4f38-b37f-b624c96c9f6e"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:07:41.000Z",
+                      "updatedAt": "2026-07-28T03:07:41.000Z",
+                      "uid": "35240-50731d31-d5cc-4e6b-83ac-9cfc780611a4"
+                    }
+                  ],
+                  "id": "ac71dfc4-cc76-452f-8110-a7b233741e66",
+                  "createdAt": "2026-07-28T03:07:41.000Z",
+                  "updatedAt": "2026-07-28T03:07:41.000Z",
+                  "uid": "35240-ac71dfc4-cc76-452f-8110-a7b233741e66"
+                },
+                {
+                  "name": "List Teams",
+                  "id": "4c643ac0-9e38-4e98-ac91-2d3633788c3c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/teams",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "teams"
+                      ]
+                    },
+                    "description": "Retrieve all teams in the Sysdig organization."
+                  },
+                  "response": [
+                    {
+                      "id": "d7171981-0c0a-42a5-8934-6641badbf8c2",
+                      "name": "List of teams",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/teams",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "teams"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"teams\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"theme\": \"<string>\",\n      \"defaultTeamRole\": \"ROLE_TEAM_EDIT\",\n      \"entryPoint\": {\n        \"module\": \"<string>\"\n      },\n      \"filter\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"theme\": \"<string>\",\n      \"defaultTeamRole\": \"ROLE_TEAM_EDIT\",\n      \"entryPoint\": {\n        \"module\": \"<string>\"\n      },\n      \"filter\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:07:41.000Z",
+                      "updatedAt": "2026-07-28T03:07:41.000Z",
+                      "uid": "35240-d7171981-0c0a-42a5-8934-6641badbf8c2"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:07:41.000Z",
+                  "updatedAt": "2026-07-28T03:07:41.000Z",
+                  "uid": "35240-4c643ac0-9e38-4e98-ac91-2d3633788c3c"
+                },
+                {
+                  "name": "Create Team",
+                  "id": "eb81d9d5-d8f5-4ebc-b86d-26a8bc3002b8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"team\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"defaultTeamRole\": \"ROLE_TEAM_EDIT\",\n    \"entryPoint\": {\n      \"module\": \"<string>\"\n    },\n    \"filter\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/teams",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "teams"
+                      ]
+                    },
+                    "description": "Create a new team."
+                  },
+                  "response": [
+                    {
+                      "id": "3227afc8-f0af-47bb-846c-f3f7d1a91984",
+                      "name": "Team created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"team\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"defaultTeamRole\": \"ROLE_TEAM_EDIT\",\n    \"entryPoint\": {\n      \"module\": \"<string>\"\n    },\n    \"filter\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/teams",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "teams"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"team\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"theme\": \"<string>\",\n    \"defaultTeamRole\": \"ROLE_TEAM_READ\",\n    \"entryPoint\": {\n      \"module\": \"<string>\"\n    },\n    \"filter\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:07:41.000Z",
+                      "updatedAt": "2026-07-28T03:07:41.000Z",
+                      "uid": "35240-3227afc8-f0af-47bb-846c-f3f7d1a91984"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:07:41.000Z",
+                  "updatedAt": "2026-07-28T03:07:41.000Z",
+                  "uid": "35240-eb81d9d5-d8f5-4ebc-b86d-26a8bc3002b8"
+                }
+              ],
+              "id": "0f89b27f-4c3e-47d3-966f-ec305b8fc494",
+              "createdAt": "2026-07-28T03:07:41.000Z",
+              "updatedAt": "2026-07-28T03:07:41.000Z",
+              "uid": "35240-0f89b27f-4c3e-47d3-966f-ec305b8fc494"
+            }
+          ],
+          "id": "43401e72-13de-40d5-80cc-5d9a7b3e8c16",
+          "createdAt": "2026-07-28T03:07:41.000Z",
+          "updatedAt": "2026-07-28T03:07:41.000Z",
+          "uid": "35240-43401e72-13de-40d5-80cc-5d9a7b3e8c16"
+        }
+      ],
+      "id": "0be5f061-633c-4269-b398-226609e954e9",
+      "createdAt": "2026-07-28T03:07:41.000Z",
+      "updatedAt": "2026-07-28T03:07:41.000Z",
+      "uid": "35240-0be5f061-633c-4269-b398-226609e954e9"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.us1.sysdig.com"
+    }
+  ]
+}
