@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sysdig Monitor Activity Audit SBOM API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SBOM",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Image SBOM",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.us1.sysdig.com/api/scanning/v1/images/:imageId/sbom",
+            "params": [
+              {
+                "name": "imageId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the Software Bill of Materials (SBOM) for a container image in CycloneDX JSON format."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

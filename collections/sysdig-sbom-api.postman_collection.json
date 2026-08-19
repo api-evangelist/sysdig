@@ -1,0 +1,145 @@
+{
+  "item": [
+    {
+      "id": "3a8a2e7c-6d65-4575-9c30-58183cff8d5e",
+      "name": "SBOM",
+      "description": {
+        "content": "Software Bill of Materials management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5d79908a-f602-4165-8ead-b79f2ebae23b",
+          "name": "Get Image SBOM",
+          "request": {
+            "name": "Get Image SBOM",
+            "description": {
+              "content": "Retrieve the Software Bill of Materials (SBOM) for a container image in CycloneDX JSON format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "scanning",
+                "v1",
+                "images",
+                ":imageId",
+                "sbom"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "imageId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1cdfd53e-a16d-44bb-a89d-87932db91acc",
+              "name": "Image SBOM in CycloneDX format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "scanning",
+                    "v1",
+                    "images",
+                    ":imageId",
+                    "sbom"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imageId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bomFormat\": \"CycloneDX\",\n  \"specVersion\": \"string\",\n  \"serialNumber\": \"string\",\n  \"version\": 4536\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us1.sysdig.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c5712fd9-70f6-4721-8193-7bbd61328158",
+    "name": "Sysdig Monitor Activity Audit SBOM API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+      "type": "text/plain"
+    }
+  }
+}

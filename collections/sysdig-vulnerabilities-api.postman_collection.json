@@ -1,0 +1,392 @@
+{
+  "item": [
+    {
+      "id": "9226019e-f067-45f5-96b3-fb7f8d755349",
+      "name": "Vulnerabilities",
+      "description": {
+        "content": "Manage vulnerability findings and scanning results",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "efda2138-6563-45a7-a5cd-e8a58bd11ed9",
+          "name": "List Vulnerability Results",
+          "request": {
+            "name": "List Vulnerability Results",
+            "description": {
+              "content": "Retrieve vulnerability scanning results for container images and hosts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "scanning",
+                "v1",
+                "resultsDirect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter expression for vulnerability results"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "22b40c92-4a63-4d0f-b409-7cbd13d320b4",
+              "name": "Vulnerability results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "scanning",
+                    "v1",
+                    "resultsDirect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"imageId\": \"string\",\n      \"imageName\": \"string\",\n      \"imageTag\": \"string\",\n      \"analysisStatus\": \"not_analyzed\",\n      \"vulnCount\": 8038,\n      \"criticalCount\": 7061,\n      \"highCount\": 6095,\n      \"mediumCount\": 4844,\n      \"lowCount\": 9705,\n      \"createdAt\": \"1963-04-03T20:33:51.386Z\"\n    },\n    {\n      \"imageId\": \"string\",\n      \"imageName\": \"string\",\n      \"imageTag\": \"string\",\n      \"analysisStatus\": \"not_analyzed\",\n      \"vulnCount\": 3438,\n      \"criticalCount\": 4263,\n      \"highCount\": 3920,\n      \"mediumCount\": 5438,\n      \"lowCount\": 7551,\n      \"createdAt\": \"1993-06-16T00:27:50.164Z\"\n    }\n  ],\n  \"page\": {\n    \"returned\": 7151,\n    \"next\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39d3c7d4-e064-4fdd-8477-897a64b100f2",
+              "name": "Authentication credentials missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "scanning",
+                    "v1",
+                    "resultsDirect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0db139c0-e398-44bd-93af-f8d81eb90b84",
+          "name": "Get Image Vulnerabilities",
+          "request": {
+            "name": "Get Image Vulnerabilities",
+            "description": {
+              "content": "Retrieve vulnerability findings for a specific container image.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "scanning",
+                "v1",
+                "images",
+                ":imageId",
+                "vulnDirect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "imageId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "addf9468-a182-4de5-8a25-bd1de2ba83b4",
+              "name": "Image vulnerability details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "scanning",
+                    "v1",
+                    "images",
+                    ":imageId",
+                    "vulnDirect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imageId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"imageId\": \"string\",\n  \"vulnerabilities\": [\n    {\n      \"vuln\": \"string\",\n      \"severity\": \"Medium\",\n      \"package\": \"string\",\n      \"packageVersion\": \"string\",\n      \"fixVersion\": \"string\",\n      \"url\": \"string\",\n      \"description\": \"string\"\n    },\n    {\n      \"vuln\": \"string\",\n      \"severity\": \"High\",\n      \"package\": \"string\",\n      \"packageVersion\": \"string\",\n      \"fixVersion\": \"string\",\n      \"url\": \"string\",\n      \"description\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30169230-98cd-45ab-b000-0855bcfd6a14",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "scanning",
+                    "v1",
+                    "images",
+                    ":imageId",
+                    "vulnDirect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "imageId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us1.sysdig.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "488461f3-2ca5-4845-98f1-9d71e548d3db",
+    "name": "Sysdig Monitor Activity Audit Vulnerabilities API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+      "type": "text/plain"
+    }
+  }
+}

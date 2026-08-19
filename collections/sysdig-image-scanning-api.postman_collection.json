@@ -1,0 +1,250 @@
+{
+  "item": [
+    {
+      "id": "c97aa313-4b00-425f-8361-d6a0e17a7684",
+      "name": "Image Scanning",
+      "description": {
+        "content": "Scan container images for vulnerabilities",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3e7c9efa-0649-46a8-95c8-5ecccec34b10",
+          "name": "Scan Image",
+          "request": {
+            "name": "Scan Image",
+            "description": {
+              "content": "Trigger a vulnerability scan for a container image.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "scanning",
+                "v1",
+                "image"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tag\": \"<string>\",\n  \"digest\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5e3c6c07-f5db-42c7-8cf8-fe5ce599f4ce",
+              "name": "Image scan initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "scanning",
+                    "v1",
+                    "image"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tag\": \"<string>\",\n  \"digest\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"imageId\": \"string\",\n  \"analysisStatus\": \"string\",\n  \"createdAt\": \"2024-04-19T18:59:43.239Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a19af5d3-4234-49e8-818b-064cc5dfb16c",
+          "name": "List Scanned Images",
+          "request": {
+            "name": "List Scanned Images",
+            "description": {
+              "content": "Retrieve all container images that have been scanned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "scanning",
+                "v1",
+                "images"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c16862a1-877b-4ed8-9bf1-cdbcb02a6dca",
+              "name": "List of scanned images",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "scanning",
+                    "v1",
+                    "images"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"images\": [\n    {\n      \"imageId\": \"string\",\n      \"fullTag\": \"string\",\n      \"registry\": \"string\",\n      \"repository\": \"string\",\n      \"tag\": \"string\",\n      \"analysisStatus\": \"string\",\n      \"createdAt\": \"2012-01-04T19:32:17.015Z\"\n    },\n    {\n      \"imageId\": \"string\",\n      \"fullTag\": \"string\",\n      \"registry\": \"string\",\n      \"repository\": \"string\",\n      \"tag\": \"string\",\n      \"analysisStatus\": \"string\",\n      \"createdAt\": \"1967-05-08T04:28:20.242Z\"\n    }\n  ],\n  \"page\": {\n    \"returned\": 6659,\n    \"next\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.us1.sysdig.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "35c4ed75-a3ad-4237-9b86-1182a6bd46ee",
+    "name": "Sysdig Monitor Activity Audit Image Scanning API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.\n\nContact Support:\n Name: Sysdig Support",
+      "type": "text/plain"
+    }
+  }
+}
