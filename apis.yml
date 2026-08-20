@@ -115,6 +115,8 @@ apis:
   humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
   baseURL: https://api.us1.sysdig.com
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -169,6 +171,8 @@ apis:
   humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
   baseURL: https://api.us1.sysdig.com
   tags:
+  - NotificationChannels
+  tags_raw:
   - Notification Channels
   properties:
   - type: OpenAPI
@@ -241,6 +245,8 @@ apis:
   humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
   baseURL: https://api.us1.sysdig.com
   tags:
+  - Team
+  tags_raw:
   - Teams
   properties:
   - type: OpenAPI
