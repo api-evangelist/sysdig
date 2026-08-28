@@ -12,8 +12,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: sysdigSecure
-  url: ../openapi/sysdig-secure-openapi.yml
+- name: imageScanningApi
+  url: ../openapi/sysdig-image-scanning-api-openapi.yml
+  type: openapi
+- name: vulnerabilitiesApi
+  url: ../openapi/sysdig-vulnerabilities-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: scan-image-and-poll

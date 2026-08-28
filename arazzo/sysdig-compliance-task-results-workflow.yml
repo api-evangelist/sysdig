@@ -10,8 +10,8 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: sysdigSecure
-  url: ../openapi/sysdig-secure-openapi.yml
+- name: complianceApi
+  url: ../openapi/sysdig-compliance-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: compliance-task-results

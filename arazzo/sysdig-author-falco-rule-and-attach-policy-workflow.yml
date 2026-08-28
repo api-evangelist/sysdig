@@ -11,8 +11,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: sysdigSecure
-  url: ../openapi/sysdig-secure-openapi.yml
+- name: policiesApi
+  url: ../openapi/sysdig-policies-api-openapi.yml
+  type: openapi
+- name: rulesApi
+  url: ../openapi/sysdig-rules-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: author-falco-rule-and-attach-policy

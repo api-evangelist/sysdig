@@ -11,8 +11,14 @@ info:
     without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: sysdigSecure
-  url: ../openapi/sysdig-secure-openapi.yml
+- name: imageScanningApi
+  url: ../openapi/sysdig-image-scanning-api-openapi.yml
+  type: openapi
+- name: sbomApi
+  url: ../openapi/sysdig-sbom-api-openapi.yml
+  type: openapi
+- name: vulnerabilitiesApi
+  url: ../openapi/sysdig-vulnerabilities-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: scanned-image-inventory-review

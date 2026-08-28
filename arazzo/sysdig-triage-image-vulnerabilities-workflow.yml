@@ -12,8 +12,11 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: sysdigSecure
-  url: ../openapi/sysdig-secure-openapi.yml
+- name: sbomApi
+  url: ../openapi/sysdig-sbom-api-openapi.yml
+  type: openapi
+- name: vulnerabilitiesApi
+  url: ../openapi/sysdig-vulnerabilities-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: triage-image-vulnerabilities

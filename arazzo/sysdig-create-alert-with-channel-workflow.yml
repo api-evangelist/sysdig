@@ -11,8 +11,11 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: sysdigMonitor
-  url: ../openapi/sysdig-monitor-openapi.yml
+- name: alertsApi
+  url: ../openapi/sysdig-alerts-api-openapi.yml
+  type: openapi
+- name: notificationChannelsApi
+  url: ../openapi/sysdig-notification-channels-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: create-alert-with-channel
