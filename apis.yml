@@ -183,7 +183,7 @@ apis:
   humanURL: https://docs.sysdig.com/en/developer-tools/sysdig-api/
   baseURL: https://api.us1.sysdig.com
   tags:
-  - NotificationChannels
+  - Notification Channels
   tags_raw:
   - Notification Channels
   properties:
