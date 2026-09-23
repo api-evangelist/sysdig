@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Sysdig Monitor Activity Audit Dashboards API
+  title: Sysdig Monitor Dashboards API
   description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
   version: 1.0.0
   contact:
@@ -112,18 +112,6 @@ paths:
           description: Dashboard deleted
 components:
   schemas:
-    DashboardRequest:
-      type: object
-      required:
-      - dashboard
-      properties:
-        dashboard:
-          $ref: '#/components/schemas/Dashboard'
-    DashboardResponse:
-      type: object
-      properties:
-        dashboard:
-          $ref: '#/components/schemas/Dashboard'
     ErrorResponse:
       type: object
       properties:
@@ -176,6 +164,18 @@ components:
                 type: array
                 items:
                   type: object
+    DashboardRequest:
+      type: object
+      required:
+      - dashboard
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/Dashboard'
+    DashboardResponse:
+      type: object
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/Dashboard'
   responses:
     BadRequest:
       description: Invalid request parameters

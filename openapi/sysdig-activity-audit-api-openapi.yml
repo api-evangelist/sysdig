@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Sysdig Monitor Activity Audit API
-  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  title: Sysdig Secure Activity Audit API
+  description: The Sysdig Secure API provides programmatic access to cloud and container security capabilities including vulnerability management, runtime threat detection, policy enforcement, compliance automation, activity audit, image scanning, SBOM management, and Falco rules management.
   version: 1.0.0
   contact:
     name: Sysdig Support
@@ -95,6 +95,15 @@ paths:
                 $ref: '#/components/schemas/ActivityAuditResponse'
 components:
   schemas:
+    ActivityAuditResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityAuditEntry'
+        page:
+          $ref: '#/components/schemas/PageInfo'
     PageInfo:
       type: object
       properties:
@@ -119,15 +128,6 @@ components:
           type: string
         source:
           type: string
-    SecureEventListResponse:
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/SecureEvent'
-        total:
-          type: integer
     SecureEvent:
       type: object
       properties:
@@ -152,15 +152,15 @@ components:
           type: string
         content:
           type: object
-    ActivityAuditResponse:
+    SecureEventListResponse:
       type: object
       properties:
-        data:
+        events:
           type: array
           items:
-            $ref: '#/components/schemas/ActivityAuditEntry'
-        page:
-          $ref: '#/components/schemas/PageInfo'
+            $ref: '#/components/schemas/SecureEvent'
+        total:
+          type: integer
   securitySchemes:
     BearerAuth:
       type: http

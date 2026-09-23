@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Sysdig Monitor Activity Audit Notification Channels API
+  title: Sysdig Monitor Notification Channels API
   description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
   version: 1.0.0
   contact:
@@ -118,6 +118,18 @@ paths:
           description: Notification channel deleted
 components:
   schemas:
+    NotificationChannelResponse:
+      type: object
+      properties:
+        notificationChannel:
+          $ref: '#/components/schemas/NotificationChannel'
+    NotificationChannelListResponse:
+      type: object
+      properties:
+        notificationChannels:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationChannel'
     NotificationChannel:
       type: object
       properties:
@@ -145,18 +157,6 @@ components:
       type: object
       required:
       - notificationChannel
-      properties:
-        notificationChannel:
-          $ref: '#/components/schemas/NotificationChannel'
-    NotificationChannelListResponse:
-      type: object
-      properties:
-        notificationChannels:
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationChannel'
-    NotificationChannelResponse:
-      type: object
       properties:
         notificationChannel:
           $ref: '#/components/schemas/NotificationChannel'

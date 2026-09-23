@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Sysdig Monitor Activity Audit Vulnerabilities API
-  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  title: Sysdig Secure Vulnerabilities API
+  description: The Sysdig Secure API provides programmatic access to cloud and container security capabilities including vulnerability management, runtime threat detection, policy enforcement, compliance automation, activity audit, image scanning, SBOM management, and Falco rules management.
   version: 1.0.0
   contact:
     name: Sysdig Support
@@ -89,6 +89,31 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+    VulnerabilityResultListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VulnerabilityResult'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    PageInfo:
+      type: object
+      properties:
+        returned:
+          type: integer
+        next:
+          type: string
     VulnerabilityResult:
       type: object
       properties:
@@ -117,40 +142,6 @@ components:
         createdAt:
           type: string
           format: date-time
-    PageInfo:
-      type: object
-      properties:
-        returned:
-          type: integer
-        next:
-          type: string
-    VulnerabilityResultListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/VulnerabilityResult'
-        page:
-          $ref: '#/components/schemas/PageInfo'
-    ImageVulnerabilityResponse:
-      type: object
-      properties:
-        imageId:
-          type: string
-        vulnerabilities:
-          type: array
-          items:
-            $ref: '#/components/schemas/Vulnerability'
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        errors:
-          type: array
-          items:
-            type: object
     Vulnerability:
       type: object
       properties:
@@ -175,6 +166,15 @@ components:
           type: string
         description:
           type: string
+    ImageVulnerabilityResponse:
+      type: object
+      properties:
+        imageId:
+          type: string
+        vulnerabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vulnerability'
   responses:
     Unauthorized:
       description: Authentication credentials missing or invalid

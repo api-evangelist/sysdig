@@ -1,38 +1,46 @@
 {
   "provider": "sysdig",
   "sources": [
-    "sysdig-activity-audit-api-openapi.yml",
-    "sysdig-alerts-api-openapi.yml",
-    "sysdig-compliance-api-openapi.yml",
-    "sysdig-dashboards-api-openapi.yml",
-    "sysdig-events-api-openapi.yml",
-    "sysdig-image-scanning-api-openapi.yml",
-    "sysdig-metrics-api-openapi.yml",
-    "sysdig-notification-channels-api-openapi.yml",
-    "sysdig-policies-api-openapi.yml",
-    "sysdig-rules-api-openapi.yml",
-    "sysdig-sbom-api-openapi.yml",
-    "sysdig-teams-api-openapi.yml",
-    "sysdig-vulnerabilities-api-openapi.yml"
+    "_original/sysdig-monitor-openapi.yml",
+    "_original/sysdig-secure-openapi.yml"
   ],
   "outputs": [
-    "sysdig-activity-audit-api-openapi.yml",
     "sysdig-alerts-api-openapi.yml",
-    "sysdig-compliance-api-openapi.yml",
     "sysdig-dashboards-api-openapi.yml",
     "sysdig-events-api-openapi.yml",
-    "sysdig-image-scanning-api-openapi.yml",
     "sysdig-metrics-api-openapi.yml",
     "sysdig-notification-channels-api-openapi.yml",
+    "sysdig-teams-api-openapi.yml",
+    "sysdig-activity-audit-api-openapi.yml",
+    "sysdig-compliance-api-openapi.yml",
+    "sysdig-image-scanning-api-openapi.yml",
     "sysdig-policies-api-openapi.yml",
     "sysdig-rules-api-openapi.yml",
     "sysdig-sbom-api-openapi.yml",
-    "sysdig-teams-api-openapi.yml",
     "sysdig-vulnerabilities-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "sysdig-monitor-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sysdig-secure-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "sysdig-activity-audit-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sysdig-alerts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sysdig-compliance-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sysdig-dashboards-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sysdig-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sysdig-image-scanning-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sysdig-metrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sysdig-notification-channels-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sysdig-policies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sysdig-rules-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sysdig-sbom-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sysdig-teams-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sysdig-vulnerabilities-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

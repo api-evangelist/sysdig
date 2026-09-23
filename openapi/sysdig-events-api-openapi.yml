@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Sysdig Monitor Activity Audit Events API
+  title: Sysdig Monitor Events API
   description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
   version: 1.0.0
   contact:
@@ -80,11 +80,6 @@ paths:
                 $ref: '#/components/schemas/EventResponse'
 components:
   schemas:
-    EventResponse:
-      type: object
-      properties:
-        event:
-          $ref: '#/components/schemas/Event'
     EventListResponse:
       type: object
       properties:
@@ -94,6 +89,11 @@ components:
             $ref: '#/components/schemas/Event'
         total:
           type: integer
+    EventResponse:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/Event'
     EventRequest:
       type: object
       required:

@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Sysdig Monitor Activity Audit Rules API
-  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  title: Sysdig Secure Rules API
+  description: The Sysdig Secure API provides programmatic access to cloud and container security capabilities including vulnerability management, runtime threat detection, policy enforcement, compliance automation, activity audit, image scanning, SBOM management, and Falco rules management.
   version: 1.0.0
   contact:
     name: Sysdig Support
@@ -106,6 +106,25 @@ paths:
           description: Falco rule deleted
 components:
   schemas:
+    FalcoRuleResponse:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/FalcoRule'
+    FalcoRuleListResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/FalcoRule'
+    FalcoRuleRequest:
+      type: object
+      required:
+      - rule
+      properties:
+        rule:
+          $ref: '#/components/schemas/FalcoRule'
     FalcoRule:
       type: object
       properties:
@@ -144,25 +163,6 @@ components:
             type: string
         enabled:
           type: boolean
-    FalcoRuleListResponse:
-      type: object
-      properties:
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/FalcoRule'
-    FalcoRuleRequest:
-      type: object
-      required:
-      - rule
-      properties:
-        rule:
-          $ref: '#/components/schemas/FalcoRule'
-    FalcoRuleResponse:
-      type: object
-      properties:
-        rule:
-          $ref: '#/components/schemas/FalcoRule'
   parameters:
     RuleId:
       name: ruleId

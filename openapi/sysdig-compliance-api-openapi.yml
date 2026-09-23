@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Sysdig Monitor Activity Audit Compliance API
-  description: The Sysdig Monitor API provides programmatic access to monitoring and observability capabilities for cloud-native environments. Manage dashboards, alerts, events, metrics, notification channels, teams, and scanning results for containers and Kubernetes workloads.
+  title: Sysdig Secure Compliance API
+  description: The Sysdig Secure API provides programmatic access to cloud and container security capabilities including vulnerability management, runtime threat detection, policy enforcement, compliance automation, activity audit, image scanning, SBOM management, and Falco rules management.
   version: 1.0.0
   contact:
     name: Sysdig Support
@@ -65,6 +65,21 @@ paths:
                 $ref: '#/components/schemas/ComplianceResultResponse'
 components:
   schemas:
+    ComplianceTask:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        enabled:
+          type: boolean
+        schedule:
+          type: string
+        schema:
+          type: string
+        scope:
+          type: string
     ComplianceTaskListResponse:
       type: object
       properties:
@@ -103,21 +118,6 @@ components:
           type: integer
         fail:
           type: integer
-    ComplianceTask:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        enabled:
-          type: boolean
-        schedule:
-          type: string
-        schema:
-          type: string
-        scope:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http
