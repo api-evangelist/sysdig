@@ -66,8 +66,6 @@ apis:
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: GraphQL
-    url: graphql/sysdig-graphql.md
 - aid: sysdig:sysdig-alerts-api
   name: Sysdig Alerts API
   description: Manage monitoring alerts and alert notifications
@@ -84,8 +82,6 @@ apis:
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: GraphQL
-    url: graphql/sysdig-graphql.md
 - aid: sysdig:sysdig-compliance-api
   name: Sysdig Compliance API
   description: Compliance checks and reporting
@@ -102,8 +98,6 @@ apis:
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: GraphQL
-    url: graphql/sysdig-graphql.md
 - aid: sysdig:sysdig-dashboards-api
   name: Sysdig Dashboards API
   description: Create and manage monitoring dashboards
@@ -120,8 +114,6 @@ apis:
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: GraphQL
-    url: graphql/sysdig-graphql.md
 - aid: sysdig:sysdig-events-api
   name: Sysdig Events API
   description: Retrieve and create custom events
@@ -140,8 +132,6 @@ apis:
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: GraphQL
-    url: graphql/sysdig-graphql.md
 - aid: sysdig:sysdig-image-scanning-api
   name: Sysdig Image Scanning API
   description: Scan container images for vulnerabilities
@@ -158,8 +148,6 @@ apis:
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: GraphQL
-    url: graphql/sysdig-graphql.md
 - aid: sysdig:sysdig-metrics-api
   name: Sysdig Metrics API
   description: Query and retrieve metrics data
@@ -176,8 +164,6 @@ apis:
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: GraphQL
-    url: graphql/sysdig-graphql.md
 - aid: sysdig:sysdig-notification-channels-api
   name: Sysdig Notification Channels API
   description: Configure notification channels for alerts
@@ -196,8 +182,6 @@ apis:
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: GraphQL
-    url: graphql/sysdig-graphql.md
 - aid: sysdig:sysdig-policies-api
   name: Sysdig Policies API
   description: Manage runtime security policies
@@ -214,8 +198,6 @@ apis:
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: GraphQL
-    url: graphql/sysdig-graphql.md
 - aid: sysdig:sysdig-rules-api
   name: Sysdig Rules API
   description: Manage Falco security rules
@@ -232,8 +214,6 @@ apis:
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: GraphQL
-    url: graphql/sysdig-graphql.md
 - aid: sysdig:sysdig-sbom-api
   name: Sysdig SBOM API
   description: Software Bill of Materials management
@@ -250,8 +230,6 @@ apis:
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: GraphQL
-    url: graphql/sysdig-graphql.md
 - aid: sysdig:sysdig-teams-api
   name: Sysdig Teams API
   description: Manage teams and team memberships
@@ -270,8 +248,6 @@ apis:
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: GraphQL
-    url: graphql/sysdig-graphql.md
 - aid: sysdig:sysdig-vulnerabilities-api
   name: Sysdig Vulnerabilities API
   description: Manage vulnerability findings and scanning results
@@ -288,8 +264,6 @@ apis:
     url: https://docs.sysdig.com/en/getting-started/
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
-  - type: GraphQL
-    url: graphql/sysdig-graphql.md
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/sysdig/overview
