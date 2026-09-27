@@ -71,6 +71,22 @@ paths:
                 $ref: '#/components/schemas/ScannedImageListResponse'
 components:
   schemas:
+    PageInfo:
+      type: object
+      properties:
+        returned:
+          type: integer
+        next:
+          type: string
+    ScannedImageListResponse:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScannedImage'
+        page:
+          $ref: '#/components/schemas/PageInfo'
     ImageScanRequest:
       type: object
       required:
@@ -82,22 +98,16 @@ components:
         digest:
           type: string
           description: Image digest
-    ScannedImageListResponse:
+    ImageScanResponse:
       type: object
       properties:
-        images:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScannedImage'
-        page:
-          $ref: '#/components/schemas/PageInfo'
-    PageInfo:
-      type: object
-      properties:
-        returned:
-          type: integer
-        next:
+        imageId:
           type: string
+        analysisStatus:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
     ScannedImage:
       type: object
       properties:
@@ -110,16 +120,6 @@ components:
         repository:
           type: string
         tag:
-          type: string
-        analysisStatus:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-    ImageScanResponse:
-      type: object
-      properties:
-        imageId:
           type: string
         analysisStatus:
           type: string

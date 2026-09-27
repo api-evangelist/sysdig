@@ -98,6 +98,13 @@ components:
           type: array
           items:
             type: object
+    PageInfo:
+      type: object
+      properties:
+        returned:
+          type: integer
+        next:
+          type: string
     VulnerabilityResultListResponse:
       type: object
       properties:
@@ -107,13 +114,15 @@ components:
             $ref: '#/components/schemas/VulnerabilityResult'
         page:
           $ref: '#/components/schemas/PageInfo'
-    PageInfo:
+    ImageVulnerabilityResponse:
       type: object
       properties:
-        returned:
-          type: integer
-        next:
+        imageId:
           type: string
+        vulnerabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vulnerability'
     VulnerabilityResult:
       type: object
       properties:
@@ -166,15 +175,6 @@ components:
           type: string
         description:
           type: string
-    ImageVulnerabilityResponse:
-      type: object
-      properties:
-        imageId:
-          type: string
-        vulnerabilities:
-          type: array
-          items:
-            $ref: '#/components/schemas/Vulnerability'
   responses:
     Unauthorized:
       description: Authentication credentials missing or invalid

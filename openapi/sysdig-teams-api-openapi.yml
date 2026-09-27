@@ -106,13 +106,6 @@ paths:
           description: Team deleted
 components:
   schemas:
-    TeamListResponse:
-      type: object
-      properties:
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
     Team:
       type: object
       properties:
@@ -150,6 +143,13 @@ components:
       properties:
         team:
           $ref: '#/components/schemas/Team'
+    TeamListResponse:
+      type: object
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
   parameters:
     TeamId:
       name: teamId

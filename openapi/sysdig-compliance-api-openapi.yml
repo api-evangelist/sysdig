@@ -80,6 +80,19 @@ components:
           type: string
         scope:
           type: string
+    ComplianceResultResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceResult'
+        total:
+          type: integer
+        pass:
+          type: integer
+        fail:
+          type: integer
     ComplianceTaskListResponse:
       type: object
       properties:
@@ -105,19 +118,6 @@ components:
           type: string
         resource:
           type: string
-    ComplianceResultResponse:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComplianceResult'
-        total:
-          type: integer
-        pass:
-          type: integer
-        fail:
-          type: integer
   securitySchemes:
     BearerAuth:
       type: http

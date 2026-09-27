@@ -111,6 +111,14 @@ paths:
         '204':
           description: Dashboard deleted
 components:
+  parameters:
+    DashboardId:
+      name: dashboardId
+      in: path
+      required: true
+      description: Unique identifier of the dashboard
+      schema:
+        type: integer
   schemas:
     ErrorResponse:
       type: object
@@ -126,13 +134,6 @@ components:
                 type: string
               reason:
                 type: string
-    DashboardListResponse:
-      type: object
-      properties:
-        dashboards:
-          type: array
-          items:
-            $ref: '#/components/schemas/Dashboard'
     Dashboard:
       type: object
       properties:
@@ -176,13 +177,14 @@ components:
       properties:
         dashboard:
           $ref: '#/components/schemas/Dashboard'
+    DashboardListResponse:
+      type: object
+      properties:
+        dashboards:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dashboard'
   responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Authentication credentials missing or invalid
       content:
@@ -195,14 +197,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    DashboardId:
-      name: dashboardId
-      in: path
-      required: true
-      description: Unique identifier of the dashboard
-      schema:
-        type: integer
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

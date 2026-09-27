@@ -200,6 +200,13 @@ components:
           type: array
           items:
             type: integer
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     PolicyId:
       name: policyId
@@ -208,13 +215,6 @@ components:
       description: Unique identifier of the policy
       schema:
         type: integer
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http
