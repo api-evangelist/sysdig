@@ -126,31 +126,6 @@ paths:
           description: Policy deleted
 components:
   schemas:
-    PolicyListResponse:
-      type: object
-      properties:
-        policies:
-          type: array
-          items:
-            $ref: '#/components/schemas/Policy'
-        total:
-          type: integer
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        errors:
-          type: array
-          items:
-            type: object
-    PolicyRequest:
-      type: object
-      required:
-      - policy
-      properties:
-        policy:
-          $ref: '#/components/schemas/Policy'
     PolicyResponse:
       type: object
       properties:
@@ -200,6 +175,31 @@ components:
           type: array
           items:
             type: integer
+    PolicyRequest:
+      type: object
+      required:
+      - policy
+      properties:
+        policy:
+          $ref: '#/components/schemas/Policy'
+    PolicyListResponse:
+      type: object
+      properties:
+        policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Policy'
+        total:
+          type: integer
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
   responses:
     NotFound:
       description: Resource not found

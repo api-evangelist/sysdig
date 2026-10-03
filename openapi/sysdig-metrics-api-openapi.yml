@@ -74,33 +74,6 @@ paths:
                 $ref: '#/components/schemas/MetricDescriptorResponse'
 components:
   schemas:
-    MetricDescriptorResponse:
-      type: object
-      properties:
-        metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricDescriptor'
-    Metric:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        type:
-          type: string
-        metricType:
-          type: string
-    MetricListResponse:
-      type: object
-      properties:
-        metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/Metric'
     MetricDescriptor:
       type: object
       properties:
@@ -114,6 +87,33 @@ components:
           type: array
           items:
             type: object
+    Metric:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        metricType:
+          type: string
+    MetricDescriptorResponse:
+      type: object
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricDescriptor'
+    MetricListResponse:
+      type: object
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metric'
   securitySchemes:
     BearerAuth:
       type: http

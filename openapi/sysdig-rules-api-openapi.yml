@@ -106,20 +106,6 @@ paths:
           description: Falco rule deleted
 components:
   schemas:
-    FalcoRuleListResponse:
-      type: object
-      properties:
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/FalcoRule'
-    FalcoRuleRequest:
-      type: object
-      required:
-      - rule
-      properties:
-        rule:
-          $ref: '#/components/schemas/FalcoRule'
     FalcoRule:
       type: object
       properties:
@@ -163,6 +149,20 @@ components:
       properties:
         rule:
           $ref: '#/components/schemas/FalcoRule'
+    FalcoRuleRequest:
+      type: object
+      required:
+      - rule
+      properties:
+        rule:
+          $ref: '#/components/schemas/FalcoRule'
+    FalcoRuleListResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/FalcoRule'
   parameters:
     RuleId:
       name: ruleId

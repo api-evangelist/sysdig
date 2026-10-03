@@ -106,6 +106,13 @@ paths:
           description: Team deleted
 components:
   schemas:
+    TeamRequest:
+      type: object
+      required:
+      - team
+      properties:
+        team:
+          $ref: '#/components/schemas/Team'
     Team:
       type: object
       properties:
@@ -131,18 +138,6 @@ components:
         filter:
           type: string
           description: Scope filter expression for the team
-    TeamResponse:
-      type: object
-      properties:
-        team:
-          $ref: '#/components/schemas/Team'
-    TeamRequest:
-      type: object
-      required:
-      - team
-      properties:
-        team:
-          $ref: '#/components/schemas/Team'
     TeamListResponse:
       type: object
       properties:
@@ -150,6 +145,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Team'
+    TeamResponse:
+      type: object
+      properties:
+        team:
+          $ref: '#/components/schemas/Team'
   parameters:
     TeamId:
       name: teamId

@@ -89,31 +89,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        errors:
-          type: array
-          items:
-            type: object
-    PageInfo:
-      type: object
-      properties:
-        returned:
-          type: integer
-        next:
-          type: string
-    VulnerabilityResultListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/VulnerabilityResult'
-        page:
-          $ref: '#/components/schemas/PageInfo'
     ImageVulnerabilityResponse:
       type: object
       properties:
@@ -151,6 +126,13 @@ components:
         createdAt:
           type: string
           format: date-time
+    PageInfo:
+      type: object
+      properties:
+        returned:
+          type: integer
+        next:
+          type: string
     Vulnerability:
       type: object
       properties:
@@ -175,6 +157,24 @@ components:
           type: string
         description:
           type: string
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+    VulnerabilityResultListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VulnerabilityResult'
+        page:
+          $ref: '#/components/schemas/PageInfo'
   responses:
     Unauthorized:
       description: Authentication credentials missing or invalid

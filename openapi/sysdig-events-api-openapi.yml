@@ -80,6 +80,20 @@ paths:
                 $ref: '#/components/schemas/EventResponse'
 components:
   schemas:
+    EventResponse:
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/Event'
+    EventListResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        total:
+          type: integer
     Event:
       type: object
       properties:
@@ -110,11 +124,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    EventResponse:
-      type: object
-      properties:
-        event:
-          $ref: '#/components/schemas/Event'
     EventRequest:
       type: object
       required:
@@ -122,15 +131,6 @@ components:
       properties:
         event:
           $ref: '#/components/schemas/Event'
-    EventListResponse:
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event'
-        total:
-          type: integer
   securitySchemes:
     BearerAuth:
       type: http

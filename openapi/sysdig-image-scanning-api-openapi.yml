@@ -71,13 +71,24 @@ paths:
                 $ref: '#/components/schemas/ScannedImageListResponse'
 components:
   schemas:
-    PageInfo:
+    ScannedImage:
       type: object
       properties:
-        returned:
-          type: integer
-        next:
+        imageId:
           type: string
+        fullTag:
+          type: string
+        registry:
+          type: string
+        repository:
+          type: string
+        tag:
+          type: string
+        analysisStatus:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
     ScannedImageListResponse:
       type: object
       properties:
@@ -108,24 +119,13 @@ components:
         createdAt:
           type: string
           format: date-time
-    ScannedImage:
+    PageInfo:
       type: object
       properties:
-        imageId:
+        returned:
+          type: integer
+        next:
           type: string
-        fullTag:
-          type: string
-        registry:
-          type: string
-        repository:
-          type: string
-        tag:
-          type: string
-        analysisStatus:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
   securitySchemes:
     BearerAuth:
       type: http
