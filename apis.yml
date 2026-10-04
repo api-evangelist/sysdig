@@ -265,6 +265,9 @@ apis:
   - type: Authentication
     url: https://docs.sysdig.com/en/developer-tools/sysdig-api/
 common:
+- type: CapabilityMap
+  url: capabilities/sysdig-capability-edges.yml
+  name: Sysdig Business Capability Map
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/sysdig/overview
 - type: AgenticAccess

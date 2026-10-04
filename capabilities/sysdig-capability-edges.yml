@@ -1,0 +1,64 @@
+slug: sysdig
+provider: Sysdig
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Vulnerabilities
+  spec_file: sysdig-vulnerabilities-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.92
+  evidence: GET /api/scanning/v1/resultsDirect listVulnerabilityResults 'List Vulnerability Results';
+    schemas 'ImageVulnerabilityResponse, VulnerabilityResult'
+  reason: Operations expose vulnerability scan results per container image, which is plainly vulnerability
+    management.
+- tag: Image Scanning
+  spec_file: sysdig-image-scanning-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.88
+  evidence: '"Scan Image"; "List Scanned Images"; schema "ScannedImage", "ImageScanRequest"'
+  reason: Container image scanning for vulnerabilities is unambiguously Vulnerability Management; the
+    vendor description names "vulnerability management ... image scanning" explicitly.
+- tag: Rules
+  spec_file: sysdig-rules-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.8
+  evidence: POST /api/secure/falco/v2/rules createFalcoRule 'Create Falco Rule'; description cites 'runtime
+    threat detection, policy enforcement ... Falco rules management'
+  reason: Falco rules are runtime threat-detection detection content; CRUD over them realises threat detection/response
+    rule management rather than any business-domain rule engine.
+- tag: Policies
+  spec_file: sysdig-policies-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.75
+  evidence: '"Create Policy" under "Sysdig Secure API ... runtime threat detection, policy enforcement"'
+  reason: These are security policies governing runtime detection and enforcement in Sysdig Secure, clearly
+    Cybersecurity Management. Left at L1 because the evidence does not settle whether it belongs to security
+    governance/policy or threat detection and response.
+- tag: Activity Audit
+  spec_file: sysdig-activity-audit-api-openapi.yml
+  capability_id: BC-620.30
+  capability_id_l1: BC-620
+  capability_name: Threat Detection & Response Management
+  confidence: 0.7
+  evidence: '"List Secure Events"; "List Activity Audit"; schema "SecureEvent", "ActivityAuditEntry"'
+  reason: Sysdig Secure events and activity audit trails are runtime security telemetry used for detection
+    and investigation, aligning with Threat Detection & Response. Some ambiguity remains between detection/response
+    and security governance/audit logging, hence 0.7.
