@@ -95,6 +95,22 @@ paths:
                 $ref: '#/components/schemas/ActivityAuditResponse'
 components:
   schemas:
+    SecureEventListResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecureEvent'
+        total:
+          type: integer
+    PageInfo:
+      type: object
+      properties:
+        returned:
+          type: integer
+        next:
+          type: string
     ActivityAuditEntry:
       type: object
       properties:
@@ -145,22 +161,6 @@ components:
           type: string
         content:
           type: object
-    SecureEventListResponse:
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/SecureEvent'
-        total:
-          type: integer
-    PageInfo:
-      type: object
-      properties:
-        returned:
-          type: integer
-        next:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http

@@ -89,15 +89,13 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    ImageVulnerabilityResponse:
+    PageInfo:
       type: object
       properties:
-        imageId:
+        returned:
+          type: integer
+        next:
           type: string
-        vulnerabilities:
-          type: array
-          items:
-            $ref: '#/components/schemas/Vulnerability'
     VulnerabilityResult:
       type: object
       properties:
@@ -126,13 +124,15 @@ components:
         createdAt:
           type: string
           format: date-time
-    PageInfo:
+    ErrorResponse:
       type: object
       properties:
-        returned:
-          type: integer
-        next:
+        message:
           type: string
+        errors:
+          type: array
+          items:
+            type: object
     Vulnerability:
       type: object
       properties:
@@ -157,15 +157,15 @@ components:
           type: string
         description:
           type: string
-    ErrorResponse:
+    ImageVulnerabilityResponse:
       type: object
       properties:
-        message:
+        imageId:
           type: string
-        errors:
+        vulnerabilities:
           type: array
           items:
-            type: object
+            $ref: '#/components/schemas/Vulnerability'
     VulnerabilityResultListResponse:
       type: object
       properties:
@@ -176,14 +176,14 @@ components:
         page:
           $ref: '#/components/schemas/PageInfo'
   responses:
-    Unauthorized:
-      description: Authentication credentials missing or invalid
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication credentials missing or invalid
       content:
         application/json:
           schema:

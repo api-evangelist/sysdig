@@ -144,15 +144,15 @@ components:
             type: string
         enabled:
           type: boolean
-    FalcoRuleResponse:
-      type: object
-      properties:
-        rule:
-          $ref: '#/components/schemas/FalcoRule'
     FalcoRuleRequest:
       type: object
       required:
       - rule
+      properties:
+        rule:
+          $ref: '#/components/schemas/FalcoRule'
+    FalcoRuleResponse:
+      type: object
       properties:
         rule:
           $ref: '#/components/schemas/FalcoRule'

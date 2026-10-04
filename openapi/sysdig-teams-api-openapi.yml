@@ -113,6 +113,13 @@ components:
       properties:
         team:
           $ref: '#/components/schemas/Team'
+    TeamListResponse:
+      type: object
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
     Team:
       type: object
       properties:
@@ -138,13 +145,6 @@ components:
         filter:
           type: string
           description: Scope filter expression for the team
-    TeamListResponse:
-      type: object
-      properties:
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
     TeamResponse:
       type: object
       properties:

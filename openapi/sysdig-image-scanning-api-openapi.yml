@@ -89,6 +89,16 @@ components:
         createdAt:
           type: string
           format: date-time
+    ImageScanResponse:
+      type: object
+      properties:
+        imageId:
+          type: string
+        analysisStatus:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
     ScannedImageListResponse:
       type: object
       properties:
@@ -98,6 +108,13 @@ components:
             $ref: '#/components/schemas/ScannedImage'
         page:
           $ref: '#/components/schemas/PageInfo'
+    PageInfo:
+      type: object
+      properties:
+        returned:
+          type: integer
+        next:
+          type: string
     ImageScanRequest:
       type: object
       required:
@@ -109,23 +126,6 @@ components:
         digest:
           type: string
           description: Image digest
-    ImageScanResponse:
-      type: object
-      properties:
-        imageId:
-          type: string
-        analysisStatus:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-    PageInfo:
-      type: object
-      properties:
-        returned:
-          type: integer
-        next:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http

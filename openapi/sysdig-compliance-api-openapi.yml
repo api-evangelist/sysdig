@@ -65,6 +65,26 @@ paths:
                 $ref: '#/components/schemas/ComplianceResultResponse'
 components:
   schemas:
+    ComplianceTaskListResponse:
+      type: object
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceTask'
+    ComplianceResultResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceResult'
+        total:
+          type: integer
+        pass:
+          type: integer
+        fail:
+          type: integer
     ComplianceTask:
       type: object
       properties:
@@ -98,26 +118,6 @@ components:
           type: string
         resource:
           type: string
-    ComplianceTaskListResponse:
-      type: object
-      properties:
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComplianceTask'
-    ComplianceResultResponse:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComplianceResult'
-        total:
-          type: integer
-        pass:
-          type: integer
-        fail:
-          type: integer
   securitySchemes:
     BearerAuth:
       type: http

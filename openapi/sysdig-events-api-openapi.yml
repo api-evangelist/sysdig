@@ -80,20 +80,13 @@ paths:
                 $ref: '#/components/schemas/EventResponse'
 components:
   schemas:
-    EventResponse:
+    EventRequest:
       type: object
+      required:
+      - event
       properties:
         event:
           $ref: '#/components/schemas/Event'
-    EventListResponse:
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event'
-        total:
-          type: integer
     Event:
       type: object
       properties:
@@ -124,10 +117,17 @@ components:
           type: object
           additionalProperties:
             type: string
-    EventRequest:
+    EventListResponse:
       type: object
-      required:
-      - event
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        total:
+          type: integer
+    EventResponse:
+      type: object
       properties:
         event:
           $ref: '#/components/schemas/Event'
