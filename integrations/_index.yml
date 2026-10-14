@@ -27,3 +27,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: sysdig-palo-alto-networks-own
+  label: Palo Alto Networks (own)
+  partner: palo-alto-networks
+  partner_name: Palo Alto Networks (own)
+  category: Data Enrichment & Threat Intelligence
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://cortex.marketplace.pan.dev/marketplace/details/Sysdig/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
