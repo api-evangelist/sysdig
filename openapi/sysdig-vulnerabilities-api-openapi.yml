@@ -88,13 +88,59 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    VulnerabilityResultListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VulnerabilityResult'
+        page:
+          $ref: '#/components/schemas/PageInfo'
     PageInfo:
       type: object
       properties:
         returned:
           type: integer
         next:
+          type: string
+    Vulnerability:
+      type: object
+      properties:
+        vuln:
+          type: string
+          description: CVE identifier
+        severity:
+          type: string
+          enum:
+          - Critical
+          - High
+          - Medium
+          - Low
+          - Negligible
+        package:
+          type: string
+        packageVersion:
+          type: string
+        fixVersion:
+          type: string
+        url:
+          type: string
+        description:
           type: string
     VulnerabilityResult:
       type: object
@@ -124,39 +170,6 @@ components:
         createdAt:
           type: string
           format: date-time
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        errors:
-          type: array
-          items:
-            type: object
-    Vulnerability:
-      type: object
-      properties:
-        vuln:
-          type: string
-          description: CVE identifier
-        severity:
-          type: string
-          enum:
-          - Critical
-          - High
-          - Medium
-          - Low
-          - Negligible
-        package:
-          type: string
-        packageVersion:
-          type: string
-        fixVersion:
-          type: string
-        url:
-          type: string
-        description:
-          type: string
     ImageVulnerabilityResponse:
       type: object
       properties:
@@ -166,28 +179,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Vulnerability'
-    VulnerabilityResultListResponse:
+    ErrorResponse:
       type: object
       properties:
-        data:
+        message:
+          type: string
+        errors:
           type: array
           items:
-            $ref: '#/components/schemas/VulnerabilityResult'
-        page:
-          $ref: '#/components/schemas/PageInfo'
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication credentials missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            type: object
   securitySchemes:
     BearerAuth:
       type: http

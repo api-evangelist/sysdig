@@ -65,13 +65,24 @@ paths:
                 $ref: '#/components/schemas/ComplianceResultResponse'
 components:
   schemas:
-    ComplianceTaskListResponse:
+    ComplianceResult:
       type: object
       properties:
-        tasks:
-          type: array
-          items:
-            $ref: '#/components/schemas/ComplianceTask'
+        controlId:
+          type: string
+        controlName:
+          type: string
+        result:
+          type: string
+          enum:
+          - pass
+          - fail
+          - warn
+          - skip
+        severity:
+          type: string
+        resource:
+          type: string
     ComplianceResultResponse:
       type: object
       properties:
@@ -100,24 +111,13 @@ components:
           type: string
         scope:
           type: string
-    ComplianceResult:
+    ComplianceTaskListResponse:
       type: object
       properties:
-        controlId:
-          type: string
-        controlName:
-          type: string
-        result:
-          type: string
-          enum:
-          - pass
-          - fail
-          - warn
-          - skip
-        severity:
-          type: string
-        resource:
-          type: string
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComplianceTask'
   securitySchemes:
     BearerAuth:
       type: http

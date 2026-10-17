@@ -95,48 +95,6 @@ paths:
                 $ref: '#/components/schemas/ActivityAuditResponse'
 components:
   schemas:
-    SecureEventListResponse:
-      type: object
-      properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/SecureEvent'
-        total:
-          type: integer
-    PageInfo:
-      type: object
-      properties:
-        returned:
-          type: integer
-        next:
-          type: string
-    ActivityAuditEntry:
-      type: object
-      properties:
-        id:
-          type: string
-        timestamp:
-          type: integer
-        category:
-          type: string
-        type:
-          type: string
-        user:
-          type: string
-        description:
-          type: string
-        source:
-          type: string
-    ActivityAuditResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActivityAuditEntry'
-        page:
-          $ref: '#/components/schemas/PageInfo'
     SecureEvent:
       type: object
       properties:
@@ -161,6 +119,48 @@ components:
           type: string
         content:
           type: object
+    ActivityAuditResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityAuditEntry'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    ActivityAuditEntry:
+      type: object
+      properties:
+        id:
+          type: string
+        timestamp:
+          type: integer
+        category:
+          type: string
+        type:
+          type: string
+        user:
+          type: string
+        description:
+          type: string
+        source:
+          type: string
+    PageInfo:
+      type: object
+      properties:
+        returned:
+          type: integer
+        next:
+          type: string
+    SecureEventListResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecureEvent'
+        total:
+          type: integer
   securitySchemes:
     BearerAuth:
       type: http

@@ -80,10 +80,8 @@ paths:
                 $ref: '#/components/schemas/EventResponse'
 components:
   schemas:
-    EventRequest:
+    EventResponse:
       type: object
-      required:
-      - event
       properties:
         event:
           $ref: '#/components/schemas/Event'
@@ -126,8 +124,10 @@ components:
             $ref: '#/components/schemas/Event'
         total:
           type: integer
-    EventResponse:
+    EventRequest:
       type: object
+      required:
+      - event
       properties:
         event:
           $ref: '#/components/schemas/Event'

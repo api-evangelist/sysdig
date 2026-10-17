@@ -126,11 +126,15 @@ paths:
           description: Policy deleted
 components:
   schemas:
-    PolicyResponse:
+    PolicyListResponse:
       type: object
       properties:
-        policy:
-          $ref: '#/components/schemas/Policy'
+        policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Policy'
+        total:
+          type: integer
     Policy:
       type: object
       properties:
@@ -175,6 +179,18 @@ components:
           type: array
           items:
             type: integer
+    PolicyResponse:
+      type: object
+      properties:
+        policy:
+          $ref: '#/components/schemas/Policy'
+    PolicyRequest:
+      type: object
+      required:
+      - policy
+      properties:
+        policy:
+          $ref: '#/components/schemas/Policy'
     ErrorResponse:
       type: object
       properties:
@@ -184,22 +200,13 @@ components:
           type: array
           items:
             type: object
-    PolicyListResponse:
-      type: object
-      properties:
-        policies:
-          type: array
-          items:
-            $ref: '#/components/schemas/Policy'
-        total:
-          type: integer
-    PolicyRequest:
-      type: object
-      required:
-      - policy
-      properties:
-        policy:
-          $ref: '#/components/schemas/Policy'
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     PolicyId:
       name: policyId
@@ -208,13 +215,6 @@ components:
       description: Unique identifier of the policy
       schema:
         type: integer
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

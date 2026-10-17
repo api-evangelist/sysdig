@@ -71,6 +71,43 @@ paths:
                 $ref: '#/components/schemas/ScannedImageListResponse'
 components:
   schemas:
+    ImageScanRequest:
+      type: object
+      required:
+      - tag
+      properties:
+        tag:
+          type: string
+          description: Container image tag to scan
+        digest:
+          type: string
+          description: Image digest
+    PageInfo:
+      type: object
+      properties:
+        returned:
+          type: integer
+        next:
+          type: string
+    ScannedImageListResponse:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScannedImage'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+    ImageScanResponse:
+      type: object
+      properties:
+        imageId:
+          type: string
+        analysisStatus:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
     ScannedImage:
       type: object
       properties:
@@ -89,43 +126,6 @@ components:
         createdAt:
           type: string
           format: date-time
-    ImageScanResponse:
-      type: object
-      properties:
-        imageId:
-          type: string
-        analysisStatus:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-    ScannedImageListResponse:
-      type: object
-      properties:
-        images:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScannedImage'
-        page:
-          $ref: '#/components/schemas/PageInfo'
-    PageInfo:
-      type: object
-      properties:
-        returned:
-          type: integer
-        next:
-          type: string
-    ImageScanRequest:
-      type: object
-      required:
-      - tag
-      properties:
-        tag:
-          type: string
-          description: Container image tag to scan
-        digest:
-          type: string
-          description: Image digest
   securitySchemes:
     BearerAuth:
       type: http

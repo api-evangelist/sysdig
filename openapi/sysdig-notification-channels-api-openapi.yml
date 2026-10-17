@@ -123,20 +123,6 @@ components:
       properties:
         notificationChannel:
           $ref: '#/components/schemas/NotificationChannel'
-    NotificationChannelListResponse:
-      type: object
-      properties:
-        notificationChannels:
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationChannel'
-    NotificationChannelRequest:
-      type: object
-      required:
-      - notificationChannel
-      properties:
-        notificationChannel:
-          $ref: '#/components/schemas/NotificationChannel'
     NotificationChannel:
       type: object
       properties:
@@ -160,6 +146,20 @@ components:
           additionalProperties: true
         enabled:
           type: boolean
+    NotificationChannelRequest:
+      type: object
+      required:
+      - notificationChannel
+      properties:
+        notificationChannel:
+          $ref: '#/components/schemas/NotificationChannel'
+    NotificationChannelListResponse:
+      type: object
+      properties:
+        notificationChannels:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationChannel'
   securitySchemes:
     BearerAuth:
       type: http

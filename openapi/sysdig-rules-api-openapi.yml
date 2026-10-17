@@ -105,7 +105,27 @@ paths:
         '204':
           description: Falco rule deleted
 components:
+  parameters:
+    RuleId:
+      name: ruleId
+      in: path
+      required: true
+      description: Unique identifier of the Falco rule
+      schema:
+        type: integer
   schemas:
+    FalcoRuleListResponse:
+      type: object
+      properties:
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/FalcoRule'
+    FalcoRuleResponse:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/FalcoRule'
     FalcoRule:
       type: object
       properties:
@@ -151,26 +171,6 @@ components:
       properties:
         rule:
           $ref: '#/components/schemas/FalcoRule'
-    FalcoRuleResponse:
-      type: object
-      properties:
-        rule:
-          $ref: '#/components/schemas/FalcoRule'
-    FalcoRuleListResponse:
-      type: object
-      properties:
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/FalcoRule'
-  parameters:
-    RuleId:
-      name: ruleId
-      in: path
-      required: true
-      description: Unique identifier of the Falco rule
-      schema:
-        type: integer
   securitySchemes:
     BearerAuth:
       type: http

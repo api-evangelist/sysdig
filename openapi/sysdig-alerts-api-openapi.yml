@@ -133,29 +133,22 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    AlertResponse:
-      type: object
-      properties:
-        alert:
-          $ref: '#/components/schemas/Alert'
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              reason:
-                type: string
     AlertRequest:
       type: object
       required:
       - alert
+      properties:
+        alert:
+          $ref: '#/components/schemas/Alert'
+    AlertListResponse:
+      type: object
+      properties:
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alert'
+    AlertResponse:
+      type: object
       properties:
         alert:
           $ref: '#/components/schemas/Alert'
@@ -197,30 +190,29 @@ components:
           type: array
           items:
             type: integer
-    AlertListResponse:
+    ErrorResponse:
       type: object
       properties:
-        alerts:
+        message:
+          type: string
+        errors:
           type: array
           items:
-            $ref: '#/components/schemas/Alert'
-  parameters:
-    AlertId:
-      name: alertId
-      in: path
-      required: true
-      description: Unique identifier of the alert
-      schema:
-        type: integer
+            type: object
+            properties:
+              type:
+                type: string
+              reason:
+                type: string
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication credentials missing or invalid
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Authentication credentials missing or invalid
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -231,6 +223,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    AlertId:
+      name: alertId
+      in: path
+      required: true
+      description: Unique identifier of the alert
+      schema:
+        type: integer
   securitySchemes:
     BearerAuth:
       type: http
