@@ -134,3 +134,16 @@
     detected: '2026-10-18'
   status: not-a-workflow
   arazzo: null
+- slug: sysdig-slack-own
+  label: Slack (own)
+  partner: slack
+  partner_name: Slack (own)
+  category: Slack app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://slack.com/marketplace/A0TPLQHF0-sysdig
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
