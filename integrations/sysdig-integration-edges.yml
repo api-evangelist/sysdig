@@ -12,6 +12,9 @@ checked:
 - https://www.openchainproject.org/community-of-conformance
 - palo-alto-networks/integrations/palo-alto-networks-integration-edges.yml
 - slack/integrations/slack-integration-edges.yml
+- opentofu/integrations/opentofu-integration-edges.yml
+- pulumi/integrations/pulumi-integration-edges.yml
+- terraform/integrations/terraform-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: Microsoft Azure Marketplace
@@ -47,25 +50,6 @@ edges:
   - Verified creator
   detected_by: sweep-devtools.py
   detected: '2026-10-14'
-- partner_name: Palo Alto Networks (own)
-  partner: palo-alto-networks
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://cortex.marketplace.pan.dev/marketplace/details/Sysdig/
-  mirror_of: palo-alto-networks/integrations/palo-alto-networks-integration-edges.yml
-  apps:
-  - Sysdig Response Actions
-  listing_count: 1
-  detected: '2026-10-14'
-  detected_by: mirror-platform-listings.py
-  category: Data Enrichment & Threat Intelligence
-  badges:
-  - support:partner
 - partner_name: OpenSSF (Open Source Security Foundation)
   partner: null
   partner_match: register
@@ -95,23 +79,6 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-software-supply-chain.py
   first_seen: '2026-10-18'
-- partner_name: Slack (own)
-  partner: slack
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://slack.com/marketplace/A0TPLQHF0-sysdig
-  mirror_of: slack/integrations/slack-integration-edges.yml
-  apps:
-  - Sysdig
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Slack app
 - partner_name: CNCF (Cloud Native Landscape)
   partner: cncf
   partner_match: register
@@ -175,5 +142,100 @@ edges:
     detected: '2026-10-19'
   detected_by: sweep-cloud-native.py
   first_seen: '2026-10-15'
+- partner_name: Palo Alto Networks (own)
+  partner: palo-alto-networks
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://cortex.marketplace.pan.dev/marketplace/details/Sysdig/
+  mirror_of: palo-alto-networks/integrations/palo-alto-networks-integration-edges.yml
+  apps:
+  - Sysdig Response Actions
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Data Enrichment & Threat Intelligence
+  badges:
+  - support:partner
+- partner_name: Slack (own)
+  partner: slack
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://slack.com/marketplace/A0TPLQHF0-sysdig
+  mirror_of: slack/integrations/slack-integration-edges.yml
+  apps:
+  - Sysdig
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Slack app
+- partner_name: OpenTofu (opentofu-registry)
+  partner: opentofu
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: opentofu-registry
+  evidence: https://search.opentofu.org/provider/draios/sysdig
+  mirror_of: opentofu/integrations/opentofu-integration-edges.yml
+  apps:
+  - draios/sysdig
+  - sysdiglabs/sysdig
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (GitHub domain-verified organization)
+- partner_name: Pulumi (pulumi-registry)
+  partner: pulumi
+  partner_match: mirror
+  mirror_match: register
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: pulumi-registry
+  evidence: https://www.pulumi.com/registry/packages/sysdig/
+  mirror_of: pulumi/integrations/pulumi-integration-edges.yml
+  apps:
+  - sysdig
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (GitHub domain-verified organization)
+- partner_name: Terraform (terraform-registry)
+  partner: terraform
+  partner_match: mirror
+  mirror_match: register
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: terraform-registry
+  evidence: https://registry.terraform.io/providers/sysdiglabs/sysdig
+  mirror_of: terraform/integrations/terraform-integration-edges.yml
+  apps:
+  - sysdiglabs/sysdig
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (Terraform partner tier)
+  - Verified publisher (GitHub domain-verified organization)
 source:
 - https://github.com/marketplace?type=actions
